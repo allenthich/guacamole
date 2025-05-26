@@ -1,0 +1,51 @@
+{
+	"biome.enabled": true,
+	"editor.defaultFormatter": "biomejs.biome",
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[svelte]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[vue]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"[astro]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[mdx]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#807aae",
+		"activityBar.background": "#807aae",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#cfb3b0",
+		"activityBarBadge.foreground": "#15202b",
+		"commandCenter.border": "#e7e7e799",
+		"panel.border": "#807aae",
+		"sash.hoverBorder": "#807aae",
+		"statusBar.background": "#645d98",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#807aae",
+		"statusBarItem.remoteBackground": "#645d98",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"tab.activeBorder": "#807aae",
+		"titleBar.activeBackground": "#645d98",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#645d9899",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#645d98"
+}
