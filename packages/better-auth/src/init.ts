@@ -1,5 +1,4 @@
 import { defu } from "defu";
-import { hashPassword, verifyPassword } from "./crypto/password";
 import { createInternalAdapter, getMigrations } from "./db";
 import { getAuthTables } from "./db/get-tables";
 import { getAdapter } from "./db/utils";
@@ -7,10 +6,7 @@ import type {
 	Adapter,
 	BetterAuthOptions,
 	BetterAuthPlugin,
-	Models,
 	SecondaryStorage,
-	Session,
-	User,
 } from "./types";
 import { DEFAULT_SECRET } from "./utils/constants";
 import {
@@ -81,12 +77,12 @@ export const init = async (options: BetterAuthOptions) => {
 		})
 		.filter((x) => x !== null);
 
-	const generateIdFunc: AuthContext["generateId"] = ({ model, size }) => {
+	const generateIdFunc: AuthContext["generateId"] = ({ size }) => {
 		if (typeof options.advanced?.generateId === "function") {
-			return options.advanced.generateId({ model, size });
+			return options.advanced.generateId({ size });
 		}
 		if (typeof options?.advanced?.database?.generateId === "function") {
-			return options.advanced.database.generateId({ model, size });
+			return options.advanced.database.generateId({ size });
 		}
 		return generateId(size);
 	};
@@ -98,17 +94,6 @@ export const init = async (options: BetterAuthOptions) => {
 		tables,
 		trustedOrigins: getTrustedOrigins(options),
 		baseURL: baseURL || "",
-		sessionConfig: {
-			updateAge:
-				options.session?.updateAge !== undefined
-					? options.session.updateAge
-					: 24 * 60 * 60, // 24 hours
-			expiresIn: options.session?.expiresIn || 60 * 60 * 24 * 7, // 7 days
-			freshAge:
-				options.session?.freshAge === undefined
-					? 60 * 60 * 24 // 24 hours
-					: options.session.freshAge,
-		},
 		secret,
 		rateLimit: {
 			...options.rateLimit,
@@ -122,21 +107,7 @@ export const init = async (options: BetterAuthOptions) => {
 		authCookies: cookies,
 		logger: logger,
 		generateId: generateIdFunc,
-		session: null,
 		secondaryStorage: options.secondaryStorage,
-		password: {
-			hash: options.emailAndPassword?.password?.hash || hashPassword,
-			verify: options.emailAndPassword?.password?.verify || verifyPassword,
-			config: {
-				minPasswordLength: options.emailAndPassword?.minPasswordLength || 8,
-				maxPasswordLength: options.emailAndPassword?.maxPasswordLength || 128,
-			},
-			checkPassword,
-		},
-		setNewSession(session) {
-			this.newSession = session;
-		},
-		newSession: null,
 		adapter: adapter,
 		internalAdapter: createInternalAdapter(adapter, {
 			options,
@@ -164,26 +135,6 @@ export type AuthContext = {
 	appName: string;
 	baseURL: string;
 	trustedOrigins: string[];
-	/**
-	 * New session that will be set after the request
-	 * meaning: there is a `set-cookie` header that will set
-	 * the session cookie. This is the fetched session. And it's set
-	 * by `setNewSession` method.
-	 */
-	newSession: {
-		session: Session & Record<string, any>;
-		user: User & Record<string, any>;
-	} | null;
-	session: {
-		session: Session & Record<string, any>;
-		user: User & Record<string, any>;
-	} | null;
-	setNewSession: (
-		session: {
-			session: Session & Record<string, any>;
-			user: User & Record<string, any>;
-		} | null,
-	) => void;
 	socialProviders: OAuthProvider[];
 	authCookies: BetterAuthCookies;
 	logger: ReturnType<typeof createLogger>;
@@ -197,25 +148,10 @@ export type AuthContext = {
 	internalAdapter: ReturnType<typeof createInternalAdapter>;
 	createAuthCookie: ReturnType<typeof createCookieGetter>;
 	secret: string;
-	sessionConfig: {
-		updateAge: number;
-		expiresIn: number;
-		freshAge: number;
-	};
 	generateId: (options: {
-		model: LiteralUnion<Models, string>;
 		size?: number;
 	}) => string;
 	secondaryStorage: SecondaryStorage | undefined;
-	password: {
-		hash: (password: string) => Promise<string>;
-		verify: (data: { password: string; hash: string }) => Promise<boolean>;
-		config: {
-			minPasswordLength: number;
-			maxPasswordLength: number;
-		};
-		checkPassword: typeof checkPassword;
-	};
 	tables: ReturnType<typeof getAuthTables>;
 	runMigrations: () => Promise<void>;
 };
