@@ -3,35 +3,7 @@ import type { AuthContext } from "../init";
 import type { BetterAuthOptions } from "../types";
 import type { UnionToIntersection } from "../types/helper";
 import { originCheckMiddleware } from "./middlewares/origin-check";
-import {
-	callbackOAuth,
-	forgetPassword,
-	forgetPasswordCallback,
-	getSession,
-	listSessions,
-	resetPassword,
-	revokeSession,
-	revokeSessions,
-	sendVerificationEmail,
-	changeEmail,
-	signInEmail,
-	signInSocial,
-	signOut,
-	verifyEmail,
-	linkSocialAccount,
-	revokeOtherSessions,
-	listUserAccounts,
-	changePassword,
-	deleteUser,
-	setPassword,
-	updateUser,
-	deleteUserCallback,
-	unlinkAccount,
-	refreshToken,
-	getAccessToken,
-} from "./routes";
 import { ok } from "./routes/ok";
-import { signUpEmail } from "./routes/sign-up";
 import { error } from "./routes/error";
 import { logger } from "../utils/logger";
 import type { BetterAuthPlugin } from "../plugins";
@@ -87,36 +59,7 @@ export function getEndpoints<
 			.filter((plugin) => plugin !== undefined)
 			.flat() || [];
 
-	const baseEndpoints = {
-		signInSocial,
-		callbackOAuth,
-		getSession: getSession<Option>(),
-		signOut,
-		signUpEmail: signUpEmail<Option>(),
-		signInEmail,
-		forgetPassword,
-		resetPassword,
-		verifyEmail,
-		sendVerificationEmail,
-		changeEmail,
-		changePassword,
-		setPassword,
-		updateUser: updateUser<Option>(),
-		deleteUser,
-		forgetPasswordCallback,
-		listSessions: listSessions<Option>(),
-		revokeSession,
-		revokeSessions,
-		revokeOtherSessions,
-		linkSocialAccount,
-		listUserAccounts,
-		deleteUserCallback,
-		unlinkAccount,
-		refreshToken,
-		getAccessToken,
-	};
 	const endpoints = {
-		...baseEndpoints,
 		...pluginEndpoints,
 		ok,
 		error,
@@ -229,7 +172,6 @@ export const router = <C extends AuthContext, Option extends BetterAuthOptions>(
 	});
 };
 
-export * from "./routes";
 export * from "./middlewares";
 export * from "./call";
 export { APIError } from "better-call";
