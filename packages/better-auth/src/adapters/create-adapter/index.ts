@@ -265,7 +265,9 @@ export const createAdapter =
 								}
 								if (generateId === false || useNumberId) return undefined;
 								if (generateId) {
-									return generateId({});
+									return generateId({
+										model,
+									});
 								}
 								if (config.customIdGenerator) {
 									return config.customIdGenerator({ model });
