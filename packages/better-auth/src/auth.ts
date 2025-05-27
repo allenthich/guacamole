@@ -4,8 +4,6 @@ import type { BetterAuthOptions } from "./types/options";
 import type {
 	InferPluginErrorCodes,
 	InferPluginTypes,
-	InferSession,
-	InferUser,
 	AuthContext,
 } from "./types";
 import type { PrettifyDeep, Expand } from "./types/helper";
@@ -59,12 +57,7 @@ export const betterAuth = <O extends BetterAuthOptions>(
 		api: api as InferAPI<typeof api>,
 		options: options as O,
 		$context: authContext,
-		$Infer: {} as {
-			Session: {
-				session: PrettifyDeep<InferSession<O>>;
-				user: PrettifyDeep<InferUser<O>>;
-			};
-		} & InferPluginTypes<O>,
+		$Infer: {} as InferPluginTypes<O>,
 		$ERROR_CODES: {
 			...errorCodes,
 			...BASE_ERROR_CODES,
