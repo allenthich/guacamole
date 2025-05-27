@@ -3,7 +3,6 @@ import { getBaseURL } from "../utils/url";
 import { type WritableAtom } from "nanostores";
 import type { AtomListener, ClientOptions } from "./types";
 import { redirectPlugin } from "./fetch-plugins";
-import { getSessionAtom } from "./session-atom";
 import { parseJSON } from "./parser";
 
 export const getClientConfig = (options?: ClientOptions) => {
@@ -42,13 +41,9 @@ export const getClientConfig = (options?: ClientOptions) => {
 					...pluginsFetchPlugins,
 				],
 	});
-	const { $sessionSignal, session } = getSessionAtom($fetch);
 	const plugins = options?.plugins || [];
 	let pluginsActions = {} as Record<string, any>;
-	let pluginsAtoms = {
-		$sessionSignal,
-		session,
-	} as Record<string, WritableAtom<any>>;
+	let pluginsAtoms = {} as Record<string, WritableAtom<any>>;
 	let pluginPathMethods: Record<string, "POST" | "GET"> = {
 		"/sign-out": "POST",
 		"/revoke-sessions": "POST",

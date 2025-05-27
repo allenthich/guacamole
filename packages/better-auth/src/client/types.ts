@@ -12,7 +12,6 @@ import type {
 } from "../types/helper";
 import type { Auth } from "../auth";
 import type { InferRoutes } from "./path-to-object";
-import type { Session, User } from "../types";
 import type { InferFieldsInputClient, InferFieldsOutput } from "../db";
 
 export type AtomListener = {
@@ -126,14 +125,6 @@ export type InferPluginsFromClient<O extends ClientOptions> =
 	O["plugins"] extends Array<BetterAuthClientPlugin>
 		? Array<O["plugins"][number]["$InferServerPlugin"]>
 		: undefined;
-
-export type InferSessionFromClient<O extends ClientOptions> = StripEmptyObjects<
-	Session &
-		UnionToIntersection<InferAdditionalFromClient<O, "session", "output">>
->;
-export type InferUserFromClient<O extends ClientOptions> = StripEmptyObjects<
-	User & UnionToIntersection<InferAdditionalFromClient<O, "user", "output">>
->;
 
 export type InferAdditionalFromClient<
 	Options extends ClientOptions,

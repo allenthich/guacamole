@@ -96,7 +96,7 @@ const createTransform = (options: BetterAuthOptions) => {
 					? {}
 					: customIdGen
 						? {
-								id: customIdGen({ model }),
+								id: customIdGen({}),
 							}
 						: {
 								_id: new ObjectId(),

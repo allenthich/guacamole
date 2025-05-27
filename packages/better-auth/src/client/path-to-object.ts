@@ -8,12 +8,7 @@ import type {
 	Prettify,
 	UnionToIntersection,
 } from "../types/helper";
-import type {
-	ClientOptions,
-	InferAdditionalFromClient,
-	InferSessionFromClient,
-	InferUserFromClient,
-} from "./types";
+import type { ClientOptions, InferAdditionalFromClient } from "./types";
 
 export type CamelCase<S extends string> =
 	S extends `${infer P1}-${infer P2}${infer P3}`
@@ -102,34 +97,11 @@ export type InferRoute<API, COpts extends ClientOptions> = API extends Record<
 									...data: HasRequiredKeys<
 										InferCtx<C, FetchOptions>
 									> extends true
-										? [
-												Prettify<
-													T["path"] extends `/sign-up/email`
-														? InferSignUpEmailCtx<COpts, FetchOptions>
-														: InferCtx<C, FetchOptions>
-												>,
-												FetchOptions?,
-											]
-										: [
-												Prettify<
-													T["path"] extends `/update-user`
-														? InferUserUpdateCtx<COpts, FetchOptions>
-														: InferCtx<C, FetchOptions>
-												>?,
-												FetchOptions?,
-											]
+										? [Prettify<InferCtx<C, FetchOptions>>, FetchOptions?]
+										: [Prettify<InferCtx<C, FetchOptions>>?, FetchOptions?]
 								) => Promise<
 									BetterFetchResponse<
-										T["options"]["metadata"] extends {
-											CUSTOM_SESSION: boolean;
-										}
-											? NonNullable<Awaited<R>>
-											: T["path"] extends "/get-session"
-												? {
-														user: InferUserFromClient<COpts>;
-														session: InferSessionFromClient<COpts>;
-													}
-												: NonNullable<Awaited<R>>,
+										NonNullable<Awaited<R>>,
 										{
 											code?: string;
 											message?: string;

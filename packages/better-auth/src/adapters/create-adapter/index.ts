@@ -900,14 +900,6 @@ export const createAdapter =
 						const tables = getAuthTables(options);
 
 						if (
-							options.secondaryStorage &&
-							!options.session?.storeSessionInDatabase
-						) {
-							// biome-ignore lint/performance/noDelete: If the user has enabled secondaryStorage, as well as not specifying to store session table in DB, then createSchema shouldn't generate schema table.
-							delete tables.session;
-						}
-
-						if (
 							options.rateLimit &&
 							options.rateLimit.storage === "database" &&
 							// rate-limit will default to enabled in production,
