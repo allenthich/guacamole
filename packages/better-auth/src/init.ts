@@ -9,17 +9,9 @@ import type {
 	SecondaryStorage,
 } from "./types";
 import { DEFAULT_SECRET } from "./utils/constants";
-import {
-	type BetterAuthCookies,
-	createCookieGetter,
-	getCookies,
-} from "./cookies";
 import { createLogger } from "./utils/logger";
-import { socialProviderList, socialProviders } from "./social-providers";
-import type { OAuthProvider } from "./oauth2";
 import { generateId } from "./utils";
 import { env, isProduction } from "./utils/env";
-import { checkPassword } from "./utils/password";
 import { getBaseURL } from "./utils/url";
 import type { LiteralUnion } from "./types/helper";
 import { BetterAuthError } from "./error";
@@ -53,30 +45,7 @@ export const init = async (options: BetterAuthOptions) => {
 		basePath: options.basePath || "/api/auth",
 		plugins: plugins.concat(internalPlugins),
 	};
-	const cookies = getCookies(options);
 	const tables = getAuthTables(options);
-	const providers = Object.keys(options.socialProviders || {})
-		.map((key) => {
-			const value = options.socialProviders?.[key as "github"]!;
-			if (!value || value.enabled === false) {
-				return null;
-			}
-			if (!value.clientId) {
-				logger.warn(
-					`Social provider ${key} is missing clientId or clientSecret`,
-				);
-			}
-			const provider = socialProviders[
-				key as (typeof socialProviderList)[number]
-			](
-				value as any, // TODO: fix this
-			);
-			(provider as OAuthProvider).disableImplicitSignUp =
-				value.disableImplicitSignUp;
-			return provider;
-		})
-		.filter((x) => x !== null);
-
 	const generateIdFunc: AuthContext["generateId"] = ({ size }) => {
 		if (typeof options.advanced?.generateId === "function") {
 			return options.advanced.generateId({ size });
@@ -89,7 +58,6 @@ export const init = async (options: BetterAuthOptions) => {
 
 	const ctx: AuthContext = {
 		appName: options.appName || "Better Auth",
-		socialProviders: providers,
 		options,
 		tables,
 		trustedOrigins: getTrustedOrigins(options),
@@ -104,7 +72,6 @@ export const init = async (options: BetterAuthOptions) => {
 				options.rateLimit?.storage ||
 				(options.secondaryStorage ? "secondary-storage" : "memory"),
 		},
-		authCookies: cookies,
 		logger: logger,
 		generateId: generateIdFunc,
 		secondaryStorage: options.secondaryStorage,
@@ -114,7 +81,6 @@ export const init = async (options: BetterAuthOptions) => {
 			hooks: options.databaseHooks ? [options.databaseHooks] : [],
 			generateId: generateIdFunc,
 		}),
-		createAuthCookie: createCookieGetter(options),
 		async runMigrations() {
 			//only run migrations if database is provided and it's not an adapter
 			if (!options.database || "updateMany" in options.database) {
@@ -135,8 +101,6 @@ export type AuthContext = {
 	appName: string;
 	baseURL: string;
 	trustedOrigins: string[];
-	socialProviders: OAuthProvider[];
-	authCookies: BetterAuthCookies;
 	logger: ReturnType<typeof createLogger>;
 	rateLimit: {
 		enabled: boolean;
@@ -146,7 +110,6 @@ export type AuthContext = {
 	} & BetterAuthOptions["rateLimit"];
 	adapter: Adapter;
 	internalAdapter: ReturnType<typeof createInternalAdapter>;
-	createAuthCookie: ReturnType<typeof createCookieGetter>;
 	secret: string;
 	generateId: (options: {
 		size?: number;

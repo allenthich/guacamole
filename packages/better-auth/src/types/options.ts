@@ -1,9 +1,6 @@
 import type { Dialect, Kysely, MysqlPool, PostgresPool } from "kysely";
-import type {
-	GenericEndpointContext,
-} from "../types";
+import type { GenericEndpointContext } from "../types";
 import type { BetterAuthPlugin } from "./plugins";
-import type { SocialProviderList, SocialProviders } from "../social-providers";
 import type { AdapterInstance, SecondaryStorage } from "./adapter";
 import type { KyselyDatabaseType } from "../adapters/kysely-adapter/types";
 import type { FieldAttribute } from "../db";
@@ -108,10 +105,6 @@ export type BetterAuthOptions = {
 	 * This is used to store session and rate limit data.
 	 */
 	secondaryStorage?: SecondaryStorage;
-	/**
-	 * list of social providers
-	 */
-	socialProviders?: SocialProviders;
 	/**
 	 * List of Better Auth plugins
 	 */
@@ -336,6 +329,28 @@ export type BetterAuthOptions = {
 	 * operations.
 	 */
 	databaseHooks?: {
+		[key: string]: {
+			create?: {
+				before?: (
+					data: Record<string, any>,
+					ctx?: GenericEndpointContext,
+				) => void | Promise<any>;
+				after?: (
+					data: Record<string, any>,
+					ctx?: GenericEndpointContext,
+				) => void | Promise<any>;
+			};
+			update?: {
+				before?: (
+					data: Record<string, any>,
+					ctx?: GenericEndpointContext,
+				) => void | Promise<any>;
+				after?: (
+					data: Record<string, any>,
+					ctx?: GenericEndpointContext,
+				) => void | Promise<any>;
+			};
+		};
 	};
 	/**
 	 * API error handling
