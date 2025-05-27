@@ -2,7 +2,6 @@ import type {
 	Adapter,
 	BetterAuthOptions,
 	GenericEndpointContext,
-	Models,
 	Where,
 } from "../types";
 
@@ -14,13 +13,9 @@ export function getWithHooks(
 	},
 ) {
 	const hooks = ctx.hooks;
-	type BaseModels = Extract<
-		Models,
-		"user" | "account" | "session" | "verification"
-	>;
 	async function createWithHooks<T extends Record<string, any>>(
 		data: T,
-		model: BaseModels,
+		model: keyof {},
 		customCreateFn?: {
 			fn: (data: Record<string, any>) => void | Promise<any>;
 			executeMainFn?: boolean;
@@ -69,7 +64,7 @@ export function getWithHooks(
 	async function updateWithHooks<T extends Record<string, any>>(
 		data: any,
 		where: Where[],
-		model: BaseModels,
+		model: keyof {},
 		customUpdateFn?: {
 			fn: (data: Record<string, any>) => void | Promise<any>;
 			executeMainFn?: boolean;
@@ -115,7 +110,7 @@ export function getWithHooks(
 	async function updateManyWithHooks<T extends Record<string, any>>(
 		data: any,
 		where: Where[],
-		model: BaseModels,
+		model: keyof {},
 		customUpdateFn?: {
 			fn: (data: Record<string, any>) => void | Promise<any>;
 			executeMainFn?: boolean;
