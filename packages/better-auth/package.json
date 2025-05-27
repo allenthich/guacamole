@@ -341,66 +341,6 @@
       ],
       "plugins": [
         "./dist/plugins/index.d.ts"
-      ],
-      "plugins/access": [
-        "./dist/plugins/access/index.d.ts"
-      ],
-      "plugins/admin": [
-        "./dist/plugins/admin/index.d.ts"
-      ],
-      "plugins/admin/access": [
-        "./dist/plugins/admin/access/index.d.ts"
-      ],
-      "plugins/anonymous": [
-        "./dist/plugins/anonymous/index.d.ts"
-      ],
-      "plugins/bearer": [
-        "./dist/plugins/bearer/index.d.ts"
-      ],
-      "plugins/email-otp": [
-        "./dist/plugins/email-otp/index.d.ts"
-      ],
-      "plugins/generic-oauth": [
-        "./dist/plugins/generic-oauth/index.d.ts"
-      ],
-      "plugins/haveibeenpwned": [
-        "./dist/plugins/haveibeenpwned/index.d.ts"
-      ],
-      "plugins/oauth-proxy": [
-        "./dist/plugins/oauth-proxy/index.d.ts"
-      ],
-      "plugins/one-time-token": [
-        "./dist/plugins/one-time-token/index.d.ts"
-      ],
-      "plugins/sso": [
-        "./dist/plugins/sso/index.d.ts"
-      ],
-      "plugins/oidc-provider": [
-        "./dist/plugins/oidc-provider/index.d.ts"
-      ],
-      "plugins/jwt": [
-        "./dist/plugins/jwt/index.d.ts"
-      ],
-      "plugins/magic-link": [
-        "./dist/plugins/magic-link/index.d.ts"
-      ],
-      "plugins/organization": [
-        "./dist/plugins/organization/index.d.ts"
-      ],
-      "plugins/organization/access": [
-        "./dist/plugins/organization/access/index.d.ts"
-      ],
-      "plugins/passkey": [
-        "./dist/plugins/passkey/index.d.ts"
-      ],
-      "plugins/phone-number": [
-        "./dist/plugins/phone-number/index.d.ts"
-      ],
-      "plugins/two-factor": [
-        "./dist/plugins/two-factor/index.d.ts"
-      ],
-      "plugins/username": [
-        "./dist/plugins/username/index.d.ts"
       ]
     }
   },
