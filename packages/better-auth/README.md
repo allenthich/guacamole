@@ -1,9 +1,4 @@
 <p align="center">
-  <picture>
-    <source srcset="https://github.com/better-auth/better-auth/blob/main/banner-dark.png?raw=true" media="(prefers-color-scheme: dark)">
-    <source srcset="https://github.com/better-auth/better-auth/blob/main/banner.png?raw=true" media="(prefers-color-scheme: light)">
-    <img src="https://github.com/better-auth/better-auth/blob/main/banner.png?raw=true" alt="Better Auth Logo">
-  </picture>
   <h2 align="center">
     Better Auth
   </h2>
