@@ -1,9 +1,9 @@
 import { createAuthClient } from "better-auth/react";
-import {} from "better-auth/client/plugins";
+import { testerClient } from "better-auth/client/plugins";
 import { toast } from "sonner";
 
 export const client = createAuthClient({
-	plugins: [],
+	plugins: [testerClient()],
 	fetchOptions: {
 		onError(e) {
 			if (e.error.status === 429) {
@@ -13,4 +13,9 @@ export const client = createAuthClient({
 	},
 });
 
-export const {} = client;
+export const { tester, useListTesters } = client;
+
+// Example usage of the tester plugin
+// const returnValue = await tester.initiate({
+// 	input: "test_input",
+// });

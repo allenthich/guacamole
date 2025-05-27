@@ -8,6 +8,7 @@ import { MysqlDialect } from "kysely";
 import { createPool } from "mysql2/promise";
 import { nextCookies } from "better-auth/next-js";
 import { Stripe } from "stripe";
+import { tester } from "better-auth/plugins";
 
 const from = process.env.BETTER_AUTH_EMAIL || "delivered@resend.dev";
 const to = process.env.TEST_EMAIL || "";
@@ -102,6 +103,6 @@ export const auth = betterAuth({
 			clientSecret: process.env.TWITTER_CLIENT_SECRET || "",
 		},
 	},
-	plugins: [],
+	plugins: [tester()],
 	trustedOrigins: ["exp://"],
 });
