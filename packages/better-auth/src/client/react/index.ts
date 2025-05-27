@@ -9,10 +9,6 @@ import type {
 } from "../types";
 import { createDynamicPathProxy } from "../proxy";
 import type { PrettifyDeep, UnionToIntersection } from "../../types/helper";
-import type {
-	BetterFetchError,
-	BetterFetchResponse,
-} from "@better-fetch/fetch";
 import { useStore } from "./react-store";
 import type { BASE_ERROR_CODES } from "../../error/codes";
 
@@ -73,25 +69,10 @@ export function createAuthClient<Option extends ClientOptions>(
 	);
 
 	type ClientAPI = InferClientAPI<Option>;
-	type Session = ClientAPI extends {
-		getSession: () => Promise<infer Res>;
-	}
-		? Res extends BetterFetchResponse<infer S>
-			? S
-			: Res
-		: never;
 	return proxy as UnionToIntersection<InferResolvedHooks<Option>> &
 		ClientAPI &
 		InferActions<Option> & {
-			useSession: () => {
-				data: Session;
-				isPending: boolean;
-				error: BetterFetchError | null;
-				refetch: () => void;
-			};
-			$Infer: {
-				Session: NonNullable<Session>;
-			};
+			$Infer: {};
 			$fetch: typeof $fetch;
 			$store: typeof $store;
 			$ERROR_CODES: PrettifyDeep<
