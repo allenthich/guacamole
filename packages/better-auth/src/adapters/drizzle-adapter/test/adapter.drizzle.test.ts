@@ -5,10 +5,10 @@ import { runAdapterTest, runNumberIdAdapterTest } from "../../test";
 import { drizzleAdapter } from "..";
 import { getMigrations } from "../../../db/get-migration";
 import { drizzle } from "drizzle-orm/node-postgres";
-import type { BetterAuthOptions } from "../../../types";
+import type { BetterFeatureOptions } from "../../../types";
 import { Pool } from "pg";
 import { Kysely, PostgresDialect, sql } from "kysely";
-import { betterAuth } from "../../../auth";
+import { betterFeature } from "../../../feature";
 
 const TEST_DB_URL = "postgres://user:password@localhost:5432/better_auth";
 
@@ -48,7 +48,7 @@ const createTestOptions = (pg: Pool, useNumberId = false) =>
 				useNumberId,
 			},
 		},
-	}) satisfies BetterAuthOptions;
+	}) satisfies BetterFeatureOptions;
 
 describe("Drizzle Adapter Tests", async () => {
 	let pg: Pool;
@@ -94,7 +94,7 @@ describe("Drizzle Adapter Authentication Flow Tests", async () => {
 		await runMigrations();
 	});
 
-	const auth = betterAuth({
+	const auth = betterFeature({
 		...opts,
 		database: drizzleAdapter(drizzle(pg), { provider: "pg", schema }),
 		emailAndPassword: {

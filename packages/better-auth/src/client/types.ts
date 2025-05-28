@@ -10,7 +10,7 @@ import type {
 	StripEmptyObjects,
 	UnionToIntersection,
 } from "../types/helper";
-import type { Feature } from "../auth";
+import type { Feature } from "../feature";
 import type { InferRoutes } from "./path-to-object";
 import type { InferFieldsInputClient, InferFieldsOutput } from "../db";
 

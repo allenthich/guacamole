@@ -4,10 +4,10 @@ import { runAdapterTest, runNumberIdAdapterTest } from "../../test";
 import { drizzleAdapter } from "..";
 import { getMigrations } from "../../../db/get-migration";
 import { drizzle } from "drizzle-orm/mysql2";
-import type { BetterAuthOptions } from "../../../types";
+import type { BetterFeatureOptions } from "../../../types";
 import { createPool, type Pool } from "mysql2/promise";
 import { Kysely, MysqlDialect } from "kysely";
-import { betterAuth } from "../../../auth";
+import { betterFeature } from "../../../feature";
 import merge from "deepmerge";
 
 const TEST_DB_MYSQL_URL = "mysql://user:password@localhost:3306/better_auth";
@@ -54,7 +54,7 @@ const createTestOptions = (pool: any, useNumberId = false) =>
 				useNumberId,
 			},
 		},
-	}) satisfies BetterAuthOptions;
+	}) satisfies BetterFeatureOptions;
 
 describe("Drizzle Adapter Tests (MySQL)", async () => {
 	let pool: any;
@@ -102,7 +102,7 @@ describe("Drizzle Adapter Authentication Flow Tests (MySQL)", async () => {
 		await runMigrations();
 	});
 
-	const auth = betterAuth({
+	const auth = betterFeature({
 		...opts,
 		database: drizzleAdapter(drizzle({ client: pool }), {
 			provider: "mysql",

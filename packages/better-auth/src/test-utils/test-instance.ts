@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import { generateRandomString } from "../crypto/random";
 import { afterAll } from "vitest";
-import { betterFeature } from "../auth";
+import { betterFeature } from "../feature";
 import { createAuthClient } from "../client/vanilla";
 import type { BetterFeatureOptions, ClientOptions } from "../types";
 import { getMigrations } from "../db/get-migration";

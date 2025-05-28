@@ -1,8 +1,8 @@
 import { describe, test, expect } from "vitest";
 import { createAdapter } from "..";
 import type { AdapterConfig, CreateCustomAdapter } from "../types";
-import type { BetterAuthOptions, User, Where } from "../../../types";
-import { betterAuth } from "../../../auth";
+import type { BetterFeatureOptions, User, Where } from "../../../types";
+import { betterFeature } from "../../../feature";
 
 /*
 
@@ -18,7 +18,7 @@ The rest are just edge cases.
 async function createTestAdapter(
 	props: {
 		config?: Partial<AdapterConfig>;
-		options?: BetterAuthOptions;
+		options?: BetterFeatureOptions;
 		adapter?: (
 			...args: Parameters<CreateCustomAdapter>
 		) => Partial<ReturnType<CreateCustomAdapter>>;
@@ -117,7 +117,7 @@ async function createTestAdapter(
 			};
 		},
 	});
-	const auth = betterAuth({
+	const auth = betterFeature({
 		...options,
 		database: testAdapter,
 	});
@@ -137,7 +137,7 @@ describe("Create Adapter Helper", async () => {
 		expect(adapter.id).toBe(adapterId);
 	});
 
-	test("Should use the id generator if passed into the betterAuth config", async () => {
+	test("Should use the id generator if passed into the betterFeature config", async () => {
 		const adapter = await createTestAdapter({
 			config: {
 				debugLogs: {},

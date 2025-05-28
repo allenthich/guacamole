@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { init } from "./init";
 import Database from "better-sqlite3";
-import { betterAuth } from "./auth";
+import { betterFeature } from "./feature";
 import { createAuthClient } from "./client";
 import { getTestInstance } from "./test-utils/test-instance";
 
@@ -79,7 +79,7 @@ describe("init", async () => {
 		});
 		expect(ctx.baseURL).toBe(`http://localhost:3000${customPath}`);
 
-		const res = betterAuth({
+		const res = betterFeature({
 			baseURL: "http://localhost:3000",
 			database,
 			basePath: customPath,
