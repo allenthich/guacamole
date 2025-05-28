@@ -1,6 +1,6 @@
 "use client";
 
-import { featureClient } from "@/auth/auth-client";
+import { featureClient } from "@/auth/feature-client";
 import { Button } from "@/components/ui/button";
 import {
 	Card,

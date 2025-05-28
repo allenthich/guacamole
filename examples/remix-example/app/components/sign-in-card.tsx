@@ -17,7 +17,7 @@ import {
 import { Checkbox } from "~/components/ui/checkbox";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { signIn } from "~/lib/auth-client";
+import { signIn } from "~/lib/feature-client";
 import { PasswordInput } from "./ui/password-input";
 
 export default function SignInCard() {

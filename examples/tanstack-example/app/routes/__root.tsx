@@ -3,7 +3,7 @@ import { Outlet, ScrollRestoration } from "@tanstack/react-router";
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start";
 import type * as React from "react";
 import { useEffect, useState } from "react";
-import { signOut, useSession } from "~/lib/auth-client";
+import { signOut, useSession } from "~/lib/feature-client";
 import globalStylesheet from "~/lib/style/global.css?url";
 import "~/lib/style/global.css";
 import { DoorOpen, Moon, Sun } from "lucide-react";

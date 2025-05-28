@@ -1,6 +1,6 @@
 "use client";
 
-import { client, signIn } from "@/lib/auth-client";
+import { client, signIn } from "@/lib/feature-client";
 import { useEffect, useState } from "react";
 import {
 	Dialog,

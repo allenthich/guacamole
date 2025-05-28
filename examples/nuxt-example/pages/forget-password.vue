@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { forgetPassword } from "~/lib/auth-client.js";
+import { forgetPassword } from "~/lib/feature-client.js";
 
 const email = ref("");
 

@@ -10,7 +10,7 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { featureClient } from "~/lib/auth-client";
+import { featureClient } from "~/lib/feature-client";
 import { AlertCircle, CheckCircle2, Mail } from "lucide-react";
 import { useState } from "react";
 

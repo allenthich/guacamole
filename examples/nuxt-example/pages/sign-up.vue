@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { signUp } from "~/lib/auth-client.js";
+import { signUp } from "~/lib/feature-client.js";
 
 const firstName = ref("");
 const lastName = ref("");

@@ -6,7 +6,7 @@ import {
 	useSession,
 	revokeSession,
 	updateUser,
-} from "@/libs/auth-client";
+} from "@/libs/feature-client";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { UAParser } from "ua-parser-js";
 import { Image, ImageFallback, ImageRoot } from "./ui/image";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { signIn } from "~/lib/auth-client.js";
+import { signIn } from "~/lib/feature-client.js";
 
 const email = ref("");
 const password = ref("");

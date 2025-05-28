@@ -13,7 +13,7 @@ import {
 	OTPFieldInput,
 	OTPFieldSlot,
 } from "./ui/otp-field";
-import { twoFactorActions } from "@/libs/auth-client";
+import { twoFactorActions } from "@/libs/feature-client";
 
 export function TwoFactorComponent() {
 	const [otp, setOTP] = createSignal("");

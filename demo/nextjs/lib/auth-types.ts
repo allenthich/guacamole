@@ -1,5 +1,5 @@
 import type { feature } from "./feature";
-import { client } from "./auth-client";
+import { client } from "./feature-client";
 
 export type Session = typeof feature.$Infer.Session;
 export type ActiveOrganization = typeof client.$Infer.ActiveOrganization;

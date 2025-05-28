@@ -206,7 +206,7 @@ const getDefaultAuthClientConfig = async ({
 			`});`,
 		].join("\n"),
 		{
-			filepath: "auth-client.ts",
+			filepath: "feature-client.ts",
 			...defaultFormatOptions,
 		},
 	);
@@ -697,10 +697,10 @@ export async function initAction(opts: any) {
 	// ===== auth client path =====
 
 	let possibleClientPaths = [
-		"auth-client.ts",
-		"auth-client.tsx",
-		"auth-client.js",
-		"auth-client.jsx",
+		"feature-client.ts",
+		"feature-client.tsx",
+		"feature-client.js",
+		"feature-client.jsx",
 		"client.ts",
 		"client.tsx",
 		"client.js",
@@ -741,7 +741,7 @@ export async function initAction(opts: any) {
 			process.exit(0);
 		}
 		if (choice === "yes") {
-			featureClientConfigPath = path.join(cwd, "auth-client.ts");
+			featureClientConfigPath = path.join(cwd, "feature-client.ts");
 			log.info(`Creating auth client config file: ${featureClientConfigPath}`);
 			try {
 				let contents = await getDefaultAuthClientConfig({

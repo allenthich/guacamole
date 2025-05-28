@@ -1,5 +1,5 @@
 <script>
-import { client } from "$lib/auth-client";
+import { client } from "$lib/feature-client";
 const features = [
 	"social sign-in",
 	"email and password",

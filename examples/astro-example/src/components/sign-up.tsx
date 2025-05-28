@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { TextField, TextFieldLabel, TextFieldRoot } from "./ui/textfield";
 import { Button } from "./ui/button";
-import { signUp } from "@/libs/auth-client";
+import { signUp } from "@/libs/feature-client";
 import { createSignal } from "solid-js";
 import { convertImageToBase64 } from "@/libs/utils";
 

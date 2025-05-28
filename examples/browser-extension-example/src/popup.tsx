@@ -8,7 +8,7 @@ import { SignIn } from "./components/SignIn";
 import { SignUp } from "./components/SignUp";
 import { Button } from "./components/ui/button";
 import { Separator } from "./components/ui/separator";
-import { featureClient } from "./auth/auth-client";
+import { featureClient } from "./auth/feature-client";
 
 function IndexPopup() {
 	const [page, setPage] = useState<"home" | "sign-in" | "sign-up">("home");

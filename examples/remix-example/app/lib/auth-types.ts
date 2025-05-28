@@ -1,3 +1,3 @@
-import { featureClient } from "./auth-client";
+import { featureClient } from "./feature-client";
 
 export type Session = typeof featureClient.$Infer.Session;

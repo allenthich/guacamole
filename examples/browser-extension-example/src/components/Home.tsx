@@ -1,4 +1,4 @@
-import { featureClient } from "@/auth/auth-client";
+import { featureClient } from "@/auth/feature-client";
 
 export const Home = ({
 	setPage,

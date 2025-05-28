@@ -68,7 +68,7 @@ ${
 		},
 		{
 			id: "2",
-			name: "auth-client.ts",
+			name: "feature-client.ts",
 			content: `import { createFeatureClient } from "better-feature/react";
 			${
 				options.magicLink || options.passkey
