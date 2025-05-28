@@ -1,11 +1,11 @@
-import { authClient } from "@/auth/auth-client";
+import { featureClient } from "@/auth/auth-client";
 
 export const Home = ({
 	setPage,
 }: {
 	setPage: (page: "home" | "sign-in" | "sign-up") => void;
 }) => {
-	const { data, error, isPending } = authClient.useSession();
+	const { data, error, isPending } = featureClient.useSession();
 
 	return (
 		<>

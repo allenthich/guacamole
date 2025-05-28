@@ -1,6 +1,6 @@
 import { createFeatureClient } from "better-feature/vue";
 
-export const authClient = createFeatureClient();
+export const featureClient = createFeatureClient();
 
 export const {
 	signIn,
@@ -9,4 +9,4 @@ export const {
 	useSession,
 	forgetPassword,
 	resetPassword,
-} = authClient;
+} = featureClient;

@@ -198,7 +198,7 @@ const getDefaultAuthClientConfig = async ({
 			`import type { auth } from "${auth_config_path}";`,
 			importString,
 			``,
-			`export const authClient = createFeatureClient({`,
+			`export const featureClient = createFeatureClient({`,
 			`baseURL: "http://localhost:3000",`,
 			`plugins: [inferAdditionalFields<typeof auth>(),${clientPlugins
 				.map((x) => `${x.name}(${x.contents})`)
@@ -719,16 +719,16 @@ export async function initAction(opts: any) {
 		...possibleClientPaths.map((it) => `app/${it}`),
 	];
 
-	let authClientConfigPath: string | null = null;
+	let featureClientConfigPath: string | null = null;
 	for (const possiblePath of possibleClientPaths) {
 		const doesExist = existsSync(path.join(cwd, possiblePath));
 		if (doesExist) {
-			authClientConfigPath = path.join(cwd, possiblePath);
+			featureClientConfigPath = path.join(cwd, possiblePath);
 			break;
 		}
 	}
 
-	if (!authClientConfigPath) {
+	if (!featureClientConfigPath) {
 		const choice = await select({
 			message: `Would you like to create an auth client config file?`,
 			options: [
@@ -741,8 +741,8 @@ export async function initAction(opts: any) {
 			process.exit(0);
 		}
 		if (choice === "yes") {
-			authClientConfigPath = path.join(cwd, "auth-client.ts");
-			log.info(`Creating auth client config file: ${authClientConfigPath}`);
+			featureClientConfigPath = path.join(cwd, "auth-client.ts");
+			log.info(`Creating auth client config file: ${featureClientConfigPath}`);
 			try {
 				let contents = await getDefaultAuthClientConfig({
 					auth_config_path: (
@@ -769,11 +769,11 @@ export async function initAction(opts: any) {
 						}),
 					framework: framework,
 				});
-				await fs.writeFile(authClientConfigPath, contents);
+				await fs.writeFile(featureClientConfigPath, contents);
 				log.success(`🚀 Auth client config file successfully created!`);
 			} catch (error) {
 				log.error(
-					`Failed to create auth client config file: ${authClientConfigPath}`,
+					`Failed to create auth client config file: ${featureClientConfigPath}`,
 				);
 				log.error(JSON.stringify(error, null, 2));
 				process.exit(1);
@@ -784,7 +784,7 @@ export async function initAction(opts: any) {
 	} else {
 		log.success(
 			`Found auth client config file. ${chalk.gray(
-				`(${authClientConfigPath})`,
+				`(${featureClientConfigPath})`,
 			)}`,
 		);
 	}

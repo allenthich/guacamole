@@ -23,7 +23,7 @@ import {
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { PasswordInput } from "~/components/ui/password-input";
-import { authClient, signOut, useSession } from "~/lib/auth-client";
+import { featureClient, signOut, useSession } from "~/lib/auth-client";
 import { Session } from "~/lib/auth-types";
 import { MobileIcon } from "@radix-ui/react-icons";
 import {
@@ -68,7 +68,7 @@ export default function UserCard() {
 
 	const { data: qr } = useSWR("/totp-uri", async () => {
 		if (!session?.user.twoFactorEnabled) return null;
-		const res = await authClient.twoFactor.getTotpUri();
+		const res = await featureClient.twoFactor.getTotpUri();
 		if (res.error) {
 			throw res.error;
 		}
@@ -83,7 +83,7 @@ export default function UserCard() {
 		useState<boolean>(false);
 
 	const { data: activeSessions } = useSWR("/sessions", async () => {
-		return (await authClient.listSessions()).data;
+		return (await featureClient.listSessions()).data;
 	});
 	return (
 		<Card>
@@ -124,7 +124,7 @@ export default function UserCard() {
 							variant="secondary"
 							className="mt-2"
 							onClick={async () => {
-								await authClient.sendVerificationEmail(
+								await featureClient.sendVerificationEmail(
 									{
 										email: session?.user.email || "",
 									},
@@ -173,7 +173,7 @@ export default function UserCard() {
 											className="text-red-500 opacity-80  cursor-pointer text-xs border-muted-foreground border-red-600  underline "
 											onClick={async () => {
 												setIsTerminating(activeSession.id);
-												const res = await authClient.revokeSession({
+												const res = await featureClient.revokeSession({
 													id: activeSession.id,
 												});
 
@@ -289,7 +289,7 @@ export default function UserCard() {
 												}
 												setIsPendingTwoFa(true);
 												if (session?.user.twoFactorEnabled) {
-													const res = await authClient.twoFactor.disable({
+													const res = await featureClient.twoFactor.disable({
 														//@ts-ignore
 														password: twoFaPassword,
 														fetchOptions: {
@@ -303,7 +303,7 @@ export default function UserCard() {
 														},
 													});
 												} else {
-													const res = await authClient.twoFactor.enable({
+													const res = await featureClient.twoFactor.enable({
 														password: twoFaPassword,
 														fetchOptions: {
 															onError(context) {
@@ -446,7 +446,7 @@ function ChangePassword() {
 								return;
 							}
 							setLoading(true);
-							const res = await authClient.changePassword({
+							const res = await featureClient.changePassword({
 								newPassword: newPassword,
 								currentPassword: currentPassword,
 								revokeOtherSessions: signOutDevices,
@@ -557,7 +557,7 @@ function EditUserDialog(props: { session: Session | null }) {
 						disabled={isLoading}
 						onClick={async () => {
 							setIsLoading(true);
-							await authClient.updateUser({
+							await featureClient.updateUser({
 								image: image ? await convertImageToBase64(image) : undefined,
 								name: name ? name : undefined,
 								fetchOptions: {
@@ -599,7 +599,7 @@ function AddPasskey() {
 			return;
 		}
 		setIsLoading(true);
-		const res = await authClient.passkey.addPasskey({
+		const res = await featureClient.passkey.addPasskey({
 			name: passkeyName,
 		});
 		if (res?.error) {
@@ -657,7 +657,7 @@ function AddPasskey() {
 }
 
 function ListPasskeys() {
-	const { data, error } = authClient.useListPasskeys();
+	const { data, error } = featureClient.useListPasskeys();
 	const [isOpen, setIsOpen] = useState(false);
 	const [passkeyName, setPasskeyName] = useState("");
 
@@ -667,7 +667,7 @@ function ListPasskeys() {
 			return;
 		}
 		setIsLoading(true);
-		const res = await authClient.passkey.addPasskey({
+		const res = await featureClient.passkey.addPasskey({
 			name: passkeyName,
 		});
 		setIsLoading(false);
@@ -709,7 +709,7 @@ function ListPasskeys() {
 									<TableCell className="text-right">
 										<button
 											onClick={async () => {
-												const res = await authClient.passkey.deletePasskey({
+												const res = await featureClient.passkey.deletePasskey({
 													id: passkey.id,
 													fetchOptions: {
 														onRequest: () => {

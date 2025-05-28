@@ -78,7 +78,7 @@ ${
 					: ""
 			}
 
-			export const authClient = createFeatureClient({
+			export const featureClient = createFeatureClient({
 				baseURL: process.env.NEXT_PUBLIC_APP_URL,
 				${
 					options.magicLink || options.passkey
@@ -89,7 +89,7 @@ ${
 				}
 			})
 
-			export const { signIn, signOut, signUp, useSession } = authClient;
+			export const { signIn, signOut, signUp, useSession } = featureClient;
 			`,
 		},
 		{

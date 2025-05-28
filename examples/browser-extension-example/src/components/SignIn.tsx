@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/auth/auth-client";
+import { featureClient } from "@/auth/auth-client";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -16,7 +16,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const { signIn } = authClient;
+const { signIn } = featureClient;
 
 export function SignIn({
 	setPage,

@@ -14,7 +14,7 @@ import { Label } from "~/components/ui/label";
 import { PasswordInput } from "~/components/ui/password-input";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import { authClient, signIn, signUp } from "~/lib/auth-client";
+import { featureClient, signIn, signUp } from "~/lib/auth-client";
 import { Loader2, X } from "lucide-react";
 import { toast } from "sonner";
 
@@ -176,7 +176,7 @@ export function SignUp() {
 						variant="outline"
 						className="w-full gap-2"
 						onClick={async () => {
-							await authClient.signIn.social({
+							await featureClient.signIn.social({
 								provider: "google",
 								callbackURL: "/dashboard",
 								fetchOptions: {

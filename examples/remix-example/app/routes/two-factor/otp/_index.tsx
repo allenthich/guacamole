@@ -10,7 +10,7 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { authClient } from "~/lib/auth-client";
+import { featureClient } from "~/lib/auth-client";
 import { AlertCircle, CheckCircle2, Mail } from "lucide-react";
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ export default function Component() {
 	const userEmail = "user@example.com";
 
 	const requestOTP = async () => {
-		const res = await authClient.twoFactor.sendOtp();
+		const res = await featureClient.twoFactor.sendOtp();
 		// In a real app, this would call your backend API to send the OTP
 		setMessage("OTP sent to your email");
 		setIsError(false);
@@ -33,7 +33,7 @@ export default function Component() {
 	};
 
 	const validateOTP = async () => {
-		const res = await authClient.twoFactor.verifyOtp({
+		const res = await featureClient.twoFactor.verifyOtp({
 			code: otp,
 		});
 		if (res.data) {
