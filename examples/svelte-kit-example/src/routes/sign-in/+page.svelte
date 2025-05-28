@@ -1,5 +1,5 @@
 <script lang="ts">
-import { signIn } from "$lib/auth-client";
+import { signIn } from "$lib/feature-client";
 import { writable } from "svelte/store";
 
 const email = writable("");

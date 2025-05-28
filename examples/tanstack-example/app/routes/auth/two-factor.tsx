@@ -11,7 +11,7 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { twoFactor } from "~/lib/auth-client";
+import { twoFactor } from "~/lib/feature-client";
 
 export const Route = createFileRoute("/auth/two-factor")({
 	component: TwoFactor,

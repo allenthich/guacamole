@@ -11,7 +11,7 @@ import { useState, useRef, useEffect } from "react";
 import confetti from "canvas-confetti";
 import NumberFlow from "@number-flow/react";
 import { CheckIcon } from "@radix-ui/react-icons";
-import { client } from "@/lib/auth-client";
+import { client } from "@/lib/feature-client";
 
 function useMediaQuery(query: string) {
 	const [matches, setMatches] = useState(false);

@@ -5,8 +5,8 @@ import path from "path";
 import yoctoSpinner from "yocto-spinner";
 import chalk from "chalk";
 import prompts from "prompts";
-import { logger } from "better-auth";
-import { getAdapter, getMigrations } from "better-auth/db";
+import { logger } from "better-feature";
+import { getAdapter, getMigrations } from "better-feature/db";
 import { getConfig } from "../utils/get-config";
 
 export async function migrateAction(opts: any) {
@@ -28,7 +28,7 @@ export async function migrateAction(opts: any) {
 	});
 	if (!config) {
 		logger.error(
-			"No configuration file found. Add a `auth.ts` file to your project or pass the path to the configuration file using the `--config` flag.",
+			"No configuration file found. Add a `feature.ts` file to your project or pass the path to the configuration file using the `--config` flag.",
 		);
 		return;
 	}

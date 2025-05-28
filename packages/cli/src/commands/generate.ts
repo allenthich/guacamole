@@ -3,12 +3,12 @@ import { getConfig } from "../utils/get-config";
 import { z } from "zod";
 import { existsSync } from "fs";
 import path from "path";
-import { logger } from "better-auth";
+import { logger } from "better-feature";
 import yoctoSpinner from "yocto-spinner";
 import prompts from "prompts";
 import fs from "fs/promises";
 import chalk from "chalk";
-import { getAdapter } from "better-auth/db";
+import { getAdapter } from "better-feature/db";
 import { getGenerator } from "../generators";
 
 export async function generateAction(opts: any) {
@@ -32,7 +32,7 @@ export async function generateAction(opts: any) {
 	});
 	if (!config) {
 		logger.error(
-			"No configuration file found. Add a `auth.ts` file to your project or pass the path to the configuration file using the `--config` flag.",
+			"No configuration file found. Add a `feature.ts` file to your project or pass the path to the configuration file using the `--config` flag.",
 		);
 		return;
 	}

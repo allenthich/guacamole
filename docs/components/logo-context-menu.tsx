@@ -86,7 +86,7 @@ export default function LogoContextMenu({
 		e.stopPropagation();
 		const link = document.createElement("a");
 		link.href = "/branding/better-auth-brand-assets.zip";
-		link.download = "better-auth-branding-assets.zip";
+		link.download = "better-feature-branding-assets.zip";
 
 		document.body.appendChild(link);
 		link.click();

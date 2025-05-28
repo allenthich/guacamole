@@ -1,5 +1,5 @@
 <script>
-import { client } from "$lib/auth-client";
+import { client } from "$lib/feature-client";
 
 const session = client.useSession();
 </script>

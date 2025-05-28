@@ -9,7 +9,7 @@ import {
 import { TextField, TextFieldLabel, TextFieldRoot } from "./ui/textfield";
 import { Button } from "./ui/button";
 import { Checkbox, CheckboxControl, CheckboxLabel } from "./ui/checkbox";
-import { signIn } from "@/libs/auth-client";
+import { signIn } from "@/libs/feature-client";
 import { createSignal } from "solid-js";
 
 export function SignInCard() {

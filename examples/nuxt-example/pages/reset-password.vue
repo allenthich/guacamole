@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { resetPassword } from "~/lib/auth-client.js";
+import { resetPassword } from "~/lib/feature-client.js";
 
 const confirmPassword = ref("");
 const password = ref("");

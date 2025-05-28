@@ -11,7 +11,7 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { authClient } from "~/lib/auth-client";
+import { featureClient } from "~/lib/feature-client";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "@remix-run/react";
@@ -27,7 +27,7 @@ export default function Component() {
 			setError("TOTP code must be 6 digits");
 			return;
 		}
-		authClient.twoFactor
+		featureClient.twoFactor
 			.verifyTotp({
 				code: totpCode,
 			})

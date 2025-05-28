@@ -1,8 +1,8 @@
-import { createAuthClient } from "better-auth/react";
-import { passkeyClient, twoFactorClient } from "better-auth/client/plugins";
+import { createFeatureClient } from "better-feature/react";
+import { passkeyClient, twoFactorClient } from "better-feature/client/plugins";
 
-export const authClient = createAuthClient({
+export const featureClient = createFeatureClient({
 	plugins: [passkeyClient(), twoFactorClient()],
 });
 
-export const { signIn, signUp, signOut, useSession } = authClient;
+export const { signIn, signUp, signOut, useSession } = featureClient;

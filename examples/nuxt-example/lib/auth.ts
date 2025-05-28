@@ -1,7 +1,7 @@
 import Database from "better-sqlite3";
-import { betterAuth } from "better-auth";
+import { betterFeature } from "better-feature";
 
-export const auth = betterAuth({
+export const feature = betterFeature({
 	database: new Database("./db.sqlite"),
 	socialProviders: {
 		google: {

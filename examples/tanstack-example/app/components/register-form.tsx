@@ -12,7 +12,7 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { signUp } from "~/lib/auth-client";
+import { signUp } from "~/lib/feature-client";
 
 export function RegisterForm() {
 	function handleSubmit(e: React.FormEvent) {

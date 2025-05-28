@@ -37,7 +37,7 @@
 </RootLayout>
 
 <script>
-  import { useVanillaSession } from "../libs/auth-client";
+  import { useVanillaSession } from "../libs/feature-client";
   useVanillaSession.subscribe((val) => {
     if (val.data) {
       document.getElementById("login")!.style.display = "none";

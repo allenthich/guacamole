@@ -50,148 +50,15 @@ const supportedDatabases = [
 
 export type SupportedDatabases = (typeof supportedDatabases)[number];
 
-export const supportedPlugins = [
-	{
-		id: "two-factor",
-		name: "twoFactor",
-		path: `better-auth/plugins`,
-		clientName: "twoFactorClient",
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "username",
-		name: "username",
-		clientName: "usernameClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "anonymous",
-		name: "anonymous",
-		clientName: "anonymousClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "phone-number",
-		name: "phoneNumber",
-		clientName: "phoneNumberClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "magic-link",
-		name: "magicLink",
-		clientName: "magicLinkClient",
-		clientPath: "better-auth/client/plugins",
-		path: `better-auth/plugins`,
-	},
-	{
-		id: "email-otp",
-		name: "emailOTP",
-		clientName: "emailOTPClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "passkey",
-		name: "passkey",
-		clientName: "passkeyClient",
-		path: `better-auth/plugins/passkey`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "generic-oauth",
-		name: "genericOAuth",
-		clientName: "genericOAuthClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "one-tap",
-		name: "oneTap",
-		clientName: "oneTapClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "api-key",
-		name: "apiKey",
-		clientName: "apiKeyClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "admin",
-		name: "admin",
-		clientName: "adminClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "organization",
-		name: "organization",
-		clientName: "organizationClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "oidc",
-		name: "oidcProvider",
-		clientName: "oidcClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "sso",
-		name: "sso",
-		clientName: "ssoClient",
-		path: `better-auth/plugins/sso`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "bearer",
-		name: "bearer",
-		clientName: undefined,
-		path: `better-auth/plugins`,
-		clientPath: undefined,
-	},
-	{
-		id: "multi-session",
-		name: "multiSession",
-		clientName: "multiSessionClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "oauth-proxy",
-		name: "oAuthProxy",
-		clientName: undefined,
-		path: `better-auth/plugins`,
-		clientPath: undefined,
-	},
-	{
-		id: "open-api",
-		name: "openAPI",
-		clientName: undefined,
-		path: `better-auth/plugins`,
-		clientPath: undefined,
-	},
-	{
-		id: "jwt",
-		name: "jwt",
-		clientName: undefined,
-		clientPath: undefined,
-		path: `better-auth/plugins`,
-	},
-	{
-		id: "next-cookies",
-		name: "nextCookies",
-		clientPath: undefined,
-		clientName: undefined,
-		path: `better-auth/next-js`,
-	},
-] as const;
+type Plugin = {
+	id: string;
+	name: string;
+	clientPath?: string;
+	clientName?: string;
+	path: string;
+};
+
+export const supportedPlugins: Plugin[] = [] as const;
 
 export type SupportedPlugin = (typeof supportedPlugins)[number];
 
@@ -208,15 +75,15 @@ const getDefaultAuthConfig = async ({
 }) =>
 	await prettierFormat(
 		[
-			"import { betterAuth } from 'better-auth';",
+			"import { betterFeature } from 'better-feature';",
 			"",
-			"export const auth = betterAuth({",
+			"export const feature = betterFeature({",
 			appName ? `appName: "${appName}",` : "",
 			"plugins: [],",
 			"});",
 		].join("\n"),
 		{
-			filepath: "auth.ts",
+			filepath: "feature.ts",
 			...defaultFormatOptions,
 		},
 	);
@@ -253,7 +120,7 @@ const getDefaultAuthClientConfig = async ({
 	function groupImportVariables(): Import[] {
 		const result: Import[] = [
 			{
-				path: "better-auth/client/plugins",
+				path: "better-feature/client/plugins",
 				variables: [{ name: "inferAdditionalFields" }],
 			},
 		];
@@ -321,7 +188,7 @@ const getDefaultAuthClientConfig = async ({
 
 	return await prettierFormat(
 		[
-			`import { createAuthClient } from "better-auth/${
+			`import { createFeatureClient } from "better-feature/${
 				framework === "nextjs"
 					? "react"
 					: framework === "vanilla"
@@ -331,7 +198,7 @@ const getDefaultAuthClientConfig = async ({
 			`import type { auth } from "${auth_config_path}";`,
 			importString,
 			``,
-			`export const authClient = createAuthClient({`,
+			`export const featureClient = createFeatureClient({`,
 			`baseURL: "http://localhost:3000",`,
 			`plugins: [inferAdditionalFields<typeof auth>(),${clientPlugins
 				.map((x) => `${x.name}(${x.contents})`)
@@ -339,7 +206,7 @@ const getDefaultAuthClientConfig = async ({
 			`});`,
 		].join("\n"),
 		{
-			filepath: "auth-client.ts",
+			filepath: "feature-client.ts",
 			...defaultFormatOptions,
 		},
 	);
@@ -460,24 +327,24 @@ export async function initAction(opts: any) {
 		}
 	}
 
-	// ===== install better-auth =====
+	// ===== install better-feature =====
 	const s = spinner({ indicator: "dots" });
-	s.start(`Checking better-auth installation`);
+	s.start(`Checking better-feature installation`);
 
 	let latest_betterauth_version: string;
 	try {
-		latest_betterauth_version = await getLatestNpmVersion("better-auth");
+		latest_betterauth_version = await getLatestNpmVersion("better-feature");
 	} catch (error) {
-		log.error(`❌ Couldn't get latest version of better-auth.`);
+		log.error(`❌ Couldn't get latest version of better-feature.`);
 		console.error(error);
 		process.exit(1);
 	}
 
 	if (
 		!packageInfo.dependencies ||
-		!Object.keys(packageInfo.dependencies).includes("better-auth")
+		!Object.keys(packageInfo.dependencies).includes("better-feature")
 	) {
-		s.stop("Finished fetching latest version of better-auth.");
+		s.stop("Finished fetching latest version of better-feature.");
 		const s2 = spinner({ indicator: "dots" });
 		const shouldInstallBetterAuthDep = await confirm({
 			message: `Would you like to install Better Auth?`,
@@ -496,7 +363,7 @@ export async function initAction(opts: any) {
 			try {
 				const start = Date.now();
 				await installDependencies({
-					dependencies: ["better-auth@latest"],
+					dependencies: ["better-feature@latest"],
 					packageManager: packageManagerPreference,
 					cwd: cwd,
 				});
@@ -512,16 +379,16 @@ export async function initAction(opts: any) {
 			}
 		}
 	} else if (
-		packageInfo.dependencies["better-auth"] !== "workspace:*" &&
+		packageInfo.dependencies["better-feature"] !== "workspace:*" &&
 		semver.lt(
-			semver.coerce(packageInfo.dependencies["better-auth"])?.toString()!,
+			semver.coerce(packageInfo.dependencies["better-feature"])?.toString()!,
 			semver.clean(latest_betterauth_version)!,
 		)
 	) {
-		s.stop("Finished fetching latest version of better-auth.");
+		s.stop("Finished fetching latest version of better-feature.");
 		const shouldInstallBetterAuthDep = await confirm({
 			message: `Your current Better Auth dependency is out-of-date. Would you like to update it? (${chalk.bold(
-				packageInfo.dependencies["better-auth"],
+				packageInfo.dependencies["better-feature"],
 			)} → ${chalk.bold(`v${latest_betterauth_version}`)})`,
 		});
 		if (isCancel(shouldInstallBetterAuthDep)) {
@@ -539,7 +406,7 @@ export async function initAction(opts: any) {
 			try {
 				const start = Date.now();
 				await installDependencies({
-					dependencies: ["better-auth@latest"],
+					dependencies: ["better-feature@latest"],
 					packageManager: packageManagerPreference,
 					cwd: cwd,
 				});
@@ -577,7 +444,12 @@ export async function initAction(opts: any) {
 
 	// ===== config path =====
 
-	let possiblePaths = ["auth.ts", "auth.tsx", "auth.js", "auth.jsx"];
+	let possiblePaths = [
+		"feature.ts",
+		"feature.tsx",
+		"feature.js",
+		"feature.jsx",
+	];
 	possiblePaths = [
 		...possiblePaths,
 		...possiblePaths.map((it) => `lib/server/${it}`),
@@ -698,7 +570,7 @@ export async function initAction(opts: any) {
 				}
 			}
 
-			const filePath = path.join(cwd, "auth.ts");
+			const filePath = path.join(cwd, "feature.ts");
 			config_path = filePath;
 			log.info(`Creating auth config file: ${filePath}`);
 			try {
@@ -825,10 +697,10 @@ export async function initAction(opts: any) {
 	// ===== auth client path =====
 
 	let possibleClientPaths = [
-		"auth-client.ts",
-		"auth-client.tsx",
-		"auth-client.js",
-		"auth-client.jsx",
+		"feature-client.ts",
+		"feature-client.tsx",
+		"feature-client.js",
+		"feature-client.jsx",
 		"client.ts",
 		"client.tsx",
 		"client.js",
@@ -847,16 +719,16 @@ export async function initAction(opts: any) {
 		...possibleClientPaths.map((it) => `app/${it}`),
 	];
 
-	let authClientConfigPath: string | null = null;
+	let featureClientConfigPath: string | null = null;
 	for (const possiblePath of possibleClientPaths) {
 		const doesExist = existsSync(path.join(cwd, possiblePath));
 		if (doesExist) {
-			authClientConfigPath = path.join(cwd, possiblePath);
+			featureClientConfigPath = path.join(cwd, possiblePath);
 			break;
 		}
 	}
 
-	if (!authClientConfigPath) {
+	if (!featureClientConfigPath) {
 		const choice = await select({
 			message: `Would you like to create an auth client config file?`,
 			options: [
@@ -869,8 +741,8 @@ export async function initAction(opts: any) {
 			process.exit(0);
 		}
 		if (choice === "yes") {
-			authClientConfigPath = path.join(cwd, "auth-client.ts");
-			log.info(`Creating auth client config file: ${authClientConfigPath}`);
+			featureClientConfigPath = path.join(cwd, "feature-client.ts");
+			log.info(`Creating auth client config file: ${featureClientConfigPath}`);
 			try {
 				let contents = await getDefaultAuthClientConfig({
 					auth_config_path: (
@@ -889,7 +761,7 @@ export async function initAction(opts: any) {
 								name: plugin.clientName!,
 								imports: [
 									{
-										path: "better-auth/client/plugins",
+										path: "better-feature/client/plugins",
 										variables: [{ name: plugin.clientName! }],
 									},
 								],
@@ -897,11 +769,11 @@ export async function initAction(opts: any) {
 						}),
 					framework: framework,
 				});
-				await fs.writeFile(authClientConfigPath, contents);
+				await fs.writeFile(featureClientConfigPath, contents);
 				log.success(`🚀 Auth client config file successfully created!`);
 			} catch (error) {
 				log.error(
-					`Failed to create auth client config file: ${authClientConfigPath}`,
+					`Failed to create auth client config file: ${featureClientConfigPath}`,
 				);
 				log.error(JSON.stringify(error, null, 2));
 				process.exit(1);
@@ -912,7 +784,7 @@ export async function initAction(opts: any) {
 	} else {
 		log.success(
 			`Found auth client config file. ${chalk.gray(
-				`(${authClientConfigPath})`,
+				`(${featureClientConfigPath})`,
 			)}`,
 		);
 	}
@@ -1031,7 +903,7 @@ export const init = new Command("init")
 	.option("-c, --cwd <cwd>", "The working directory.", process.cwd())
 	.option(
 		"--config <config>",
-		"The path to the auth configuration file. defaults to the first `auth.ts` file found.",
+		"The path to the auth configuration file. defaults to the first `feature.ts` file found.",
 	)
 	.option("--tsconfig <tsconfig>", "The path to the tsconfig file.")
 	.option("--skip-db", "Skip the database setup.")

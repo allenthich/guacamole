@@ -1,9 +1,9 @@
-import { getAuthTables, type FieldType } from "better-auth/db";
+import { getFeatureTables, type FieldType } from "better-feature/db";
 import { produceSchema } from "@mrleebo/prisma-ast";
 import { existsSync } from "fs";
 import path from "path";
 import fs from "fs/promises";
-import { capitalizeFirstLetter } from "better-auth";
+import { capitalizeFirstLetter } from "better-feature";
 import type { SchemaGenerator } from "./types";
 
 export const generatePrismaSchema: SchemaGenerator = async ({
@@ -12,7 +12,7 @@ export const generatePrismaSchema: SchemaGenerator = async ({
 	file,
 }) => {
 	const provider = adapter.options?.provider || "postgresql";
-	const tables = getAuthTables(options);
+	const tables = getFeatureTables(options);
 	const filePath = file || "./prisma/schema.prisma";
 	const schemaPrismaExist = existsSync(path.join(process.cwd(), filePath));
 	let schemaPrisma = "";

@@ -116,7 +116,7 @@ const testimonials = [
 		name: "Vybhav Bhargav",
 		profession: "Founding engineer @glyfspace",
 		link: "https://x.com/vybhavab/status/1891589126513684669",
-		description: "better-auth is a work of art.",
+		description: "better-feature is a work of art.",
 		avatar: "/people-say/vybhav-bhargav.png",
 		social: <Icons.x />,
 	},

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { signUp } from "$lib/auth-client";
+import { signUp } from "$lib/feature-client";
 import { writable } from "svelte/store";
 
 // Create writable stores for form fields

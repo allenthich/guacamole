@@ -1,4 +1,3 @@
-import { SignInButton, SignInFallback } from "@/components/sign-in-btn";
 import { Suspense } from "react";
 
 export default async function Home() {
@@ -54,10 +53,7 @@ export default async function Home() {
 						</div>
 					</div>
 					{/* @ts-ignore */}
-					<Suspense fallback={<SignInFallback />}>
-						{/* @ts-ignore */}
-						<SignInButton />
-					</Suspense>
+					<Suspense fallback={<></>}>{/* @ts-ignore */}</Suspense>
 				</div>
 			</main>
 		</div>

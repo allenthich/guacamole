@@ -6,7 +6,7 @@ import {
 	CardTitle,
 } from "~/components/ui/card";
 
-import { twoFactor, useSession } from "~/lib/auth-client";
+import { twoFactor, useSession } from "~/lib/feature-client";
 import { UAParser } from "ua-parser-js";
 import { Laptop, Loader2, Phone, ShieldCheck, ShieldOff } from "lucide-react";
 import { useState } from "react";

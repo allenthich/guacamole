@@ -1,10 +1,10 @@
-import { auth } from "@/lib/auth";
-import { toNextJsHandler } from "better-auth/next-js";
+import { feature } from "@/lib/feature";
+import { toNextJsHandler } from "better-feature/next-js";
 import { NextRequest } from "next/server";
 
-export const { GET } = toNextJsHandler(auth);
+export const { GET } = toNextJsHandler(feature);
 
 export const POST = async (req: NextRequest) => {
-	const res = await auth.handler(req);
+	const res = await feature.handler(req);
 	return res;
 };

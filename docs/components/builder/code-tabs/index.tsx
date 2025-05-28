@@ -14,9 +14,9 @@ export default function CodeTabs() {
 		{
 			id: "1",
 			name: "auth.ts",
-			content: `import { betterAuth } from 'better-auth';
+			content: `import { betterFeature } from 'better-auth';
 
-	export const auth = betterAuth({
+	export const feature = betterFeature({
 		${
 			options.email
 				? `emailAndPassword: {
@@ -68,17 +68,17 @@ ${
 		},
 		{
 			id: "2",
-			name: "auth-client.ts",
-			content: `import { createAuthClient } from "better-auth/react";
+			name: "feature-client.ts",
+			content: `import { createFeatureClient } from "better-feature/react";
 			${
 				options.magicLink || options.passkey
 					? `import { ${options.magicLink ? "magicLinkClient, " : ""}, ${
 							options.passkey ? "passkeyClient" : ""
-						} } from "better-auth/client/plugins";`
+						} } from "better-feature/client/plugins";`
 					: ""
 			}
 
-			export const authClient = createAuthClient({
+			export const featureClient = createFeatureClient({
 				baseURL: process.env.NEXT_PUBLIC_APP_URL,
 				${
 					options.magicLink || options.passkey
@@ -89,7 +89,7 @@ ${
 				}
 			})
 
-			export const { signIn, signOut, signUp, useSession } = authClient;
+			export const { signIn, signOut, signUp, useSession } = featureClient;
 			`,
 		},
 		{

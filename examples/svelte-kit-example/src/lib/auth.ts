@@ -1,8 +1,8 @@
-import { betterAuth } from "better-auth";
+import { betterFeature } from "better-feature";
 import { env } from "$env/dynamic/private";
 import Database from "better-sqlite3";
 
-export const auth = betterAuth({
+export const feature = betterFeature({
 	database: new Database("./db.sqlite"),
 	socialProviders: {
 		google: {
