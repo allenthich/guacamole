@@ -17,7 +17,9 @@
   "publishConfig": {
     "executableFiles": [
       "./dist/index.mjs"
-    ]
+    ],
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
   "exports": "./dist/index.mjs",
   "bin": "./dist/index.mjs",
