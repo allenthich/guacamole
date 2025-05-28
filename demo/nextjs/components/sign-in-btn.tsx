@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { auth } from "@/lib/auth";
+import { feature } from "@/lib/feature";
 import { headers } from "next/headers";
 
 export async function SignInButton() {
-	const session = await auth.api.getSession({
+	const session = await feature.api.getSession({
 		headers: await headers(),
 	});
 
@@ -45,7 +45,7 @@ export async function SignInButton() {
 function checkOptimisticSession(headers: Headers) {
 	const guessIsSignIn =
 		headers.get("cookie")?.includes("better-feature.session") ||
-		headers.get("cookie")?.includes("__Secure-better-auth.session-token");
+		headers.get("cookie")?.includes("__Secure-better-feature.session-token");
 	return !!guessIsSignIn;
 }
 

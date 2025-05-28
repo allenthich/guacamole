@@ -23,7 +23,7 @@ if (!dialect) {
 }
 
 export const feature = betterFeature({
-	appName: "Better Auth Demo",
+	appName: "Better Feature Demo",
 	database: {
 		dialect,
 		type: process.env.USE_MYSQL ? "mysql" : "sqlite",

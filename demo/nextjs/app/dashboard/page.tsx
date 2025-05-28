@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { feature } from "@/lib/feature";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import UserCard from "./user-card";
@@ -8,19 +8,19 @@ import AccountSwitcher from "@/components/account-switch";
 export default async function DashboardPage() {
 	const [session, activeSessions, deviceSessions, organization, subscriptions] =
 		await Promise.all([
-			auth.api.getSession({
+			feature.api.getSession({
 				headers: await headers(),
 			}),
-			auth.api.listSessions({
+			feature.api.listSessions({
 				headers: await headers(),
 			}),
-			auth.api.listDeviceSessions({
+			feature.api.listDeviceSessions({
 				headers: await headers(),
 			}),
-			auth.api.getFullOrganization({
+			feature.api.getFullOrganization({
 				headers: await headers(),
 			}),
-			auth.api.listActiveSubscriptions({
+			feature.api.listActiveSubscriptions({
 				headers: await headers(),
 			}),
 		]).catch((e) => {
