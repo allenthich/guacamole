@@ -10,7 +10,7 @@ import type {
 	StripEmptyObjects,
 	UnionToIntersection,
 } from "../types/helper";
-import type { Auth } from "../auth";
+import type { Feature } from "../auth";
 import type { InferRoutes } from "./path-to-object";
 import type { InferFieldsInputClient, InferFieldsOutput } from "../db";
 
@@ -75,7 +75,7 @@ export interface ClientOptions {
 
 export type InferClientAPI<O extends ClientOptions> = InferRoutes<
 	O["plugins"] extends Array<any>
-		? Auth["api"] &
+		? Feature["api"] &
 				(O["plugins"] extends Array<infer Pl>
 					? UnionToIntersection<
 							Pl extends {
@@ -89,7 +89,7 @@ export type InferClientAPI<O extends ClientOptions> = InferRoutes<
 								: {}
 						>
 					: {})
-		: Auth["api"],
+		: Feature["api"],
 	O
 >;
 

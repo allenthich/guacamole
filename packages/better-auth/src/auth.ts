@@ -65,7 +65,7 @@ export const betterFeature = <O extends BetterFeatureOptions>(
 	};
 };
 
-export type Auth = {
+export type Feature = {
 	handler: (request: Request) => Promise<Response>;
 	api: FilterActions<ReturnType<typeof router>["endpoints"]>;
 	options: BetterFeatureOptions;
