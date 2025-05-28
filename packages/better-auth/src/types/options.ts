@@ -9,7 +9,7 @@ import type { FeatureContext } from ".";
 import type { CookieOptions } from "better-call";
 import type { Database } from "better-sqlite3";
 import type { Logger } from "../utils";
-import type { AuthMiddleware } from "../plugins";
+import type { FeatureMiddleware } from "../plugins";
 import type { LiteralUnion, OmitId } from "./helper";
 
 export type BetterFeatureOptions = {
@@ -386,11 +386,11 @@ export type BetterFeatureOptions = {
 		/**
 		 * Before a request is processed
 		 */
-		before?: AuthMiddleware;
+		before?: FeatureMiddleware;
 		/**
 		 * After a request is processed
 		 */
-		after?: AuthMiddleware;
+		after?: FeatureMiddleware;
 	};
 	/**
 	 * Disabled paths

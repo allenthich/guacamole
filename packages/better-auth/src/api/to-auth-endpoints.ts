@@ -5,7 +5,7 @@ import {
 	type EndpointOptions,
 	type InputContext,
 } from "better-call";
-import type { AuthEndpoint, AuthMiddleware } from "./call";
+import type { AuthEndpoint, FeatureMiddleware } from "./call";
 import type { FeatureContext, HookEndpointContext } from "../types";
 import defu from "defu";
 
@@ -128,7 +128,7 @@ async function runBeforeHooks(
 	context: HookEndpointContext,
 	hooks: {
 		matcher: (context: HookEndpointContext) => boolean;
-		handler: AuthMiddleware;
+		handler: FeatureMiddleware;
 	}[],
 ) {
 	let modifiedContext: {
@@ -168,7 +168,7 @@ async function runAfterHooks(
 	context: HookEndpointContext,
 	hooks: {
 		matcher: (context: HookEndpointContext) => boolean;
-		handler: AuthMiddleware;
+		handler: FeatureMiddleware;
 	}[],
 ) {
 	for (const hook of hooks) {
@@ -215,11 +215,11 @@ function getHooks(authContext: FeatureContext) {
 	const plugins = authContext.options.plugins || [];
 	const beforeHooks: {
 		matcher: (context: HookEndpointContext) => boolean;
-		handler: AuthMiddleware;
+		handler: FeatureMiddleware;
 	}[] = [];
 	const afterHooks: {
 		matcher: (context: HookEndpointContext) => boolean;
-		handler: AuthMiddleware;
+		handler: FeatureMiddleware;
 	}[] = [];
 	if (authContext.options.hooks?.before) {
 		beforeHooks.push({

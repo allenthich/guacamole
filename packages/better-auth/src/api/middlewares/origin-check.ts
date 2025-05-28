@@ -1,5 +1,5 @@
 import { APIError } from "better-call";
-import { createAuthMiddleware } from "../call";
+import { createFeatureMiddleware } from "../call";
 import { wildcardMatch } from "../../utils/wildcard";
 import { getHost, getOrigin, getProtocol } from "../../utils/url";
 import type { GenericEndpointContext } from "../../types";
@@ -8,7 +8,7 @@ import type { GenericEndpointContext } from "../../types";
  * A middleware to validate callbackURL and origin against
  * trustedOrigins.
  */
-export const originCheckMiddleware = createAuthMiddleware(async (ctx) => {
+export const originCheckMiddleware = createFeatureMiddleware(async (ctx) => {
 	if (ctx.request?.method !== "POST" || !ctx.request) {
 		return;
 	}
@@ -72,7 +72,7 @@ export const originCheckMiddleware = createAuthMiddleware(async (ctx) => {
 export const originCheck = (
 	getValue: (ctx: GenericEndpointContext) => string | string[],
 ) =>
-	createAuthMiddleware(async (ctx) => {
+	createFeatureMiddleware(async (ctx) => {
 		if (!ctx.request) {
 			return;
 		}

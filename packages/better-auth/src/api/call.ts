@@ -10,7 +10,7 @@ export const optionsMiddleware = createMiddleware(async () => {
 	return {} as FeatureContext;
 });
 
-export const createAuthMiddleware = createMiddleware.create({
+export const createFeatureMiddleware = createMiddleware.create({
 	use: [
 		optionsMiddleware,
 		/**
@@ -30,4 +30,4 @@ export const createAuthEndpoint = createEndpoint.create({
 });
 
 export type AuthEndpoint = ReturnType<typeof createAuthEndpoint>;
-export type AuthMiddleware = ReturnType<typeof createAuthMiddleware>;
+export type FeatureMiddleware = ReturnType<typeof createFeatureMiddleware>;

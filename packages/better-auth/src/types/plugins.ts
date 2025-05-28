@@ -1,5 +1,5 @@
 import type { Migration } from "kysely";
-import { type AuthMiddleware } from "../api/call";
+import { type FeatureMiddleware } from "../api/call";
 import type { FieldAttribute } from "../db/field";
 import type { HookEndpointContext } from ".";
 import type {
@@ -59,11 +59,11 @@ export type BetterFeaturePlugin = {
 	hooks?: {
 		before?: {
 			matcher: (context: HookEndpointContext) => boolean;
-			handler: AuthMiddleware;
+			handler: FeatureMiddleware;
 		}[];
 		after?: {
 			matcher: (context: HookEndpointContext) => boolean;
-			handler: AuthMiddleware;
+			handler: FeatureMiddleware;
 		}[];
 	};
 	/**

@@ -1,5 +1,5 @@
 import type { BetterFeaturePlugin } from "../types";
-import { createAuthMiddleware } from "../plugins";
+import { createFeatureMiddleware } from "../plugins";
 
 export function toNextJsHandler(
 	auth:
@@ -26,7 +26,7 @@ export const nextCookies = () => {
 					matcher(ctx) {
 						return true;
 					},
-					handler: createAuthMiddleware(async (ctx) => {
+					handler: createFeatureMiddleware(async (ctx) => {
 						const returned = ctx.context.responseHeaders;
 						if ("_flag" in ctx && ctx._flag === "router") {
 							return;

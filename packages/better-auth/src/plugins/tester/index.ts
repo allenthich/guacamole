@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createAuthEndpoint, createAuthMiddleware } from "../../api/call";
+import { createAuthEndpoint, createFeatureMiddleware } from "../../api/call";
 import type { BetterFeaturePlugin } from "../../types/plugins";
 import { APIError } from "better-call";
 import type { InferOptionSchema } from "../../types";
