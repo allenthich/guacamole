@@ -1,5 +1,5 @@
-import { betterFeature } from "better-feature";
-import { tester } from "better-feature/plugins";
+import { betterFeature } from "@allenthich/better-feature";
+import { tester } from "@allenthich/better-feature/plugins";
 import { LibsqlDialect } from "@libsql/kysely-libsql";
 import { MysqlDialect } from "kysely";
 import { createPool } from "mysql2/promise";

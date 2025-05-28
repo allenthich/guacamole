@@ -1,6 +1,6 @@
-import { betterFeature } from "better-feature";
+import { betterFeature } from "@allenthich/better-feature";
 import Database from "better-sqlite3";
-import { twoFactor, passkey } from "better-feature/plugins";
+import { twoFactor, passkey } from "@allenthich/better-feature/plugins";
 
 export const feature = betterFeature({
 	database: new Database("./sqlite.db"),

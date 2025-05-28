@@ -1,5 +1,5 @@
 import { feature } from "@/lib/feature";
-import { toNextJsHandler } from "better-feature/next-js";
+import { toNextJsHandler } from "@allenthich/better-feature/next-js";
 import { NextRequest } from "next/server";
 
 export const { GET } = toNextJsHandler(feature);

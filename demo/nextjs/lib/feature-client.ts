@@ -1,5 +1,5 @@
-import { createFeatureClient } from "better-feature/react";
-import { testerClient } from "better-feature/client/plugins";
+import { createFeatureClient } from "@allenthich/better-feature/react";
+import { testerClient } from "@allenthich/better-feature/client/plugins";
 import { toast } from "sonner";
 
 export const client = createFeatureClient({

@@ -3,12 +3,12 @@ import { getConfig } from "../utils/get-config";
 import { z } from "zod";
 import { existsSync } from "fs";
 import path from "path";
-import { logger } from "better-feature";
+import { logger } from "@allenthich/better-feature";
 import yoctoSpinner from "yocto-spinner";
 import prompts from "prompts";
 import fs from "fs/promises";
 import chalk from "chalk";
-import { getAdapter } from "better-feature/db";
+import { getAdapter } from "@allenthich/better-feature/db";
 import { getGenerator } from "../generators";
 
 export async function generateAction(opts: any) {

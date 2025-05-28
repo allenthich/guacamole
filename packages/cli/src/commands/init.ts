@@ -188,7 +188,7 @@ const getDefaultAuthClientConfig = async ({
 
 	return await prettierFormat(
 		[
-			`import { createFeatureClient } from "better-feature/${
+			`import { createFeatureClient } from "@allenthich/better-feature/${
 				framework === "nextjs"
 					? "react"
 					: framework === "vanilla"

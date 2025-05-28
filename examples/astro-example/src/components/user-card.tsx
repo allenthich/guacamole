@@ -10,7 +10,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { UAParser } from "ua-parser-js";
 import { Image, ImageFallback, ImageRoot } from "./ui/image";
-import type { Session, User } from "better-feature/types";
+import type { Session, User } from "@allenthich/better-feature/types";
 import { createEffect, createSignal, Show } from "solid-js";
 import {
 	Dialog,

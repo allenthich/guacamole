@@ -1,4 +1,4 @@
-import { createFeatureClient } from "better-feature/vue";
+import { createFeatureClient } from "@allenthich/better-feature/vue";
 
 export const featureClient = createFeatureClient();
 

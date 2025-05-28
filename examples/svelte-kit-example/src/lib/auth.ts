@@ -1,4 +1,4 @@
-import { betterFeature } from "better-feature";
+import { betterFeature } from "@allenthich/better-feature";
 import { env } from "$env/dynamic/private";
 import Database from "better-sqlite3";
 

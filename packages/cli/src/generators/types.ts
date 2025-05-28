@@ -1,4 +1,4 @@
-import type { Adapter, BetterFeatureOptions } from "better-feature";
+import type { Adapter, BetterFeatureOptions } from "@allenthich/better-feature";
 
 export interface SchemaGenerator {
 	(opts: {

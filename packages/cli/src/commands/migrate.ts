@@ -5,8 +5,8 @@ import path from "path";
 import yoctoSpinner from "yocto-spinner";
 import chalk from "chalk";
 import prompts from "prompts";
-import { logger } from "better-feature";
-import { getAdapter, getMigrations } from "better-feature/db";
+import { logger } from "@allenthich/better-feature";
+import { getAdapter, getMigrations } from "@allenthich/better-feature/db";
 import { getConfig } from "../utils/get-config";
 
 export async function migrateAction(opts: any) {

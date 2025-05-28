@@ -16,7 +16,7 @@
     "@unovis/vue": "1.4.3-beta.0",
     "@vee-validate/zod": "^4.14.7",
     "@vueuse/core": "^11.3.0",
-    "better-feature": "workspace:*",
+    "@allenthich/better-feature": "workspace:*",
     "better-sqlite3": "^11.6.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

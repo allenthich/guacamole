@@ -1,5 +1,5 @@
-import { twoFactorClient } from "better-feature/client/plugins";
-import { createFeatureClient } from "better-feature/react";
+import { twoFactorClient } from "@allenthich/better-feature/client/plugins";
+import { createFeatureClient } from "@allenthich/better-feature/react";
 
 export const { useSession, signIn, signOut, signUp, twoFactor } =
 	createFeatureClient({

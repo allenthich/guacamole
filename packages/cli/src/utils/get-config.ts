@@ -1,13 +1,13 @@
 import { loadConfig } from "c12";
-import type { BetterFeatureOptions } from "better-feature";
-import { logger } from "better-feature";
+import type { BetterFeatureOptions } from "@allenthich/better-feature";
+import { logger } from "@allenthich/better-feature";
 import path from "path";
 // @ts-ignore
 import babelPresetTypeScript from "@babel/preset-typescript";
 // @ts-ignore
 import babelPresetReact from "@babel/preset-react";
 import fs, { existsSync } from "fs";
-import { BetterFeatureError } from "better-feature";
+import { BetterFeatureError } from "@allenthich/better-feature";
 import { addSvelteKitEnvModules } from "./add-svelte-kit-env-modules";
 import { getTsconfigInfo } from "./get-tsconfig-info";
 

@@ -1,6 +1,9 @@
-import { passkeyClient, twoFactorClient } from "better-feature/client/plugins";
-import { createFeatureClient } from "better-feature/solid";
-import { createFeatureClient as createVanillaClient } from "better-feature/client";
+import {
+	passkeyClient,
+	twoFactorClient,
+} from "@allenthich/better-feature/client/plugins";
+import { createFeatureClient } from "@allenthich/better-feature/solid";
+import { createFeatureClient as createVanillaClient } from "@allenthich/better-feature/client";
 export const {
 	signIn,
 	signOut,

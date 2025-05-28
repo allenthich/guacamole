@@ -69,12 +69,12 @@ ${
 		{
 			id: "2",
 			name: "feature-client.ts",
-			content: `import { createFeatureClient } from "better-feature/react";
+			content: `import { createFeatureClient } from "@allenthich/better-feature/react";
 			${
 				options.magicLink || options.passkey
 					? `import { ${options.magicLink ? "magicLinkClient, " : ""}, ${
 							options.passkey ? "passkeyClient" : ""
-						} } from "better-feature/client/plugins";`
+						} } from "@allenthich/better-feature/client/plugins";`
 					: ""
 			}
 

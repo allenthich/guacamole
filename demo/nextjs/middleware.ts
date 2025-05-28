@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSessionCookie } from "better-feature/cookies";
+import { getSessionCookie } from "@allenthich/better-feature/cookies";
 
 export async function middleware(request: NextRequest) {
 	const cookies = getSessionCookie(request);

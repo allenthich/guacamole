@@ -2,7 +2,7 @@ import {
 	logger,
 	type Adapter,
 	type BetterFeatureOptions,
-} from "better-feature";
+} from "@allenthich/better-feature";
 import { generateDrizzleSchema } from "./drizzle";
 import { generatePrismaSchema } from "./prisma";
 import { generateMigrations } from "./kysely";

@@ -1,4 +1,4 @@
-import { createFeatureClient } from "better-feature/svelte";
+import { createFeatureClient } from "@allenthich/better-feature/svelte";
 
 export const client = createFeatureClient({
 	baseURL: "http://localhost:3000",

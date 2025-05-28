@@ -1,5 +1,5 @@
 import Database from "better-sqlite3";
-import { betterFeature } from "better-feature";
+import { betterFeature } from "@allenthich/better-feature";
 
 export const feature = betterFeature({
 	database: new Database("./db.sqlite"),
