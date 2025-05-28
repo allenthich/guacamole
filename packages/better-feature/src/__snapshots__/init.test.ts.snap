@@ -30,7 +30,7 @@ exports[`init > should match config 1`] = `
   "appName": "Better Auth",
   "authCookies": {
     "dontRememberToken": {
-      "name": "better-auth.dont_remember",
+      "name": "better-feature.dont_remember",
       "options": {
         "httpOnly": true,
         "path": "/",
@@ -39,7 +39,7 @@ exports[`init > should match config 1`] = `
       },
     },
     "sessionData": {
-      "name": "better-auth.session_data",
+      "name": "better-feature.session_data",
       "options": {
         "httpOnly": true,
         "maxAge": 300,
@@ -49,7 +49,7 @@ exports[`init > should match config 1`] = `
       },
     },
     "sessionToken": {
-      "name": "better-auth.session_token",
+      "name": "better-feature.session_token",
       "options": {
         "httpOnly": true,
         "maxAge": 604800,
@@ -115,7 +115,7 @@ exports[`init > should match config 1`] = `
       "readonly": false,
     },
     "plugins": [],
-    "secret": "better-auth-secret-123456789",
+    "secret": "better-feature-secret-123456789",
   },
   "password": {
     "checkPassword": [Function],
@@ -134,7 +134,7 @@ exports[`init > should match config 1`] = `
   },
   "runMigrations": [Function],
   "secondaryStorage": undefined,
-  "secret": "better-auth-secret-123456789",
+  "secret": "better-feature-secret-123456789",
   "session": null,
   "sessionConfig": {
     "expiresIn": 604800,

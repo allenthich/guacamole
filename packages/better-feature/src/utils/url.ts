@@ -1,4 +1,4 @@
-import { env } from "../utils/env";
+import { env } from "./env";
 import { BetterFeatureError } from "../error";
 
 function checkHasPath(url: string): boolean {

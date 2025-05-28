@@ -1,5 +1,5 @@
 import type { BetterFeatureOptions } from "../types";
-import { isTest } from "../utils/env";
+import { isTest } from "./env";
 
 export function getIp(
 	req: Request | Headers,

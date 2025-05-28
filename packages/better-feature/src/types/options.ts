@@ -1,5 +1,5 @@
 import type { Dialect, Kysely, MysqlPool, PostgresPool } from "kysely";
-import type { GenericEndpointContext } from "../types";
+import type { GenericEndpointContext } from ".";
 import type { BetterFeaturePlugin } from "./plugins";
 import type { AdapterInstance, SecondaryStorage } from "./adapter";
 import type { KyselyDatabaseType } from "../adapters/kysely-adapter/types";
@@ -51,7 +51,7 @@ export type BetterFeatureOptions = {
 	 * If none of these environment
 	 * variables are set,
 	 * it will default to
-	 * "better-auth-secret-123456789".
+	 * "better-feature-secret-123456789".
 	 *
 	 * on production if it's not set
 	 * it will throw an error.
@@ -273,7 +273,7 @@ export type BetterFeatureOptions = {
 		 *
 		 * @default
 		 * ```txt
-		 * "appName" -> which defaults to "better-auth"
+		 * "appName" -> which defaults to "better-feature"
 		 * ```
 		 */
 		cookiePrefix?: string;

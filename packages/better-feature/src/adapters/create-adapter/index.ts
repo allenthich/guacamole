@@ -1,5 +1,5 @@
 import { safeJSONParse } from "../../utils/json";
-import { withApplyDefault } from "../../adapters/utils";
+import { withApplyDefault } from "../utils";
 import { getAuthTables } from "../../db/get-tables";
 import type { Adapter, BetterFeatureOptions, Where } from "../../types";
 import { generateId as defaultGenerateId, logger } from "../../utils";

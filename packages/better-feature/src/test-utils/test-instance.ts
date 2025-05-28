@@ -57,7 +57,7 @@ export async function getTestInstance<
 			const db = client.db(dbName);
 			return db;
 		};
-		const db = await dbClient("mongodb://127.0.0.1:27017", "better-auth");
+		const db = await dbClient("mongodb://127.0.0.1:27017", "better-feature");
 		return db;
 	}
 
@@ -72,7 +72,7 @@ export async function getTestInstance<
 				clientSecret: "test",
 			},
 		},
-		secret: "better-auth.secret",
+		secret: "better-feature.secret",
 		database:
 			testWith === "postgres"
 				? { db: postgres, type: "postgres" }
@@ -175,7 +175,9 @@ export async function getTestInstance<
 				onSuccess(context) {
 					const header = context.response.headers.get("set-cookie");
 					const cookies = parseSetCookieHeader(header || "");
-					const signedCookie = cookies.get("better-auth.session_token")?.value;
+					const signedCookie = cookies.get(
+						"better-feature.session_token",
+					)?.value;
 					headers.set("cookie", `better-auth.session_token=${signedCookie}`);
 				},
 			},
@@ -198,7 +200,9 @@ export async function getTestInstance<
 				onSuccess(context) {
 					const header = context.response.headers.get("set-cookie");
 					const cookies = parseSetCookieHeader(header || "");
-					const signedCookie = cookies.get("better-auth.session_token")?.value;
+					const signedCookie = cookies.get(
+						"better-feature.session_token",
+					)?.value;
 					headers.set("cookie", `better-auth.session_token=${signedCookie}`);
 				},
 			},
@@ -224,7 +228,7 @@ export async function getTestInstance<
 			const header = context.response.headers.get("set-cookie");
 			if (header) {
 				const cookies = parseSetCookieHeader(header || "");
-				const signedCookie = cookies.get("better-auth.session_token")?.value;
+				const signedCookie = cookies.get("better-feature.session_token")?.value;
 				headers.set("cookie", `better-auth.session_token=${signedCookie}`);
 			}
 		};
