@@ -8,7 +8,7 @@ import { error } from "./routes/error";
 import { logger } from "../utils/logger";
 import type { BetterFeaturePlugin } from "../plugins";
 import { onRequestRateLimit } from "./rate-limiter";
-import { toFeatureEndpoints } from "./to-auth-endpoints";
+import { toFeatureEndpoints } from "./to-feature-endpoints";
 
 export function getEndpoints<
 	C extends FeatureContext,

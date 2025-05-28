@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { createAuthEndpoint, createAuthMiddleware } from "./call";
-import { toAuthEndpoints } from "./to-auth-endpoints";
+import { createFeatureEndpoint, createFeatureMiddleware } from "./call";
+import { toFeatureEndpoints } from "./to-feature-endpoints";
 import { init } from "../init";
 import { z } from "zod";
 import { APIError } from "better-call";
@@ -9,7 +9,7 @@ import { getTestInstance } from "../test-utils/test-instance";
 describe("before hook", async () => {
 	describe("context", async () => {
 		const endpoints = {
-			query: createAuthEndpoint(
+			query: createFeatureEndpoint(
 				"/query",
 				{
 					method: "GET",
@@ -18,7 +18,7 @@ describe("before hook", async () => {
 					return c.query;
 				},
 			),
-			body: createAuthEndpoint(
+			body: createFeatureEndpoint(
 				"/body",
 				{
 					method: "POST",
@@ -27,7 +27,7 @@ describe("before hook", async () => {
 					return c.body;
 				},
 			),
-			params: createAuthEndpoint(
+			params: createFeatureEndpoint(
 				"/params",
 				{
 					method: "GET",
@@ -36,7 +36,7 @@ describe("before hook", async () => {
 					return c.params;
 				},
 			),
-			headers: createAuthEndpoint(
+			headers: createFeatureEndpoint(
 				"/headers",
 				{
 					method: "GET",
@@ -50,7 +50,7 @@ describe("before hook", async () => {
 
 		const authContext = init({
 			hooks: {
-				before: createAuthMiddleware(async (c) => {
+				before: createFeatureMiddleware(async (c) => {
 					switch (c.path) {
 						case "/body":
 							return {
@@ -87,7 +87,7 @@ describe("before hook", async () => {
 				}),
 			},
 		});
-		const authEndpoints = toAuthEndpoints(endpoints, authContext);
+		const authEndpoints = toFeatureEndpoints(endpoints, authContext);
 
 		it("should return hook set query", async () => {
 			const res = await authEndpoints.query();
@@ -144,7 +144,7 @@ describe("before hook", async () => {
 
 	describe("response", async () => {
 		const endpoints = {
-			response: createAuthEndpoint(
+			response: createFeatureEndpoint(
 				"/response",
 				{
 					method: "GET",
@@ -153,7 +153,7 @@ describe("before hook", async () => {
 					return { response: true };
 				},
 			),
-			json: createAuthEndpoint(
+			json: createFeatureEndpoint(
 				"/json",
 				{
 					method: "GET",
@@ -166,7 +166,7 @@ describe("before hook", async () => {
 
 		const authContext = init({
 			hooks: {
-				before: createAuthMiddleware(async (c) => {
+				before: createFeatureMiddleware(async (c) => {
 					if (c.path === "/json") {
 						return { before: true };
 					}
@@ -174,7 +174,7 @@ describe("before hook", async () => {
 				}),
 			},
 		});
-		const authEndpoints = toAuthEndpoints(endpoints, authContext);
+		const authEndpoints = toFeatureEndpoints(endpoints, authContext);
 
 		it("should return Response object", async () => {
 			const response = await authEndpoints.response();
@@ -191,7 +191,7 @@ describe("before hook", async () => {
 describe("after hook", async () => {
 	describe("response", async () => {
 		const endpoints = {
-			changeResponse: createAuthEndpoint(
+			changeResponse: createFeatureEndpoint(
 				"/change-response",
 				{
 					method: "GET",
@@ -202,7 +202,7 @@ describe("after hook", async () => {
 					};
 				},
 			),
-			throwError: createAuthEndpoint(
+			throwError: createFeatureEndpoint(
 				"/throw-error",
 				{
 					method: "POST",
@@ -216,7 +216,7 @@ describe("after hook", async () => {
 					throw c.error("BAD_REQUEST");
 				},
 			),
-			multipleHooks: createAuthEndpoint(
+			multipleHooks: createFeatureEndpoint(
 				"/multi-hooks",
 				{
 					method: "GET",
@@ -239,7 +239,7 @@ describe("after hook", async () => {
 								matcher() {
 									return true;
 								},
-								handler: createAuthMiddleware(async (c) => {
+								handler: createFeatureMiddleware(async (c) => {
 									if (c.path === "/multi-hooks") {
 										return {
 											return: "3",
@@ -252,7 +252,7 @@ describe("after hook", async () => {
 				},
 			],
 			hooks: {
-				after: createAuthMiddleware(async (c) => {
+				after: createFeatureMiddleware(async (c) => {
 					if (c.path === "/change-response") {
 						return {
 							hello: "auth",
@@ -272,7 +272,7 @@ describe("after hook", async () => {
 			},
 		});
 
-		const api = toAuthEndpoints(endpoints, authContext);
+		const api = toFeatureEndpoints(endpoints, authContext);
 
 		it("should change the response object from `hello:world` to `hello:auth`", async () => {
 			const response = await api.changeResponse();
@@ -309,7 +309,7 @@ describe("after hook", async () => {
 
 	describe("cookies", async () => {
 		const endpoints = {
-			cookies: createAuthEndpoint(
+			cookies: createFeatureEndpoint(
 				"/cookies",
 				{
 					method: "POST",
@@ -319,7 +319,7 @@ describe("after hook", async () => {
 					return { hello: "world" };
 				},
 			),
-			cookieOverride: createAuthEndpoint(
+			cookieOverride: createFeatureEndpoint(
 				"/cookie",
 				{
 					method: "GET",
@@ -328,7 +328,7 @@ describe("after hook", async () => {
 					c.setCookie("data", "1");
 				},
 			),
-			noCookie: createAuthEndpoint(
+			noCookie: createFeatureEndpoint(
 				"/no-cookie",
 				{
 					method: "GET",
@@ -339,14 +339,14 @@ describe("after hook", async () => {
 
 		const authContext = init({
 			hooks: {
-				after: createAuthMiddleware(async (c) => {
+				after: createFeatureMiddleware(async (c) => {
 					c.setHeader("key", "value");
 					c.setCookie("data", "2");
 				}),
 			},
 		});
 
-		const authEndpoints = toAuthEndpoints(endpoints, authContext);
+		const authEndpoints = toFeatureEndpoints(endpoints, authContext);
 
 		it("set cookies from both hook", async () => {
 			const result = await authEndpoints.cookies({
