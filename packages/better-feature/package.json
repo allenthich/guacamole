@@ -1,6 +1,6 @@
 {
   "name": "better-feature",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Feature plugin library for TypeScript.",
   "type": "module",
   "repository": {
