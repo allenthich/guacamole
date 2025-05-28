@@ -40,7 +40,7 @@ type InferResolvedHooks<O extends ClientOptions> = O["plugins"] extends Array<
 		: {}
 	: {};
 
-export function createAuthClient<Option extends ClientOptions>(
+export function createFeatureClient<Option extends ClientOptions>(
 	options?: Option,
 ) {
 	const {

@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import { generateRandomString } from "../crypto/random";
 import { afterAll } from "vitest";
 import { betterFeature } from "../feature";
-import { createAuthClient } from "../client/vanilla";
+import { createFeatureClient } from "../client/vanilla";
 import type { BetterFeatureOptions, ClientOptions } from "../types";
 import { getMigrations } from "../db/get-migration";
 import type { SuccessContext } from "@better-fetch/fetch";
@@ -234,7 +234,7 @@ export async function getTestInstance<
 		};
 	}
 
-	const client = createAuthClient({
+	const client = createFeatureClient({
 		...(config?.clientOptions as C extends undefined ? {} : C),
 		baseURL: getBaseURL(
 			options?.baseURL || "http://localhost:" + (config?.port || 3000),

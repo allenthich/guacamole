@@ -188,7 +188,7 @@ const getDefaultAuthClientConfig = async ({
 
 	return await prettierFormat(
 		[
-			`import { createAuthClient } from "better-feature/${
+			`import { createFeatureClient } from "better-feature/${
 				framework === "nextjs"
 					? "react"
 					: framework === "vanilla"
@@ -198,7 +198,7 @@ const getDefaultAuthClientConfig = async ({
 			`import type { auth } from "${auth_config_path}";`,
 			importString,
 			``,
-			`export const authClient = createAuthClient({`,
+			`export const authClient = createFeatureClient({`,
 			`baseURL: "http://localhost:3000",`,
 			`plugins: [inferAdditionalFields<typeof auth>(),${clientPlugins
 				.map((x) => `${x.name}(${x.contents})`)

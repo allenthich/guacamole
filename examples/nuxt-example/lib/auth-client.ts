@@ -1,6 +1,6 @@
-import { createAuthClient } from "better-feature/vue";
+import { createFeatureClient } from "better-feature/vue";
 
-export const authClient = createAuthClient();
+export const authClient = createFeatureClient();
 
 export const {
 	signIn,

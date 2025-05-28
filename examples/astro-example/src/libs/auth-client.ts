@@ -1,6 +1,6 @@
 import { passkeyClient, twoFactorClient } from "better-feature/client/plugins";
-import { createAuthClient } from "better-feature/solid";
-import { createAuthClient as createVanillaClient } from "better-feature/client";
+import { createFeatureClient } from "better-feature/solid";
+import { createFeatureClient as createVanillaClient } from "better-feature/client";
 export const {
 	signIn,
 	signOut,
@@ -14,7 +14,7 @@ export const {
 	changePassword,
 	revokeSession,
 	revokeSessions,
-} = createAuthClient({
+} = createFeatureClient({
 	baseURL:
 		process.env.NODE_ENV === "development"
 			? "http://localhost:3000"

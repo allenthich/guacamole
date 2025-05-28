@@ -1,8 +1,8 @@
-import { createAuthClient } from "better-feature/react";
+import { createFeatureClient } from "better-feature/react";
 import { testerClient } from "better-feature/client/plugins";
 import { toast } from "sonner";
 
-export const client = createAuthClient({
+export const client = createFeatureClient({
 	plugins: [testerClient()],
 	fetchOptions: {
 		onError(e) {

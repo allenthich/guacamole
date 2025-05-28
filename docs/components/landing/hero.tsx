@@ -30,7 +30,7 @@ const tabs: { name: "auth.ts" | "client.ts"; code: string }[] = [
 	},
 	{
 		name: "client.ts",
-		code: `const client = createAuthClient({
+		code: `const client = createFeatureClient({
     plugins: [passkeyClient()]
 });
         `,

@@ -69,7 +69,7 @@ ${
 		{
 			id: "2",
 			name: "auth-client.ts",
-			content: `import { createAuthClient } from "better-feature/react";
+			content: `import { createFeatureClient } from "better-feature/react";
 			${
 				options.magicLink || options.passkey
 					? `import { ${options.magicLink ? "magicLinkClient, " : ""}, ${
@@ -78,7 +78,7 @@ ${
 					: ""
 			}
 
-			export const authClient = createAuthClient({
+			export const authClient = createFeatureClient({
 				baseURL: process.env.NEXT_PUBLIC_APP_URL,
 				${
 					options.magicLink || options.passkey
