@@ -1,6 +1,5 @@
 {
     "name": "@better-feature/root",
-    "private": true,
     "type": "module",
     "version": "0.0.1",
     "packageManager": "pnpm@9.15.0",
