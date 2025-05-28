@@ -1,11 +1,11 @@
 {
   "name": "@better-feature/cli",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "The CLI for Better Feature",
   "module": "dist/index.mjs",
   "repository": {
     "type": "git",
-    "repository": "https://github.com/allenthich/better-feature",
+    "repository": "https://github.com/allenthich/better-feature.git",
     "directory": "packages/cli"
   },
   "main": "./dist/index.mjs",

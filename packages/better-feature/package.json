@@ -1,11 +1,11 @@
 {
   "name": "better-feature",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Feature plugin library for TypeScript.",
   "type": "module",
   "repository": {
     "type": "git",
-    "repository": "https://github.com/allenthich/better-feature",
+    "repository": "https://github.com/allenthich/better-feature.git",
     "directory": "packages/better-feature"
   },
   "keywords": [
