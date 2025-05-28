@@ -5,6 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
+    "repository": "https://github.com/allenthich/better-feature",
     "directory": "packages/better-feature"
   },
   "keywords": [

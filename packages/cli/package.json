@@ -5,6 +5,7 @@
   "module": "dist/index.mjs",
   "repository": {
     "type": "git",
+    "repository": "https://github.com/allenthich/better-feature",
     "directory": "packages/cli"
   },
   "main": "./dist/index.mjs",
