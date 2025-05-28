@@ -1,6 +1,6 @@
 import { safeJSONParse } from "../../utils/json";
 import { withApplyDefault } from "../utils";
-import { getAuthTables } from "../../db/get-tables";
+import { getFeatureTables } from "../../db/get-tables";
 import type { Adapter, BetterFeatureOptions, Where } from "../../types";
 import { generateId as defaultGenerateId, logger } from "../../utils";
 import type {
@@ -73,7 +73,7 @@ export const createAdapter =
 		}
 
 		// End-user's Better-Auth instance's schema
-		const schema = getAuthTables(options);
+		const schema = getFeatureTables(options);
 
 		/**
 		 * This function helps us get the default field name from the schema defined by devs.
@@ -897,7 +897,7 @@ export const createAdapter =
 			},
 			createSchema: adapterInstance.createSchema
 				? async (_, file) => {
-						const tables = getAuthTables(options);
+						const tables = getFeatureTables(options);
 
 						if (
 							options.rateLimit &&

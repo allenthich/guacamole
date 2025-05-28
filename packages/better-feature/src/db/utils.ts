@@ -1,4 +1,4 @@
-import { getAuthTables, type FieldAttribute } from ".";
+import { getFeatureTables, type FieldAttribute } from ".";
 import { BetterFeatureError } from "../error";
 import type { Adapter, BetterFeatureOptions } from "../types";
 import { createKyselyAdapter } from "../adapters/kysely-adapter/dialect";
@@ -10,7 +10,7 @@ export async function getAdapter(
 	options: BetterFeatureOptions,
 ): Promise<Adapter> {
 	if (!options.database) {
-		const tables = getAuthTables(options);
+		const tables = getFeatureTables(options);
 		const memoryDB = Object.keys(tables).reduce((acc, key) => {
 			// @ts-ignore
 			acc[key] = [];

@@ -1,10 +1,10 @@
 import { ObjectId, type Db } from "mongodb";
-import { getAuthTables } from "../../db";
+import { getFeatureTables } from "../../db";
 import type { Adapter, BetterFeatureOptions, Where } from "../../types";
 import { withApplyDefault } from "../utils";
 
 const createTransform = (options: BetterFeatureOptions) => {
-	const schema = getAuthTables(options);
+	const schema = getFeatureTables(options);
 	/**
 	 * if custom id gen is provided we don't want to override with object id
 	 */

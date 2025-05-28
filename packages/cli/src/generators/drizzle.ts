@@ -1,5 +1,5 @@
 import {
-	getAuthTables,
+	getFeatureTables,
 	type BetterAuthDbSchema,
 	type FieldAttribute,
 } from "better-feature/db";
@@ -15,7 +15,7 @@ export const generateDrizzleSchema: SchemaGenerator = async ({
 	file,
 	adapter,
 }) => {
-	const tables = getAuthTables(options);
+	const tables = getFeatureTables(options);
 	const filePath = file || "./auth-schema.ts";
 	const databaseType: "sqlite" | "mysql" | "pg" | undefined =
 		adapter.options?.provider;

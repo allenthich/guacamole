@@ -1,6 +1,6 @@
 import { defu } from "defu";
 import { createInternalAdapter, getMigrations } from "./db";
-import { getAuthTables } from "./db/get-tables";
+import { getFeatureTables } from "./db/get-tables";
 import { getAdapter } from "./db/utils";
 import type {
 	Adapter,
@@ -45,7 +45,7 @@ export const init = async (options: BetterFeatureOptions) => {
 		basePath: options.basePath || "/api/auth",
 		plugins: plugins.concat(internalPlugins),
 	};
-	const tables = getAuthTables(options);
+	const tables = getFeatureTables(options);
 	const generateIdFunc: FeatureContext["generateId"] = ({ size }) => {
 		if (typeof options.advanced?.generateId === "function") {
 			return options.advanced.generateId({ size });
@@ -115,7 +115,7 @@ export type FeatureContext = {
 		size?: number;
 	}) => string;
 	secondaryStorage: SecondaryStorage | undefined;
-	tables: ReturnType<typeof getAuthTables>;
+	tables: ReturnType<typeof getFeatureTables>;
 	runMigrations: () => Promise<void>;
 };
 
