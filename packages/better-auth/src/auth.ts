@@ -17,8 +17,8 @@ export type WithJsDoc<T, D> = Expand<T & D>;
 export const betterFeature = <O extends BetterFeatureOptions>(
 	options: O & Record<never, never>,
 ) => {
-	const authContext = init(options as O);
-	const { api } = getEndpoints(authContext, options as O);
+	const featureContext = init(options as O);
+	const { api } = getEndpoints(featureContext, options as O);
 	const errorCodes = options.plugins?.reduce((acc, plugin) => {
 		if (plugin.$ERROR_CODES) {
 			return {
@@ -30,7 +30,7 @@ export const betterFeature = <O extends BetterFeatureOptions>(
 	}, {});
 	return {
 		handler: async (request: Request) => {
-			const ctx = await authContext;
+			const ctx = await featureContext;
 			const basePath = ctx.options.basePath || "/api/auth";
 			if (!ctx.options.baseURL) {
 				const baseURL = getBaseURL(undefined, basePath, request);
@@ -56,7 +56,7 @@ export const betterFeature = <O extends BetterFeatureOptions>(
 		},
 		api: api as InferAPI<typeof api>,
 		options: options as O,
-		$context: authContext,
+		$context: featureContext,
 		$Infer: {} as InferPluginTypes<O>,
 		$ERROR_CODES: {
 			...errorCodes,

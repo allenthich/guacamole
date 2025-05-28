@@ -34,11 +34,11 @@ export function toFeatureEndpoints<E extends Record<string, FeatureEndpoint>>(
 
 	for (const [key, endpoint] of Object.entries(endpoints)) {
 		api[key] = async (context) => {
-			const authContext = await ctx;
+			const featureContext = await ctx;
 			let internalContext: InternalContext = {
 				...context,
 				context: {
-					...authContext,
+					...featureContext,
 					returned: undefined,
 					responseHeaders: undefined,
 					session: null,
@@ -46,7 +46,7 @@ export function toFeatureEndpoints<E extends Record<string, FeatureEndpoint>>(
 				path: endpoint.path,
 				headers: context?.headers ? new Headers(context?.headers) : undefined,
 			};
-			const { beforeHooks, afterHooks } = getHooks(authContext);
+			const { beforeHooks, afterHooks } = getHooks(featureContext);
 			const before = await runBeforeHooks(internalContext, beforeHooks);
 			/**
 			 * If `before.context` is returned, it should
@@ -211,8 +211,8 @@ async function runAfterHooks(
 	};
 }
 
-function getHooks(authContext: FeatureContext) {
-	const plugins = authContext.options.plugins || [];
+function getHooks(featureContext: FeatureContext) {
+	const plugins = featureContext.options.plugins || [];
 	const beforeHooks: {
 		matcher: (context: HookEndpointContext) => boolean;
 		handler: FeatureMiddleware;
@@ -221,16 +221,16 @@ function getHooks(authContext: FeatureContext) {
 		matcher: (context: HookEndpointContext) => boolean;
 		handler: FeatureMiddleware;
 	}[] = [];
-	if (authContext.options.hooks?.before) {
+	if (featureContext.options.hooks?.before) {
 		beforeHooks.push({
 			matcher: () => true,
-			handler: authContext.options.hooks.before,
+			handler: featureContext.options.hooks.before,
 		});
 	}
-	if (authContext.options.hooks?.after) {
+	if (featureContext.options.hooks?.after) {
 		afterHooks.push({
 			matcher: () => true,
-			handler: authContext.options.hooks.after,
+			handler: featureContext.options.hooks.after,
 		});
 	}
 	const pluginBeforeHooks = plugins
