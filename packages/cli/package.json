@@ -20,7 +20,7 @@
       "./dist/index.mjs"
     ],
     "access": "public",
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org"
   },
   "exports": "./dist/index.mjs",
   "bin": "./dist/index.mjs",

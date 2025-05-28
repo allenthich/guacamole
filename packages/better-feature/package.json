@@ -31,7 +31,7 @@
       "./dist/index.cjs"
     ],
     "access": "public",
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
