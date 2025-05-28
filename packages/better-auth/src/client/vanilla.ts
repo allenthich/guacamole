@@ -1,7 +1,7 @@
 import { getClientConfig } from "./config";
 import { capitalizeFirstLetter } from "../utils/misc";
 import type {
-	BetterAuthClientPlugin,
+	BetterFeatureClientPlugin,
 	ClientOptions,
 	InferActions,
 	InferClientAPI,
@@ -20,7 +20,7 @@ import type { BASE_ERROR_CODES } from "../error/codes";
 type InferResolvedHooks<O extends ClientOptions> = O["plugins"] extends Array<
 	infer Plugin
 >
-	? Plugin extends BetterAuthClientPlugin
+	? Plugin extends BetterFeatureClientPlugin
 		? Plugin["getAtoms"] extends (fetch: any) => infer Atoms
 			? Atoms extends Record<string, any>
 				? {

@@ -6,7 +6,7 @@ import { generateId } from "../utils";
 import type {
 	Adapter,
 	AuthContext,
-	BetterAuthOptions,
+	BetterFeatureOptions,
 	GenericEndpointContext,
 	Where,
 } from "../types";
@@ -14,8 +14,8 @@ import type {
 export const createInternalAdapter = (
 	adapter: Adapter,
 	ctx: {
-		options: BetterAuthOptions;
-		hooks: Exclude<BetterAuthOptions["databaseHooks"], undefined>[];
+		options: BetterFeatureOptions;
+		hooks: Exclude<BetterFeatureOptions["databaseHooks"], undefined>[];
 		generateId: AuthContext["generateId"];
 	},
 ) => {

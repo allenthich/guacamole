@@ -1,6 +1,6 @@
 import { atom } from "nanostores";
 import type { tester } from ".";
-import type { BetterAuthClientPlugin } from "../../client/types";
+import type { BetterFeatureClientPlugin } from "../../client/types";
 import { useAuthQuery } from "../../client";
 import type { Tester } from "./schema";
 
@@ -32,5 +32,5 @@ export const testerClient = () => {
 				signal: "$listTestersSignal",
 			},
 		],
-	} satisfies BetterAuthClientPlugin;
+	} satisfies BetterFeatureClientPlugin;
 };

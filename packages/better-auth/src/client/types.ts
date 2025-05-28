@@ -3,7 +3,7 @@ import type {
 	BetterFetchOption,
 	BetterFetchPlugin,
 } from "@better-fetch/fetch";
-import type { BetterAuthPlugin } from "../types/plugins";
+import type { BetterFeaturePlugin } from "../types/plugins";
 import type { Atom, WritableAtom } from "nanostores";
 import type {
 	LiteralString,
@@ -25,13 +25,13 @@ export interface Store {
 	atoms: Record<string, WritableAtom<any>>;
 }
 
-export interface BetterAuthClientPlugin {
+export interface BetterFeatureClientPlugin {
 	id: LiteralString;
 	/**
 	 * only used for type inference. don't pass the
 	 * actual plugin
 	 */
-	$InferServerPlugin?: BetterAuthPlugin;
+	$InferServerPlugin?: BetterFeaturePlugin;
 	/**
 	 * Custom actions
 	 */
@@ -67,7 +67,7 @@ export interface BetterAuthClientPlugin {
 
 export interface ClientOptions {
 	fetchOptions?: BetterFetchOption;
-	plugins?: BetterAuthClientPlugin[];
+	plugins?: BetterFeatureClientPlugin[];
 	baseURL?: string;
 	basePath?: string;
 	disableDefaultFetchPlugins?: boolean;
@@ -97,7 +97,7 @@ export type InferActions<O extends ClientOptions> = O["plugins"] extends Array<
 	infer Plugin
 >
 	? UnionToIntersection<
-			Plugin extends BetterAuthClientPlugin
+			Plugin extends BetterFeatureClientPlugin
 				? Plugin["getActions"] extends (...args: any) => infer Actions
 					? Actions
 					: {}
@@ -108,8 +108,8 @@ export type InferActions<O extends ClientOptions> = O["plugins"] extends Array<
 export type InferErrorCodes<O extends ClientOptions> =
 	O["plugins"] extends Array<infer Plugin>
 		? UnionToIntersection<
-				Plugin extends BetterAuthClientPlugin
-					? Plugin["$InferServerPlugin"] extends BetterAuthPlugin
+				Plugin extends BetterFeatureClientPlugin
+					? Plugin["$InferServerPlugin"] extends BetterFeaturePlugin
 						? Plugin["$InferServerPlugin"]["$ERROR_CODES"]
 						: {}
 					: {}
@@ -122,7 +122,7 @@ export type InferErrorCodes<O extends ClientOptions> =
 export type IsSignal<T> = T extends `$${infer _}` ? true : false;
 
 export type InferPluginsFromClient<O extends ClientOptions> =
-	O["plugins"] extends Array<BetterAuthClientPlugin>
+	O["plugins"] extends Array<BetterFeatureClientPlugin>
 		? Array<O["plugins"][number]["$InferServerPlugin"]>
 		: undefined;
 
@@ -131,7 +131,7 @@ export type InferAdditionalFromClient<
 	Key extends string,
 	Format extends "input" | "output" = "output",
 > = Options["plugins"] extends Array<infer T>
-	? T extends BetterAuthClientPlugin
+	? T extends BetterFeatureClientPlugin
 		? T["$InferServerPlugin"] extends {
 				schema: {
 					[key in Key]: {

@@ -1,7 +1,7 @@
 import { safeJSONParse } from "../../utils/json";
 import { withApplyDefault } from "../../adapters/utils";
 import { getAuthTables } from "../../db/get-tables";
-import type { Adapter, BetterAuthOptions, Where } from "../../types";
+import type { Adapter, BetterFeatureOptions, Where } from "../../types";
 import { generateId as defaultGenerateId, logger } from "../../utils";
 import type {
 	AdapterConfig,
@@ -53,7 +53,7 @@ export const createAdapter =
 		config: AdapterConfig;
 		adapter: CreateCustomAdapter;
 	}) =>
-	(options: BetterAuthOptions): Adapter => {
+	(options: BetterFeatureOptions): Adapter => {
 		const config = {
 			...cfg,
 			supportsBooleans: cfg.supportsBooleans ?? true,

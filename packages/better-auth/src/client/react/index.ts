@@ -1,6 +1,6 @@
 import { getClientConfig } from "../config";
 import type {
-	BetterAuthClientPlugin,
+	BetterFeatureClientPlugin,
 	ClientOptions,
 	InferActions,
 	InferClientAPI,
@@ -23,7 +23,7 @@ export function capitalizeFirstLetter(str: string) {
 type InferResolvedHooks<O extends ClientOptions> = O["plugins"] extends Array<
 	infer Plugin
 >
-	? Plugin extends BetterAuthClientPlugin
+	? Plugin extends BetterFeatureClientPlugin
 		? Plugin["getAtoms"] extends (fetch: any) => infer Atoms
 			? Atoms extends Record<string, any>
 				? {

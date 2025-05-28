@@ -1,8 +1,8 @@
 import type { Adapter } from "../../../types";
-import type { BetterAuthOptions } from "../../../types";
+import type { BetterFeatureOptions } from "../../../types";
 
 export const createTestOptions = (
-	adapter: (options: BetterAuthOptions) => Adapter,
+	adapter: (options: BetterFeatureOptions) => Adapter,
 	useNumberId = false,
 ) =>
 	({
@@ -24,4 +24,4 @@ export const createTestOptions = (
 				useNumberId,
 			},
 		},
-	}) satisfies BetterAuthOptions;
+	}) satisfies BetterFeatureOptions;

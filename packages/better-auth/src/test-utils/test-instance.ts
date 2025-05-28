@@ -1,11 +1,10 @@
 import fs from "fs/promises";
 import { generateRandomString } from "../crypto/random";
 import { afterAll } from "vitest";
-import { betterAuth } from "../auth";
+import { betterFeature } from "../auth";
 import { createAuthClient } from "../client/vanilla";
-import type { BetterAuthOptions, ClientOptions, Session, User } from "../types";
+import type { BetterFeatureOptions, ClientOptions } from "../types";
 import { getMigrations } from "../db/get-migration";
-import { parseSetCookieHeader, setCookieToHeader } from "../cookies";
 import type { SuccessContext } from "@better-fetch/fetch";
 import { getAdapter } from "../db/utils";
 import Database from "better-sqlite3";
@@ -15,10 +14,9 @@ import { Pool } from "pg";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "../adapters/mongodb-adapter";
 import { createPool } from "mysql2/promise";
-import { bearer } from "../plugins";
 
 export async function getTestInstance<
-	O extends Partial<BetterAuthOptions>,
+	O extends Partial<BetterFeatureOptions>,
 	C extends ClientOptions,
 >(
 	options?: O,
@@ -92,9 +90,9 @@ export async function getTestInstance<
 		advanced: {
 			cookies: {},
 		},
-	} satisfies BetterAuthOptions;
+	} satisfies BetterFeatureOptions;
 
-	const auth = betterAuth({
+	const auth = betterFeature({
 		baseURL: "http://localhost:" + (config?.port || 3000),
 		...opts,
 		...options,

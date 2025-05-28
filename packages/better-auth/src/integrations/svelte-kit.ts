@@ -1,8 +1,8 @@
-import type { BetterAuthOptions } from "../types";
+import type { BetterFeatureOptions } from "../types";
 
 export const toSvelteKitHandler = (auth: {
 	handler: (request: Request) => any;
-	options: BetterAuthOptions;
+	options: BetterFeatureOptions;
 }) => {
 	return (event: { request: Request }) => auth.handler(event.request);
 };
@@ -14,7 +14,7 @@ export const svelteKitHandler = async ({
 }: {
 	auth: {
 		handler: (request: Request) => any;
-		options: BetterAuthOptions;
+		options: BetterFeatureOptions;
 	};
 	event: { request: Request; url: URL };
 	resolve: (event: any) => any;
@@ -33,7 +33,7 @@ export const svelteKitHandler = async ({
 	return resolve(event);
 };
 
-export function isAuthPath(url: string, options: BetterAuthOptions) {
+export function isAuthPath(url: string, options: BetterFeatureOptions) {
 	const _url = new URL(url);
 	const baseURL = new URL(
 		`${options.baseURL || _url.origin}${options.basePath || "/api/auth"}`,

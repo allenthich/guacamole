@@ -1,10 +1,10 @@
 // import { expect, test, describe, beforeAll } from "vitest";
-// import type { Adapter, BetterAuthOptions } from "../types";
+// import type { Adapter, BetterFeatureOptions } from "../types";
 // import { generateId } from "../utils";
 
 // interface AdapterTestOptions {
 // 	getAdapter: (
-// 		customOptions?: Omit<BetterAuthOptions, "database">,
+// 		customOptions?: Omit<BetterFeatureOptions, "database">,
 // 	) => Promise<Adapter>;
 // 	disableTests?: Partial<Record<keyof typeof adapterTests, boolean>>;
 // 	testPrefix?: string;
@@ -12,7 +12,7 @@
 
 // interface NumberIdAdapterTestOptions {
 // 	getAdapter: (
-// 		customOptions?: Omit<BetterAuthOptions, "database">,
+// 		customOptions?: Omit<BetterFeatureOptions, "database">,
 // 	) => Promise<Adapter>;
 // 	disableTests?: Partial<Record<keyof typeof numberIdAdapterTests, boolean>>;
 // 	testPrefix?: string;
@@ -63,7 +63,7 @@
 // async function adapterTest(
 // 	{ getAdapter, disableTests: disabledTests, testPrefix }: AdapterTestOptions,
 // 	internalOptions?: {
-// 		predefinedOptions: Omit<BetterAuthOptions, "database">;
+// 		predefinedOptions: Omit<BetterFeatureOptions, "database">;
 // 	},
 // ) {
 // 	const adapter = async () =>
@@ -752,7 +752,7 @@
 // 								generateId: () => "mocked-id",
 // 							},
 // 						},
-// 					} satisfies BetterAuthOptions,
+// 					} satisfies BetterFeatureOptions,
 // 					internalOptions?.predefinedOptions,
 // 				),
 // 			);

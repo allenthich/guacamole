@@ -15,7 +15,7 @@ import {
 	sql,
 	SQL,
 } from "drizzle-orm";
-import { BetterAuthError } from "../../error";
+import { BetterFeatureError } from "../../error";
 import type { Where } from "../../types";
 import { createAdapter, type AdapterDebugLogs } from "../create-adapter";
 
@@ -58,13 +58,13 @@ export const drizzleAdapter = (db: DB, config: DrizzleAdapterConfig) =>
 			function getSchema(model: string) {
 				const schema = config.schema || db._.fullSchema;
 				if (!schema) {
-					throw new BetterAuthError(
+					throw new BetterFeatureError(
 						"Drizzle adapter failed to initialize. Schema not found. Please provide a schema object in the adapter options object.",
 					);
 				}
 				const schemaModel = schema[model];
 				if (!schemaModel) {
-					throw new BetterAuthError(
+					throw new BetterFeatureError(
 						`[# Drizzle Adapter]: The model "${model}" was not found in the schema object. Please pass the schema directly to the adapter options.`,
 					);
 				}
@@ -120,7 +120,7 @@ export const drizzleAdapter = (db: DB, config: DrizzleAdapterConfig) =>
 					// If the user doesn't have `id` as a field, then this will fail.
 					// We expect that they defined `id` in all of their models.
 					if (!("id" in schemaModel)) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`The model "${model}" does not have an "id" field. Please use the "id" field as your primary key.`,
 						);
 					}
@@ -143,13 +143,13 @@ export const drizzleAdapter = (db: DB, config: DrizzleAdapterConfig) =>
 					}
 					const field = getFieldName({ model, field: w.field });
 					if (!schemaModel[field]) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`The field "${w.field}" does not exist in the schema for the model "${model}". Please update your schema.`,
 						);
 					}
 					if (w.operator === "in") {
 						if (!Array.isArray(w.value)) {
-							throw new BetterAuthError(
+							throw new BetterFeatureError(
 								`The value for the field "${w.field}" must be an array when using the "in" operator.`,
 							);
 						}
@@ -200,7 +200,7 @@ export const drizzleAdapter = (db: DB, config: DrizzleAdapterConfig) =>
 						const field = getFieldName({ model, field: w.field });
 						if (w.operator === "in") {
 							if (!Array.isArray(w.value)) {
-								throw new BetterAuthError(
+								throw new BetterFeatureError(
 									`The value for the field "${w.field}" must be an array when using the "in" operator.`,
 								);
 							}
@@ -228,13 +228,13 @@ export const drizzleAdapter = (db: DB, config: DrizzleAdapterConfig) =>
 				values: Record<string, any>,
 			) {
 				if (!schema) {
-					throw new BetterAuthError(
+					throw new BetterFeatureError(
 						"Drizzle adapter failed to initialize. Schema not found. Please provide a schema object in the adapter options object.",
 					);
 				}
 				for (const key in values) {
 					if (!schema[key]) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`The field "${key}" does not exist in the "${model}" schema. Please update your drizzle schema or re-generate using "npx @better-auth/cli generate".`,
 						);
 					}

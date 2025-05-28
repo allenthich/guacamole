@@ -8,7 +8,7 @@ import type {
 	UnionToIntersection,
 } from "../types/helper";
 
-import type { AuthContext, BetterAuthOptions } from ".";
+import type { AuthContext, BetterFeatureOptions } from ".";
 import type { Endpoint, Middleware } from "better-call";
 
 export type AuthPluginSchema = {
@@ -21,7 +21,7 @@ export type AuthPluginSchema = {
 	};
 };
 
-export type BetterAuthPlugin = {
+export type BetterFeaturePlugin = {
 	id: LiteralString;
 	/**
 	 * The init function is called when the plugin is initialized.
@@ -29,7 +29,7 @@ export type BetterAuthPlugin = {
 	 */
 	init?: (ctx: AuthContext) => {
 		context?: DeepPartial<Omit<AuthContext, "options">>;
-		options?: Partial<BetterAuthOptions>;
+		options?: Partial<BetterFeatureOptions>;
 	} | void;
 	endpoints?: {
 		[key: string]: Endpoint;
@@ -138,10 +138,10 @@ export type InferOptionSchema<S extends AuthPluginSchema> = S extends Record<
 		}
 	: never;
 
-export type InferPluginErrorCodes<O extends BetterAuthOptions> =
+export type InferPluginErrorCodes<O extends BetterFeatureOptions> =
 	O["plugins"] extends Array<infer P>
 		? UnionToIntersection<
-				P extends BetterAuthPlugin
+				P extends BetterFeaturePlugin
 					? P["$ERROR_CODES"] extends Record<string, any>
 						? P["$ERROR_CODES"]
 						: {}

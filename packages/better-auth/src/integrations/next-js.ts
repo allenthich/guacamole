@@ -1,4 +1,4 @@
-import type { BetterAuthPlugin } from "../types";
+import type { BetterFeaturePlugin } from "../types";
 import { createAuthMiddleware } from "../plugins";
 
 export function toNextJsHandler(
@@ -59,5 +59,5 @@ export const nextCookies = () => {
 				},
 			],
 		},
-	} satisfies BetterAuthPlugin;
+	} satisfies BetterFeaturePlugin;
 };

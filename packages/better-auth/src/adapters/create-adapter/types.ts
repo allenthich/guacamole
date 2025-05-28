@@ -1,8 +1,8 @@
 import type { FieldAttribute } from "../../db";
-import type { BetterAuthDbSchema } from "../../db/get-tables";
+import type { BetterFeatureDbSchema } from "../../db/get-tables";
 import type {
 	AdapterSchemaCreation,
-	BetterAuthOptions,
+	BetterFeatureOptions,
 	Where,
 } from "../../types";
 import type { Prettify } from "../../types/helper";
@@ -164,11 +164,11 @@ export interface AdapterConfig {
 		/**
 		 * The schema of the user's Better-Auth instance.
 		 */
-		schema: BetterAuthDbSchema;
+		schema: BetterFeatureDbSchema;
 		/**
 		 * The options of the user's Better-Auth instance.
 		 */
-		options: BetterAuthOptions;
+		options: BetterFeatureOptions;
 	}) => any;
 	/**
 	 * Custom transform output function.
@@ -196,11 +196,11 @@ export interface AdapterConfig {
 		/**
 		 * The schema of the user's Better-Auth instance.
 		 */
-		schema: BetterAuthDbSchema;
+		schema: BetterFeatureDbSchema;
 		/**
 		 * The options of the user's Better-Auth instance.
 		 */
-		options: BetterAuthOptions;
+		options: BetterFeatureOptions;
 	}) => any;
 	/**
 	 * Custom ID generator function.
@@ -234,11 +234,11 @@ export type CreateCustomAdapter = ({
 	getDefaultModelName,
 	getDefaultFieldName,
 }: {
-	options: BetterAuthOptions;
+	options: BetterFeatureOptions;
 	/**
 	 * The schema of the user's Better-Auth instance.
 	 */
-	schema: BetterAuthDbSchema;
+	schema: BetterFeatureDbSchema;
 	/**
 	 * The debug log function.
 	 *
@@ -363,7 +363,7 @@ export interface CustomAdapter {
 		/**
 		 * The tables from the user's Better-Auth instance schema.
 		 */
-		tables: BetterAuthDbSchema;
+		tables: BetterFeatureDbSchema;
 	}) => Promise<AdapterSchemaCreation>;
 	/**
 	 * Your adapter's options.

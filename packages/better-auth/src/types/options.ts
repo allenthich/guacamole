@@ -1,6 +1,6 @@
 import type { Dialect, Kysely, MysqlPool, PostgresPool } from "kysely";
 import type { GenericEndpointContext } from "../types";
-import type { BetterAuthPlugin } from "./plugins";
+import type { BetterFeaturePlugin } from "./plugins";
 import type { AdapterInstance, SecondaryStorage } from "./adapter";
 import type { KyselyDatabaseType } from "../adapters/kysely-adapter/types";
 import type { FieldAttribute } from "../db";
@@ -12,7 +12,7 @@ import type { Logger } from "../utils";
 import type { AuthMiddleware } from "../plugins";
 import type { LiteralUnion, OmitId } from "./helper";
 
-export type BetterAuthOptions = {
+export type BetterFeatureOptions = {
 	/**
 	 * The name of the application
 	 *
@@ -108,7 +108,7 @@ export type BetterAuthOptions = {
 	/**
 	 * List of Better Feature plugins
 	 */
-	plugins?: BetterAuthPlugin[];
+	plugins?: BetterFeaturePlugin[];
 	/**
 	 * List of trusted origins.
 	 */

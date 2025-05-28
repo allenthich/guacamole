@@ -1,4 +1,4 @@
-import type { BetterAuthPlugin } from "../types";
+import type { BetterFeaturePlugin } from "../types";
 import { createAuthMiddleware } from "../plugins";
 
 export const reactStartCookies = () => {
@@ -44,5 +44,5 @@ export const reactStartCookies = () => {
 				},
 			],
 		},
-	} satisfies BetterAuthPlugin;
+	} satisfies BetterFeaturePlugin;
 };

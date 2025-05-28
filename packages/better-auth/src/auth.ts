@@ -1,6 +1,6 @@
 import { getEndpoints, router } from "./api";
 import { init } from "./init";
-import type { BetterAuthOptions } from "./types/options";
+import type { BetterFeatureOptions } from "./types/options";
 import type {
 	InferPluginErrorCodes,
 	InferPluginTypes,
@@ -10,11 +10,11 @@ import type { PrettifyDeep, Expand } from "./types/helper";
 import { getBaseURL, getOrigin } from "./utils/url";
 import type { FilterActions, InferAPI } from "./types";
 import { BASE_ERROR_CODES } from "./error/codes";
-import { BetterAuthError } from "./error";
+import { BetterFeatureError } from "./error";
 
 export type WithJsDoc<T, D> = Expand<T & D>;
 
-export const betterAuth = <O extends BetterAuthOptions>(
+export const betterFeature = <O extends BetterFeatureOptions>(
 	options: O & Record<never, never>,
 ) => {
 	const authContext = init(options as O);
@@ -38,7 +38,7 @@ export const betterAuth = <O extends BetterAuthOptions>(
 					ctx.baseURL = baseURL;
 					ctx.options.baseURL = getOrigin(ctx.baseURL) || undefined;
 				} else {
-					throw new BetterAuthError(
+					throw new BetterFeatureError(
 						"Could not get base URL from request. Please provide a valid base URL.",
 					);
 				}
@@ -68,7 +68,7 @@ export const betterAuth = <O extends BetterAuthOptions>(
 export type Auth = {
 	handler: (request: Request) => Promise<Response>;
 	api: FilterActions<ReturnType<typeof router>["endpoints"]>;
-	options: BetterAuthOptions;
+	options: BetterFeatureOptions;
 	$ERROR_CODES: typeof BASE_ERROR_CODES;
 	$context: Promise<AuthContext>;
 };

@@ -1,12 +1,12 @@
 import { env } from "../utils/env";
-import { BetterAuthError } from "../error";
+import { BetterFeatureError } from "../error";
 
 function checkHasPath(url: string): boolean {
 	try {
 		const parsedUrl = new URL(url);
 		return parsedUrl.pathname !== "/";
 	} catch (error) {
-		throw new BetterAuthError(
+		throw new BetterFeatureError(
 			`Invalid base URL: ${url}. Please provide a valid base URL.`,
 		);
 	}
@@ -47,7 +47,7 @@ export function getBaseURL(url?: string, path?: string, request?: Request) {
 	if (request) {
 		const url = getOrigin(request.url);
 		if (!url) {
-			throw new BetterAuthError(
+			throw new BetterFeatureError(
 				"Could not get origin from request. Please provide a valid base URL.",
 			);
 		}

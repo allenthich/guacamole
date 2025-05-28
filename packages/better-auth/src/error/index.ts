@@ -1,13 +1,13 @@
-export class BetterAuthError extends Error {
+export class BetterFeatureError extends Error {
 	constructor(message: string, cause?: string) {
 		super(message);
-		this.name = "BetterAuthError";
+		this.name = "BetterFeatureError";
 		this.message = message;
 		this.cause = cause;
 		this.stack = "";
 	}
 }
-export class MissingDependencyError extends BetterAuthError {
+export class MissingDependencyError extends BetterFeatureError {
 	constructor(pkgName: string) {
 		super(
 			`The package "${pkgName}" is required. Make sure it is installed.`,

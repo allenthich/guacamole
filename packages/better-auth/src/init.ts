@@ -4,8 +4,8 @@ import { getAuthTables } from "./db/get-tables";
 import { getAdapter } from "./db/utils";
 import type {
 	Adapter,
-	BetterAuthOptions,
-	BetterAuthPlugin,
+	BetterFeatureOptions,
+	BetterFeaturePlugin,
 	SecondaryStorage,
 } from "./types";
 import { DEFAULT_SECRET } from "./utils/constants";
@@ -14,9 +14,9 @@ import { generateId } from "./utils";
 import { env, isProduction } from "./utils/env";
 import { getBaseURL } from "./utils/url";
 import type { LiteralUnion } from "./types/helper";
-import { BetterAuthError } from "./error";
+import { BetterFeatureError } from "./error";
 
-export const init = async (options: BetterAuthOptions) => {
+export const init = async (options: BetterFeatureOptions) => {
 	const adapter = await getAdapter(options);
 	const plugins = options.plugins || [];
 	const internalPlugins = getInternalPlugins(options);
@@ -84,7 +84,7 @@ export const init = async (options: BetterAuthOptions) => {
 		async runMigrations() {
 			//only run migrations if database is provided and it's not an adapter
 			if (!options.database || "updateMany" in options.database) {
-				throw new BetterAuthError(
+				throw new BetterFeatureError(
 					"Database is not provided or it's an adapter. Migrations are only supported with a database instance.",
 				);
 			}
@@ -97,7 +97,7 @@ export const init = async (options: BetterAuthOptions) => {
 };
 
 export type AuthContext = {
-	options: BetterAuthOptions;
+	options: BetterFeatureOptions;
 	appName: string;
 	baseURL: string;
 	trustedOrigins: string[];
@@ -107,7 +107,7 @@ export type AuthContext = {
 		window: number;
 		max: number;
 		storage: "memory" | "database" | "secondary-storage";
-	} & BetterAuthOptions["rateLimit"];
+	} & BetterFeatureOptions["rateLimit"];
 	adapter: Adapter;
 	internalAdapter: ReturnType<typeof createInternalAdapter>;
 	secret: string;
@@ -123,7 +123,7 @@ function runPluginInit(ctx: AuthContext) {
 	let options = ctx.options;
 	const plugins = options.plugins || [];
 	let context: AuthContext = ctx;
-	const dbHooks: BetterAuthOptions["databaseHooks"][] = [];
+	const dbHooks: BetterFeatureOptions["databaseHooks"][] = [];
 	for (const plugin of plugins) {
 		if (plugin.init) {
 			const result = plugin.init(ctx);
@@ -155,15 +155,15 @@ function runPluginInit(ctx: AuthContext) {
 	return { context };
 }
 
-function getInternalPlugins(options: BetterAuthOptions) {
-	const plugins: BetterAuthPlugin[] = [];
+function getInternalPlugins(options: BetterFeatureOptions) {
+	const plugins: BetterFeaturePlugin[] = [];
 	if (options.advanced?.crossSubDomainCookies?.enabled) {
 		//TODO: add internal plugin
 	}
 	return plugins;
 }
 
-function getTrustedOrigins(options: BetterAuthOptions) {
+function getTrustedOrigins(options: BetterFeatureOptions) {
 	const baseURL = getBaseURL(options.baseURL, options.basePath);
 	if (!baseURL) {
 		return [];

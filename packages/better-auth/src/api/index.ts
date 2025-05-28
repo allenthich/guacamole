@@ -1,18 +1,18 @@
 import { APIError, type Middleware, createRouter } from "better-call";
 import type { AuthContext } from "../init";
-import type { BetterAuthOptions } from "../types";
+import type { BetterFeatureOptions } from "../types";
 import type { UnionToIntersection } from "../types/helper";
 import { originCheckMiddleware } from "./middlewares/origin-check";
 import { ok } from "./routes/ok";
 import { error } from "./routes/error";
 import { logger } from "../utils/logger";
-import type { BetterAuthPlugin } from "../plugins";
+import type { BetterFeaturePlugin } from "../plugins";
 import { onRequestRateLimit } from "./rate-limiter";
 import { toAuthEndpoints } from "./to-auth-endpoints";
 
 export function getEndpoints<
 	C extends AuthContext,
-	Option extends BetterAuthOptions,
+	Option extends BetterFeatureOptions,
 >(ctx: Promise<C> | C, options: Option) {
 	const pluginEndpoints = options.plugins?.reduce(
 		(acc, plugin) => {
@@ -26,7 +26,7 @@ export function getEndpoints<
 
 	type PluginEndpoint = UnionToIntersection<
 		Option["plugins"] extends Array<infer T>
-			? T extends BetterAuthPlugin
+			? T extends BetterFeaturePlugin
 				? T extends {
 						endpoints: infer E;
 					}
@@ -70,7 +70,10 @@ export function getEndpoints<
 		middlewares,
 	};
 }
-export const router = <C extends AuthContext, Option extends BetterAuthOptions>(
+export const router = <
+	C extends AuthContext,
+	Option extends BetterFeatureOptions,
+>(
 	ctx: C,
 	options: Option,
 ) => {

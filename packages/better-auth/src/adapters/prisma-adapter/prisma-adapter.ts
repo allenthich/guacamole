@@ -1,5 +1,5 @@
 import { createAdapter, type AdapterDebugLogs } from "../create-adapter";
-import { BetterAuthError } from "../../error";
+import { BetterFeatureError } from "../../error";
 import type { Where } from "../../types";
 
 export interface PrismaConfig {
@@ -117,7 +117,7 @@ export const prismaAdapter = (prisma: PrismaClient, config: PrismaConfig) =>
 			return {
 				async create({ model, data: values, select }) {
 					if (!db[model]) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`,
 						);
 					}
@@ -129,7 +129,7 @@ export const prismaAdapter = (prisma: PrismaClient, config: PrismaConfig) =>
 				async findOne({ model, where, select }) {
 					const whereClause = convertWhereClause(model, where);
 					if (!db[model]) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`,
 						);
 					}
@@ -141,7 +141,7 @@ export const prismaAdapter = (prisma: PrismaClient, config: PrismaConfig) =>
 				async findMany({ model, where, limit, offset, sortBy }) {
 					const whereClause = convertWhereClause(model, where);
 					if (!db[model]) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`,
 						);
 					}
@@ -163,7 +163,7 @@ export const prismaAdapter = (prisma: PrismaClient, config: PrismaConfig) =>
 				async count({ model, where }) {
 					const whereClause = convertWhereClause(model, where);
 					if (!db[model]) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`,
 						);
 					}
@@ -173,7 +173,7 @@ export const prismaAdapter = (prisma: PrismaClient, config: PrismaConfig) =>
 				},
 				async update({ model, where, update }) {
 					if (!db[model]) {
-						throw new BetterAuthError(
+						throw new BetterFeatureError(
 							`Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`,
 						);
 					}

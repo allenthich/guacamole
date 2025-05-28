@@ -1,9 +1,9 @@
 import { ObjectId, type Db } from "mongodb";
 import { getAuthTables } from "../../db";
-import type { Adapter, BetterAuthOptions, Where } from "../../types";
+import type { Adapter, BetterFeatureOptions, Where } from "../../types";
 import { withApplyDefault } from "../utils";
 
-const createTransform = (options: BetterAuthOptions) => {
+const createTransform = (options: BetterFeatureOptions) => {
 	const schema = getAuthTables(options);
 	/**
 	 * if custom id gen is provided we don't want to override with object id
@@ -225,7 +225,7 @@ const createTransform = (options: BetterAuthOptions) => {
 	};
 };
 
-export const mongodbAdapter = (db: Db) => (options: BetterAuthOptions) => {
+export const mongodbAdapter = (db: Db) => (options: BetterFeatureOptions) => {
 	const transform = createTransform(options);
 	const hasCustomId = options.advanced?.generateId;
 	return {

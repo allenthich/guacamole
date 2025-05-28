@@ -1,5 +1,5 @@
 import type { ZodSchema } from "zod";
-import type { BetterAuthOptions } from "../types";
+import type { BetterFeatureOptions } from "../types";
 import type { LiteralString } from "../types/helper";
 
 export type FieldType =
@@ -208,7 +208,7 @@ export type PluginFieldAttribute = Omit<
 >;
 
 export type InferFieldsFromPlugins<
-	Options extends BetterAuthOptions,
+	Options extends BetterFeatureOptions,
 	Key extends string,
 	Format extends "output" | "input" = "output",
 > = Options["plugins"] extends Array<infer T>
@@ -226,7 +226,7 @@ export type InferFieldsFromPlugins<
 	: {};
 
 export type InferFieldsFromOptions<
-	Options extends BetterAuthOptions,
+	Options extends BetterFeatureOptions,
 	Key extends keyof Options,
 	Format extends "output" | "input" = "output",
 > = Options[Key] extends {

@@ -1,4 +1,4 @@
-import type { BetterAuthOptions } from "./options";
+import type { BetterFeatureOptions } from "./options";
 
 /**
  * Adapter where clause
@@ -77,7 +77,7 @@ export type Adapter = {
 	 * @param file - file path if provided by the user
 	 */
 	createSchema?: (
-		options: BetterAuthOptions,
+		options: BetterFeatureOptions,
 		file?: string,
 	) => Promise<AdapterSchemaCreation>;
 	options?: Record<string, any>;
@@ -105,7 +105,7 @@ export type AdapterSchemaCreation = {
 };
 
 export interface AdapterInstance {
-	(options: BetterAuthOptions): Adapter;
+	(options: BetterFeatureOptions): Adapter;
 }
 
 export interface SecondaryStorage {

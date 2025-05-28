@@ -5,11 +5,11 @@ import {
 	PostgresDialect,
 	SqliteDialect,
 } from "kysely";
-import type { BetterAuthOptions } from "../../types";
+import type { BetterFeatureOptions } from "../../types";
 import type { KyselyDatabaseType } from "./types";
 
 function getDatabaseType(
-	db: BetterAuthOptions["database"],
+	db: BetterFeatureOptions["database"],
 ): KyselyDatabaseType | null {
 	if (!db) {
 		return null;
@@ -45,7 +45,7 @@ function getDatabaseType(
 	return null;
 }
 
-export const createKyselyAdapter = async (config: BetterAuthOptions) => {
+export const createKyselyAdapter = async (config: BetterFeatureOptions) => {
 	const db = config.database;
 
 	if (!db) {

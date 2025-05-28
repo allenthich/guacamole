@@ -1,10 +1,13 @@
-import type { BetterAuthClientPlugin, BetterAuthOptions } from "../../types";
+import type {
+	BetterFeatureClientPlugin,
+	BetterFeatureOptions,
+} from "../../types";
 
 export const InferServerPlugin = <
 	AuthOrOption extends
-		| BetterAuthOptions
+		| BetterFeatureOptions
 		| {
-				options: BetterAuthOptions;
+				options: BetterFeatureOptions;
 		  },
 	ID extends string,
 >() => {
@@ -19,5 +22,5 @@ export const InferServerPlugin = <
 	return {
 		id: "infer-server-plugin",
 		$InferServerPlugin: {} as Plugin,
-	} satisfies BetterAuthClientPlugin;
+	} satisfies BetterFeatureClientPlugin;
 };

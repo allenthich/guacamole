@@ -1,6 +1,6 @@
 import type {
 	Adapter,
-	BetterAuthOptions,
+	BetterFeatureOptions,
 	GenericEndpointContext,
 	Where,
 } from "../types";
@@ -8,8 +8,8 @@ import type {
 export function getWithHooks(
 	adapter: Adapter,
 	ctx: {
-		options: BetterAuthOptions;
-		hooks: Exclude<BetterAuthOptions["databaseHooks"], undefined>[];
+		options: BetterFeatureOptions;
+		hooks: Exclude<BetterFeatureOptions["databaseHooks"], undefined>[];
 	},
 ) {
 	const hooks = ctx.hooks;

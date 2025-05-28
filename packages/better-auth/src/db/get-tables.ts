@@ -1,7 +1,7 @@
 import type { FieldAttribute } from ".";
-import type { BetterAuthOptions } from "../types";
+import type { BetterFeatureOptions } from "../types";
 
-export type BetterAuthDbSchema = Record<
+export type BetterFeatureDbSchema = Record<
 	string,
 	{
 		/**
@@ -25,8 +25,8 @@ export type BetterAuthDbSchema = Record<
 >;
 
 export const getAuthTables = (
-	options: BetterAuthOptions,
-): BetterAuthDbSchema => {
+	options: BetterFeatureOptions,
+): BetterFeatureDbSchema => {
 	const pluginSchema = options.plugins?.reduce(
 		(acc, plugin) => {
 			const schema = plugin.schema;
@@ -68,12 +68,12 @@ export const getAuthTables = (
 				},
 			},
 		},
-	} satisfies BetterAuthDbSchema;
+	} satisfies BetterFeatureDbSchema;
 
 	const { ...pluginTables } = pluginSchema || {};
 
 	return {
 		...pluginTables,
 		...(shouldAddRateLimitTable ? rateLimitTable : {}),
-	} satisfies BetterAuthDbSchema;
+	} satisfies BetterFeatureDbSchema;
 };

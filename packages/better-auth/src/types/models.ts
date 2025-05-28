@@ -1,11 +1,11 @@
-import type { BetterAuthOptions } from "./options";
+import type { BetterFeatureOptions } from "./options";
 import type { UnionToIntersection } from "./helper";
-import type { BetterAuthPlugin } from "./plugins";
+import type { BetterFeaturePlugin } from "./plugins";
 
-export type InferPluginTypes<O extends BetterAuthOptions> =
+export type InferPluginTypes<O extends BetterFeatureOptions> =
 	O["plugins"] extends Array<infer P>
 		? UnionToIntersection<
-				P extends BetterAuthPlugin
+				P extends BetterFeaturePlugin
 					? P["$Infer"] extends Record<string, any>
 						? P["$Infer"]
 						: {}

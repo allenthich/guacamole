@@ -4,7 +4,7 @@ import type {
 } from "kysely";
 import type { FieldAttribute, FieldType } from ".";
 import { createLogger } from "../utils/logger";
-import type { BetterAuthOptions } from "../types";
+import type { BetterFeatureOptions } from "../types";
 import { createKyselyAdapter } from "../adapters/kysely-adapter/dialect";
 import type { KyselyDatabaseType } from "../adapters/kysely-adapter/types";
 import { getSchema } from "./get-schema";
@@ -75,8 +75,8 @@ export function matchType(
 	return matches;
 }
 
-export async function getMigrations(config: BetterAuthOptions) {
-	const betterAuthSchema = getSchema(config);
+export async function getMigrations(config: BetterFeatureOptions) {
+	const betterFeatureSchema = getSchema(config);
 	const logger = createLogger(config.logger);
 
 	let { kysely: db, databaseType: dbType } = await createKyselyAdapter(config);
@@ -106,7 +106,7 @@ export async function getMigrations(config: BetterAuthOptions) {
 		order: number;
 	}[] = [];
 
-	for (const [key, value] of Object.entries(betterAuthSchema)) {
+	for (const [key, value] of Object.entries(betterFeatureSchema)) {
 		const table = tableMetadata.find((t) => t.name === key);
 		if (!table) {
 			const tIndex = toBeCreated.findIndex((t) => t.table === key);

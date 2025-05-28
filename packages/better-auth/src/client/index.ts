@@ -1,14 +1,14 @@
-import type { BetterAuthPlugin } from "../types";
-import type { BetterAuthClientPlugin } from "./types";
+import type { BetterFeaturePlugin } from "../types";
+import type { BetterFeatureClientPlugin } from "./types";
 export * from "./vanilla";
 export * from "./query";
 export * from "./types";
 
-export const InferPlugin = <T extends BetterAuthPlugin>() => {
+export const InferPlugin = <T extends BetterFeaturePlugin>() => {
 	return {
 		id: "infer-server-plugin",
 		$InferServerPlugin: {} as T,
-	} satisfies BetterAuthClientPlugin;
+	} satisfies BetterFeatureClientPlugin;
 };
 
 //@ts-expect-error

@@ -1,6 +1,6 @@
 import type { FieldAttribute } from ".";
 import type { AuthPluginSchema } from "../types/plugins";
-import type { BetterAuthOptions } from "../types/options";
+import type { BetterFeatureOptions } from "../types/options";
 import { APIError } from "better-call";
 
 export function parseOutputData<T extends Record<string, any>>(
@@ -25,7 +25,7 @@ export function parseOutputData<T extends Record<string, any>>(
 	return parsedData as T;
 }
 
-export function getAllFields(options: BetterAuthOptions, table: string) {
+export function getAllFields(options: BetterFeatureOptions, table: string) {
 	let schema: Record<string, FieldAttribute> = {};
 	for (const plugin of options.plugins || []) {
 		if (plugin.schema && plugin.schema[table]) {

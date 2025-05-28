@@ -1,9 +1,9 @@
-import type { BetterAuthOptions } from "../types";
+import type { BetterFeatureOptions } from "../types";
 import { isTest } from "../utils/env";
 
 export function getIp(
 	req: Request | Headers,
-	options: BetterAuthOptions,
+	options: BetterFeatureOptions,
 ): string | null {
 	if (options.advanced?.ipAddress?.disableIpTracking) {
 		return null;

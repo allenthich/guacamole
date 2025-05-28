@@ -1,7 +1,7 @@
 import { getAuthTables, type FieldAttribute } from ".";
-import type { BetterAuthOptions } from "../types";
+import type { BetterFeatureOptions } from "../types";
 
-export function getSchema(config: BetterAuthOptions) {
+export function getSchema(config: BetterFeatureOptions) {
 	const tables = getAuthTables(config);
 	let schema: Record<
 		string,

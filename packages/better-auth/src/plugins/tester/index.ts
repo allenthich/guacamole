@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createAuthEndpoint, createAuthMiddleware } from "../../api/call";
-import type { BetterAuthPlugin } from "../../types/plugins";
+import type { BetterFeaturePlugin } from "../../types/plugins";
 import { APIError } from "better-call";
 import type { InferOptionSchema } from "../../types";
 import { testerSchema } from "./schema";
@@ -132,5 +132,5 @@ export const tester = (options?: TesterPluginOptions) => {
 		},
 		schema: mergeSchema(testerSchema, options?.schema),
 		hooks: {},
-	} satisfies BetterAuthPlugin;
+	} satisfies BetterFeaturePlugin;
 };
