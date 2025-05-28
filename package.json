@@ -1,8 +1,8 @@
 {
-    "name": "@better-auth/root",
+    "name": "@better-feature/root",
     "private": true,
     "type": "module",
-    "version": "0.0.2-beta.8",
+    "version": "0.0.1",
     "packageManager": "pnpm@9.15.0",
     "scripts": {
         "build": "turbo --filter \"./packages/*\" build",
