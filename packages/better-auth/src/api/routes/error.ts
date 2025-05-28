@@ -84,7 +84,7 @@ const html = (errorCode: string = "Unknown") => `<!DOCTYPE html>
 <body>
     <div class="error-container">
         <div class="icon">⚠️</div>
-        <h1>Better Auth Error</h1>
+        <h1>Better Feature Error</h1>
         <p>We encountered an issue while processing your request. Please try again or contact the application owner if the problem persists.</p>
         <a href="/" id="returnLink" class="btn">Return to Application</a>
         <div class="error-code">Error Code: <span id="errorCode">${sanitize(

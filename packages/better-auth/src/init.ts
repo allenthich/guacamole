@@ -57,7 +57,7 @@ export const init = async (options: BetterAuthOptions) => {
 	};
 
 	const ctx: AuthContext = {
-		appName: options.appName || "Better Auth",
+		appName: options.appName || "Better Feature",
 		options,
 		tables,
 		trustedOrigins: getTrustedOrigins(options),

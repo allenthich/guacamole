@@ -259,7 +259,7 @@ export const createAdapter =
 								let generateId = options.advanced?.database?.generateId;
 								if (options.advanced?.generateId !== undefined) {
 									logger.warn(
-										"Your Better Auth config includes advanced.generateId which is deprecated. Please use advanced.database.generateId instead. This will be removed in future releases.",
+										"Your Better Feature config includes advanced.generateId which is deprecated. Please use advanced.database.generateId instead. This will be removed in future releases.",
 									);
 									generateId = options.advanced?.generateId;
 								}

@@ -18,11 +18,11 @@ export type BetterAuthOptions = {
 	 *
 	 * process.env.APP_NAME
 	 *
-	 * @default "Better Auth"
+	 * @default "Better Feature"
 	 */
 	appName?: string;
 	/**
-	 * Base URL for the Better Auth. This is typically the
+	 * Base URL for the Better Feature. This is typically the
 	 * root URL where your application server is hosted.
 	 * If not explicitly set,
 	 * the system will check the following environment variable:
@@ -33,9 +33,9 @@ export type BetterAuthOptions = {
 	 */
 	baseURL?: string;
 	/**
-	 * Base path for the Better Auth. This is typically
+	 * Base path for the Better Feature. This is typically
 	 * the path where the
-	 * Better Auth routes are mounted.
+	 * Better Feature routes are mounted.
 	 *
 	 * @default "/api/auth"
 	 */
@@ -44,7 +44,7 @@ export type BetterAuthOptions = {
 	 * The secret to use for encryption,
 	 * signing and hashing.
 	 *
-	 * By default Better Auth will look for
+	 * By default Better Feature will look for
 	 * the following environment variables:
 	 * process.env.BETTER_AUTH_SECRET,
 	 * process.env.AUTH_SECRET
@@ -106,7 +106,7 @@ export type BetterAuthOptions = {
 	 */
 	secondaryStorage?: SecondaryStorage;
 	/**
-	 * List of Better Auth plugins
+	 * List of Better Feature plugins
 	 */
 	plugins?: BetterAuthPlugin[];
 	/**
