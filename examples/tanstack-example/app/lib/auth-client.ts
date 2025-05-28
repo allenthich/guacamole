@@ -1,5 +1,5 @@
-import { twoFactorClient } from "better-auth/client/plugins";
-import { createAuthClient } from "better-auth/react";
+import { twoFactorClient } from "better-feature/client/plugins";
+import { createAuthClient } from "better-feature/react";
 
 export const { useSession, signIn, signOut, signUp, twoFactor } =
 	createAuthClient({

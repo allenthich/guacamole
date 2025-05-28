@@ -1,5 +1,5 @@
-import { createAuthClient } from "better-auth/react";
-import { testerClient } from "better-auth/client/plugins";
+import { createAuthClient } from "better-feature/react";
+import { testerClient } from "better-feature/client/plugins";
 import { toast } from "sonner";
 
 export const client = createAuthClient({

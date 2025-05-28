@@ -1,5 +1,5 @@
 {
-  "name": "better-auth-browser-extension",
+  "name": "better-feature-browser-extension",
   "displayName": "Better auth browser extension",
   "version": "0.0.1",
   "private": true,
@@ -15,7 +15,7 @@
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-separator": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.1",
-    "better-auth": "workspace:*",
+    "better-feature": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.469.0",

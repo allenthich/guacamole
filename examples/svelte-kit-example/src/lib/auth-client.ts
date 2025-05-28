@@ -1,4 +1,4 @@
-import { createAuthClient } from "better-auth/svelte";
+import { createAuthClient } from "better-feature/svelte";
 
 export const client = createAuthClient({
 	baseURL: "http://localhost:3000",

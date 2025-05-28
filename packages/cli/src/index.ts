@@ -12,7 +12,7 @@ process.on("SIGINT", () => process.exit(0));
 process.on("SIGTERM", () => process.exit(0));
 
 async function main() {
-	const program = new Command("better-auth");
+	const program = new Command("better-feature");
 	let packageInfo: Record<string, any> = {};
 	try {
 		packageInfo = await getPackageInfo();

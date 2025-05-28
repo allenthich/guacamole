@@ -1,4 +1,4 @@
-import { createAuthClient } from "better-auth/vue";
+import { createAuthClient } from "better-feature/vue";
 
 export const authClient = createAuthClient();
 

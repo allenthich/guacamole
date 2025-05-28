@@ -1,6 +1,6 @@
-import { passkeyClient, twoFactorClient } from "better-auth/client/plugins";
-import { createAuthClient } from "better-auth/solid";
-import { createAuthClient as createVanillaClient } from "better-auth/client";
+import { passkeyClient, twoFactorClient } from "better-feature/client/plugins";
+import { createAuthClient } from "better-feature/solid";
+import { createAuthClient as createVanillaClient } from "better-feature/client";
 export const {
 	signIn,
 	signOut,

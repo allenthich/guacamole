@@ -15,7 +15,7 @@ import { GradientBG } from "./gradient-bg";
 const tabs: { name: "auth.ts" | "client.ts"; code: string }[] = [
 	{
 		name: "auth.ts",
-		code: `export const auth = betterAuth({
+		code: `export const feature = betterFeature({
 	database: new Pool({
 		connectionString: DATABASE_URL,
 	}),

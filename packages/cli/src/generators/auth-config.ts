@@ -2,7 +2,7 @@ import {
 	type SupportedDatabases,
 	type SupportedPlugin,
 } from "../commands/init";
-import { logger } from "better-auth";
+import { logger } from "better-feature";
 import { type spinner as clackSpinner } from "@clack/prompts";
 
 export type Import = {
@@ -373,7 +373,7 @@ export async function generateAuthConfig({
 					envs: [],
 					imports: [
 						{
-							path: "better-auth/adapters/drizzle",
+							path: "better-feature/adapters/drizzle",
 							variables: [
 								{
 									name: "drizzleAdapter",
@@ -405,7 +405,7 @@ export async function generateAuthConfig({
 					code_before_betterAuth: "const client = new PrismaClient();",
 					imports: [
 						{
-							path: "better-auth/adapters/prisma",
+							path: "better-feature/adapters/prisma",
 							variables: [
 								{
 									name: "prismaAdapter",
@@ -433,7 +433,7 @@ export async function generateAuthConfig({
 					].join("\n"),
 					imports: [
 						{
-							path: "better-auth/adapters/mongo",
+							path: "better-feature/adapters/mongo",
 							variables: [
 								{
 									name: "mongodbAdapter",

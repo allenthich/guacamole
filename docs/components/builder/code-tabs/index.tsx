@@ -14,9 +14,9 @@ export default function CodeTabs() {
 		{
 			id: "1",
 			name: "auth.ts",
-			content: `import { betterAuth } from 'better-auth';
+			content: `import { betterFeature } from 'better-auth';
 
-	export const auth = betterAuth({
+	export const feature = betterFeature({
 		${
 			options.email
 				? `emailAndPassword: {
@@ -69,12 +69,12 @@ ${
 		{
 			id: "2",
 			name: "auth-client.ts",
-			content: `import { createAuthClient } from "better-auth/react";
+			content: `import { createAuthClient } from "better-feature/react";
 			${
 				options.magicLink || options.passkey
 					? `import { ${options.magicLink ? "magicLinkClient, " : ""}, ${
 							options.passkey ? "passkeyClient" : ""
-						} } from "better-auth/client/plugins";`
+						} } from "better-feature/client/plugins";`
 					: ""
 			}
 

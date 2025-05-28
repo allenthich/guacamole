@@ -75,9 +75,9 @@ const getDefaultAuthConfig = async ({
 }) =>
 	await prettierFormat(
 		[
-			"import { betterAuth } from 'better-auth';",
+			"import { betterFeature } from 'better-auth';",
 			"",
-			"export const auth = betterAuth({",
+			"export const feature = betterFeature({",
 			appName ? `appName: "${appName}",` : "",
 			"plugins: [],",
 			"});",
@@ -120,7 +120,7 @@ const getDefaultAuthClientConfig = async ({
 	function groupImportVariables(): Import[] {
 		const result: Import[] = [
 			{
-				path: "better-auth/client/plugins",
+				path: "better-feature/client/plugins",
 				variables: [{ name: "inferAdditionalFields" }],
 			},
 		];
@@ -188,7 +188,7 @@ const getDefaultAuthClientConfig = async ({
 
 	return await prettierFormat(
 		[
-			`import { createAuthClient } from "better-auth/${
+			`import { createAuthClient } from "better-feature/${
 				framework === "nextjs"
 					? "react"
 					: framework === "vanilla"
@@ -333,7 +333,7 @@ export async function initAction(opts: any) {
 
 	let latest_betterauth_version: string;
 	try {
-		latest_betterauth_version = await getLatestNpmVersion("better-auth");
+		latest_betterauth_version = await getLatestNpmVersion("better-feature");
 	} catch (error) {
 		log.error(`❌ Couldn't get latest version of better-auth.`);
 		console.error(error);
@@ -342,7 +342,7 @@ export async function initAction(opts: any) {
 
 	if (
 		!packageInfo.dependencies ||
-		!Object.keys(packageInfo.dependencies).includes("better-auth")
+		!Object.keys(packageInfo.dependencies).includes("better-feature")
 	) {
 		s.stop("Finished fetching latest version of better-auth.");
 		const s2 = spinner({ indicator: "dots" });
@@ -363,7 +363,7 @@ export async function initAction(opts: any) {
 			try {
 				const start = Date.now();
 				await installDependencies({
-					dependencies: ["better-auth@latest"],
+					dependencies: ["better-feature@latest"],
 					packageManager: packageManagerPreference,
 					cwd: cwd,
 				});
@@ -379,16 +379,16 @@ export async function initAction(opts: any) {
 			}
 		}
 	} else if (
-		packageInfo.dependencies["better-auth"] !== "workspace:*" &&
+		packageInfo.dependencies["better-feature"] !== "workspace:*" &&
 		semver.lt(
-			semver.coerce(packageInfo.dependencies["better-auth"])?.toString()!,
+			semver.coerce(packageInfo.dependencies["better-feature"])?.toString()!,
 			semver.clean(latest_betterauth_version)!,
 		)
 	) {
 		s.stop("Finished fetching latest version of better-auth.");
 		const shouldInstallBetterAuthDep = await confirm({
 			message: `Your current Better Auth dependency is out-of-date. Would you like to update it? (${chalk.bold(
-				packageInfo.dependencies["better-auth"],
+				packageInfo.dependencies["better-feature"],
 			)} → ${chalk.bold(`v${latest_betterauth_version}`)})`,
 		});
 		if (isCancel(shouldInstallBetterAuthDep)) {
@@ -406,7 +406,7 @@ export async function initAction(opts: any) {
 			try {
 				const start = Date.now();
 				await installDependencies({
-					dependencies: ["better-auth@latest"],
+					dependencies: ["better-feature@latest"],
 					packageManager: packageManagerPreference,
 					cwd: cwd,
 				});
@@ -756,7 +756,7 @@ export async function initAction(opts: any) {
 								name: plugin.clientName!,
 								imports: [
 									{
-										path: "better-auth/client/plugins",
+										path: "better-feature/client/plugins",
 										variables: [{ name: plugin.clientName! }],
 									},
 								],

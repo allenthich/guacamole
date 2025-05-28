@@ -1,8 +1,8 @@
-import { twoFactor } from "better-auth/plugins";
-import { betterAuth } from "better-auth";
+import { twoFactor } from "better-feature/plugins";
+import { betterFeature } from "better-feature";
 import Database from "better-sqlite3";
 
-export const auth = betterAuth({
+export const feature = betterFeature({
 	database: new Database("data.db"),
 	emailAndPassword: {
 		enabled: true,

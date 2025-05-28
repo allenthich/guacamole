@@ -45,8 +45,8 @@ export default async function Page({
 			toc={page.data.toc}
 			full={page.data.full}
 			editOnGithub={{
-				owner: "better-auth",
-				repo: "better-auth",
+				owner: "better-feature",
+				repo: "better-feature",
 				sha: "main",
 				path: `/docs/content/docs/${page.file.path}`,
 			}}

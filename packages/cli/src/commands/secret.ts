@@ -1,4 +1,4 @@
-import { logger } from "better-auth";
+import { logger } from "better-feature";
 import chalk from "chalk";
 import { Command } from "commander";
 import Crypto from "crypto";

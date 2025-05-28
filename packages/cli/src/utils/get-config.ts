@@ -1,13 +1,13 @@
 import { loadConfig } from "c12";
-import type { BetterAuthOptions } from "better-auth";
-import { logger } from "better-auth";
+import type { BetterFeatureOptions } from "better-feature";
+import { logger } from "better-feature";
 import path from "path";
 // @ts-ignore
 import babelPresetTypeScript from "@babel/preset-typescript";
 // @ts-ignore
 import babelPresetReact from "@babel/preset-react";
 import fs, { existsSync } from "fs";
-import { BetterAuthError } from "better-auth";
+import { BetterFeatureError } from "better-feature";
 import { addSvelteKitEnvModules } from "./add-svelte-kit-env-modules";
 import { getTsconfigInfo } from "./get-tsconfig-info";
 
@@ -59,7 +59,7 @@ function getPathAliases(cwd: string): Record<string, string> | null {
 		return result;
 	} catch (error) {
 		console.error(error);
-		throw new BetterAuthError("Error parsing tsconfig.json");
+		throw new BetterFeatureError("Error parsing tsconfig.json");
 	}
 }
 /**
@@ -96,16 +96,16 @@ export async function getConfig({
 	shouldThrowOnError?: boolean;
 }) {
 	try {
-		let configFile: BetterAuthOptions | null = null;
+		let configFile: BetterFeatureOptions | null = null;
 		if (configPath) {
 			let resolvedPath: string = path.join(cwd, configPath);
 			if (existsSync(configPath)) resolvedPath = configPath; // If the configPath is a file, use it as is, as it means the path wasn't relative.
 			const { config } = await loadConfig<{
 				auth: {
-					options: BetterAuthOptions;
+					options: BetterFeatureOptions;
 				};
 				default?: {
-					options: BetterAuthOptions;
+					options: BetterFeatureOptions;
 				};
 			}>({
 				configFile: resolvedPath,
@@ -131,10 +131,10 @@ export async function getConfig({
 				try {
 					const { config } = await loadConfig<{
 						auth: {
-							options: BetterAuthOptions;
+							options: BetterFeatureOptions;
 						};
 						default?: {
-							options: BetterAuthOptions;
+							options: BetterFeatureOptions;
 						};
 					}>({
 						configFile: possiblePath,

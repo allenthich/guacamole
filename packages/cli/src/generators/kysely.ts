@@ -1,4 +1,4 @@
-import { getMigrations } from "better-auth/db";
+import { getMigrations } from "better-feature/db";
 import type { SchemaGenerator } from "./types";
 
 export const generateMigrations: SchemaGenerator = async ({

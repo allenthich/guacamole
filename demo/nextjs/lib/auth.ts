@@ -1,5 +1,5 @@
-import { betterAuth } from "better-auth";
-import { tester } from "better-auth/plugins";
+import { betterFeature } from "better-feature";
+import { tester } from "better-feature/plugins";
 import { LibsqlDialect } from "@libsql/kysely-libsql";
 import { MysqlDialect } from "kysely";
 import { createPool } from "mysql2/promise";
@@ -22,7 +22,7 @@ if (!dialect) {
 	throw new Error("No dialect found");
 }
 
-export const auth = betterAuth({
+export const feature = betterFeature({
 	appName: "Better Auth Demo",
 	database: {
 		dialect,

@@ -2,7 +2,7 @@ import {
 	getAuthTables,
 	type BetterAuthDbSchema,
 	type FieldAttribute,
-} from "better-auth/db";
+} from "better-feature/db";
 import { existsSync } from "fs";
 import type { SchemaGenerator } from "./types";
 

@@ -1,4 +1,8 @@
-import { logger, type Adapter, type BetterAuthOptions } from "better-auth";
+import {
+	logger,
+	type Adapter,
+	type BetterFeatureOptions,
+} from "better-feature";
 import { generateDrizzleSchema } from "./drizzle";
 import { generatePrismaSchema } from "./prisma";
 import { generateMigrations } from "./kysely";
@@ -12,7 +16,7 @@ export const adapters = {
 export const getGenerator = (opts: {
 	adapter: Adapter;
 	file?: string;
-	options: BetterAuthOptions;
+	options: BetterFeatureOptions;
 }) => {
 	const adapter = opts.adapter;
 	const generator =
