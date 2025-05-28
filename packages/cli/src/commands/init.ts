@@ -75,7 +75,7 @@ const getDefaultAuthConfig = async ({
 }) =>
 	await prettierFormat(
 		[
-			"import { betterFeature } from 'better-auth';",
+			"import { betterFeature } from 'better-feature';",
 			"",
 			"export const feature = betterFeature({",
 			appName ? `appName: "${appName}",` : "",
@@ -83,7 +83,7 @@ const getDefaultAuthConfig = async ({
 			"});",
 		].join("\n"),
 		{
-			filepath: "auth.ts",
+			filepath: "feature.ts",
 			...defaultFormatOptions,
 		},
 	);
@@ -327,15 +327,15 @@ export async function initAction(opts: any) {
 		}
 	}
 
-	// ===== install better-auth =====
+	// ===== install better-feature =====
 	const s = spinner({ indicator: "dots" });
-	s.start(`Checking better-auth installation`);
+	s.start(`Checking better-feature installation`);
 
 	let latest_betterauth_version: string;
 	try {
 		latest_betterauth_version = await getLatestNpmVersion("better-feature");
 	} catch (error) {
-		log.error(`❌ Couldn't get latest version of better-auth.`);
+		log.error(`❌ Couldn't get latest version of better-feature.`);
 		console.error(error);
 		process.exit(1);
 	}
@@ -344,7 +344,7 @@ export async function initAction(opts: any) {
 		!packageInfo.dependencies ||
 		!Object.keys(packageInfo.dependencies).includes("better-feature")
 	) {
-		s.stop("Finished fetching latest version of better-auth.");
+		s.stop("Finished fetching latest version of better-feature.");
 		const s2 = spinner({ indicator: "dots" });
 		const shouldInstallBetterAuthDep = await confirm({
 			message: `Would you like to install Better Auth?`,
@@ -385,7 +385,7 @@ export async function initAction(opts: any) {
 			semver.clean(latest_betterauth_version)!,
 		)
 	) {
-		s.stop("Finished fetching latest version of better-auth.");
+		s.stop("Finished fetching latest version of better-feature.");
 		const shouldInstallBetterAuthDep = await confirm({
 			message: `Your current Better Auth dependency is out-of-date. Would you like to update it? (${chalk.bold(
 				packageInfo.dependencies["better-feature"],
@@ -444,7 +444,12 @@ export async function initAction(opts: any) {
 
 	// ===== config path =====
 
-	let possiblePaths = ["auth.ts", "auth.tsx", "auth.js", "auth.jsx"];
+	let possiblePaths = [
+		"feature.ts",
+		"feature.tsx",
+		"feature.js",
+		"feature.jsx",
+	];
 	possiblePaths = [
 		...possiblePaths,
 		...possiblePaths.map((it) => `lib/server/${it}`),
@@ -565,7 +570,7 @@ export async function initAction(opts: any) {
 				}
 			}
 
-			const filePath = path.join(cwd, "auth.ts");
+			const filePath = path.join(cwd, "feature.ts");
 			config_path = filePath;
 			log.info(`Creating auth config file: ${filePath}`);
 			try {
@@ -898,7 +903,7 @@ export const init = new Command("init")
 	.option("-c, --cwd <cwd>", "The working directory.", process.cwd())
 	.option(
 		"--config <config>",
-		"The path to the auth configuration file. defaults to the first `auth.ts` file found.",
+		"The path to the auth configuration file. defaults to the first `feature.ts` file found.",
 	)
 	.option("--tsconfig <tsconfig>", "The path to the tsconfig file.")
 	.option("--skip-db", "Skip the database setup.")

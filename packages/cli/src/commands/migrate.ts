@@ -28,7 +28,7 @@ export async function migrateAction(opts: any) {
 	});
 	if (!config) {
 		logger.error(
-			"No configuration file found. Add a `auth.ts` file to your project or pass the path to the configuration file using the `--config` flag.",
+			"No configuration file found. Add a `feature.ts` file to your project or pass the path to the configuration file using the `--config` flag.",
 		);
 		return;
 	}

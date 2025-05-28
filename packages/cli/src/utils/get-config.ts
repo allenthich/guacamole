@@ -12,12 +12,12 @@ import { addSvelteKitEnvModules } from "./add-svelte-kit-env-modules";
 import { getTsconfigInfo } from "./get-tsconfig-info";
 
 let possiblePaths = [
-	"auth.ts",
-	"auth.tsx",
-	"auth.js",
-	"auth.jsx",
-	"auth.server.js",
-	"auth.server.ts",
+	"feature.ts",
+	"feature.tsx",
+	"feature.js",
+	"feature.jsx",
+	"feature.server.js",
+	"feature.server.ts",
 ];
 
 possiblePaths = [
@@ -101,7 +101,7 @@ export async function getConfig({
 			let resolvedPath: string = path.join(cwd, configPath);
 			if (existsSync(configPath)) resolvedPath = configPath; // If the configPath is a file, use it as is, as it means the path wasn't relative.
 			const { config } = await loadConfig<{
-				auth: {
+				feature: {
 					options: BetterFeatureOptions;
 				};
 				default?: {
@@ -112,25 +112,25 @@ export async function getConfig({
 				dotenv: true,
 				jitiOptions: jitiOptions(cwd),
 			});
-			if (!config.auth && !config.default) {
+			if (!config.feature && !config.default) {
 				if (shouldThrowOnError) {
 					throw new Error(
-						`Couldn't read your auth config in ${resolvedPath}. Make sure to default export your auth instance or to export as a variable named auth.`,
+						`Couldn't read your feature config in ${resolvedPath}. Make sure to default export your feature instance or to export as a variable named feature.`,
 					);
 				}
 				logger.error(
-					`[#better-auth]: Couldn't read your auth config in ${resolvedPath}. Make sure to default export your auth instance or to export as a variable named auth.`,
+					`[#better-feature]: Couldn't read your feature config in ${resolvedPath}. Make sure to default export your feature instance or to export as a variable named feature.`,
 				);
 				process.exit(1);
 			}
-			configFile = config.auth?.options || config.default?.options || null;
+			configFile = config.feature?.options || config.default?.options || null;
 		}
 
 		if (!configFile) {
 			for (const possiblePath of possiblePaths) {
 				try {
 					const { config } = await loadConfig<{
-						auth: {
+						feature: {
 							options: BetterFeatureOptions;
 						};
 						default?: {
@@ -143,17 +143,19 @@ export async function getConfig({
 					const hasConfig = Object.keys(config).length > 0;
 					if (hasConfig) {
 						configFile =
-							config.auth?.options || config.default?.options || null;
+							config.feature?.options || config.default?.options || null;
 						if (!configFile) {
 							if (shouldThrowOnError) {
 								throw new Error(
-									"Couldn't read your auth config. Make sure to default export your auth instance or to export as a variable named auth.",
+									"Couldn't read your feature config. Make sure to default export your feature instance or to export as a variable named feature.",
 								);
 							}
-							logger.error("[#better-auth]: Couldn't read your auth config.");
+							logger.error(
+								"[#better-feature]: Couldn't read your feature config.",
+							);
 							console.log("");
 							logger.info(
-								"[#better-auth]: Make sure to default export your auth instance or to export as a variable named auth.",
+								"[#better-feature]: Make sure to default export your feature instance or to export as a variable named feature.",
 							);
 							process.exit(1);
 						}
@@ -171,18 +173,21 @@ export async function getConfig({
 					) {
 						if (shouldThrowOnError) {
 							throw new Error(
-								`Please remove import 'server-only' from your auth config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
+								`Please remove import 'server-only' from your feature config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
 							);
 						}
 						logger.error(
-							`Please remove import 'server-only' from your auth config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
+							`Please remove import 'server-only' from your feature config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
 						);
 						process.exit(1);
 					}
 					if (shouldThrowOnError) {
 						throw e;
 					}
-					logger.error("[#better-auth]: Couldn't read your auth config.", e);
+					logger.error(
+						"[#better-feature]: Couldn't read your feature config.",
+						e,
+					);
 					process.exit(1);
 				}
 			}
@@ -200,11 +205,11 @@ export async function getConfig({
 		) {
 			if (shouldThrowOnError) {
 				throw new Error(
-					`Please remove import 'server-only' from your auth config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
+					`Please remove import 'server-only' from your feature config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
 				);
 			}
 			logger.error(
-				`Please remove import 'server-only' from your auth config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
+				`Please remove import 'server-only' from your feature config file temporarily. The CLI cannot resolve the configuration with it included. You can re-add it after running the CLI.`,
 			);
 			process.exit(1);
 		}
@@ -212,7 +217,7 @@ export async function getConfig({
 			throw e;
 		}
 
-		logger.error("Couldn't read your auth config.", e);
+		logger.error("Couldn't read your feature config.", e);
 		process.exit(1);
 	}
 }
