@@ -5,7 +5,7 @@ import {
 	type EndpointOptions,
 	type InputContext,
 } from "better-call";
-import type { AuthEndpoint, FeatureMiddleware } from "./call";
+import type { FeatureEndpoint, FeatureMiddleware } from "./call";
 import type { FeatureContext, HookEndpointContext } from "../types";
 import defu from "defu";
 
@@ -18,7 +18,7 @@ type InternalContext = InputContext<string, any> &
 		};
 	};
 
-export function toAuthEndpoints<E extends Record<string, AuthEndpoint>>(
+export function toFeatureEndpoints<E extends Record<string, FeatureEndpoint>>(
 	endpoints: E,
 	ctx: FeatureContext | Promise<FeatureContext>,
 ) {

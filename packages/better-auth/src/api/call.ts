@@ -25,9 +25,9 @@ export const createFeatureMiddleware = createMiddleware.create({
 	],
 });
 
-export const createAuthEndpoint = createEndpoint.create({
+export const createFeatureEndpoint = createEndpoint.create({
 	use: [optionsMiddleware],
 });
 
-export type AuthEndpoint = ReturnType<typeof createAuthEndpoint>;
+export type FeatureEndpoint = ReturnType<typeof createFeatureEndpoint>;
 export type FeatureMiddleware = ReturnType<typeof createFeatureMiddleware>;

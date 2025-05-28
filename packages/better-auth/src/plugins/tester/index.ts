@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createAuthEndpoint, createFeatureMiddleware } from "../../api/call";
+import { createFeatureEndpoint, createFeatureMiddleware } from "../../api/call";
 import type { BetterFeaturePlugin } from "../../types/plugins";
 import { APIError } from "better-call";
 import type { InferOptionSchema } from "../../types";
@@ -25,7 +25,7 @@ export const tester = (options?: TesterPluginOptions) => {
 	return {
 		id: "tester",
 		endpoints: {
-			listTesters: createAuthEndpoint(
+			listTesters: createFeatureEndpoint(
 				"/tester/list",
 				{
 					method: "GET",
@@ -83,7 +83,7 @@ export const tester = (options?: TesterPluginOptions) => {
 					});
 				},
 			),
-			someTester: createAuthEndpoint(
+			someTester: createFeatureEndpoint(
 				"/tester/initiate",
 				{
 					method: "POST",

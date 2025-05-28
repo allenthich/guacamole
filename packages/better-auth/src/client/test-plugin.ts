@@ -1,13 +1,13 @@
 import { atom, computed } from "nanostores";
 import type { BetterFeatureClientPlugin } from "./types";
 import type { BetterFeaturePlugin } from "../types/plugins";
-import { createAuthEndpoint } from "../api/call";
+import { createFeatureEndpoint } from "../api/call";
 import { useAuthQuery } from "./query";
 
 const serverPlugin = {
 	id: "test",
 	endpoints: {
-		test: createAuthEndpoint(
+		test: createFeatureEndpoint(
 			"/test",
 			{
 				method: "GET",
@@ -18,7 +18,7 @@ const serverPlugin = {
 				};
 			},
 		),
-		testSignOut2: createAuthEndpoint(
+		testSignOut2: createFeatureEndpoint(
 			"/test-2/sign-out",
 			{
 				method: "POST",
