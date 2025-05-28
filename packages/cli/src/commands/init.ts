@@ -50,148 +50,15 @@ const supportedDatabases = [
 
 export type SupportedDatabases = (typeof supportedDatabases)[number];
 
-export const supportedPlugins = [
-	{
-		id: "two-factor",
-		name: "twoFactor",
-		path: `better-auth/plugins`,
-		clientName: "twoFactorClient",
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "username",
-		name: "username",
-		clientName: "usernameClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "anonymous",
-		name: "anonymous",
-		clientName: "anonymousClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "phone-number",
-		name: "phoneNumber",
-		clientName: "phoneNumberClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "magic-link",
-		name: "magicLink",
-		clientName: "magicLinkClient",
-		clientPath: "better-auth/client/plugins",
-		path: `better-auth/plugins`,
-	},
-	{
-		id: "email-otp",
-		name: "emailOTP",
-		clientName: "emailOTPClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "passkey",
-		name: "passkey",
-		clientName: "passkeyClient",
-		path: `better-auth/plugins/passkey`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "generic-oauth",
-		name: "genericOAuth",
-		clientName: "genericOAuthClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "one-tap",
-		name: "oneTap",
-		clientName: "oneTapClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "api-key",
-		name: "apiKey",
-		clientName: "apiKeyClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "admin",
-		name: "admin",
-		clientName: "adminClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "organization",
-		name: "organization",
-		clientName: "organizationClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "oidc",
-		name: "oidcProvider",
-		clientName: "oidcClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "sso",
-		name: "sso",
-		clientName: "ssoClient",
-		path: `better-auth/plugins/sso`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "bearer",
-		name: "bearer",
-		clientName: undefined,
-		path: `better-auth/plugins`,
-		clientPath: undefined,
-	},
-	{
-		id: "multi-session",
-		name: "multiSession",
-		clientName: "multiSessionClient",
-		path: `better-auth/plugins`,
-		clientPath: "better-auth/client/plugins",
-	},
-	{
-		id: "oauth-proxy",
-		name: "oAuthProxy",
-		clientName: undefined,
-		path: `better-auth/plugins`,
-		clientPath: undefined,
-	},
-	{
-		id: "open-api",
-		name: "openAPI",
-		clientName: undefined,
-		path: `better-auth/plugins`,
-		clientPath: undefined,
-	},
-	{
-		id: "jwt",
-		name: "jwt",
-		clientName: undefined,
-		clientPath: undefined,
-		path: `better-auth/plugins`,
-	},
-	{
-		id: "next-cookies",
-		name: "nextCookies",
-		clientPath: undefined,
-		clientName: undefined,
-		path: `better-auth/next-js`,
-	},
-] as const;
+type Plugin = {
+	id: string;
+	name: string;
+	clientPath?: string;
+	clientName?: string;
+	path: string;
+};
+
+export const supportedPlugins: Plugin[] = [] as const;
 
 export type SupportedPlugin = (typeof supportedPlugins)[number];
 
