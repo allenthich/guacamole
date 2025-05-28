@@ -46,7 +46,7 @@ export const init = async (options: BetterFeatureOptions) => {
 		plugins: plugins.concat(internalPlugins),
 	};
 	const tables = getAuthTables(options);
-	const generateIdFunc: AuthContext["generateId"] = ({ size }) => {
+	const generateIdFunc: FeatureContext["generateId"] = ({ size }) => {
 		if (typeof options.advanced?.generateId === "function") {
 			return options.advanced.generateId({ size });
 		}
@@ -56,7 +56,7 @@ export const init = async (options: BetterFeatureOptions) => {
 		return generateId(size);
 	};
 
-	const ctx: AuthContext = {
+	const ctx: FeatureContext = {
 		appName: options.appName || "Better Feature",
 		options,
 		tables,
@@ -96,7 +96,7 @@ export const init = async (options: BetterFeatureOptions) => {
 	return context;
 };
 
-export type AuthContext = {
+export type FeatureContext = {
 	options: BetterFeatureOptions;
 	appName: string;
 	baseURL: string;
@@ -119,10 +119,10 @@ export type AuthContext = {
 	runMigrations: () => Promise<void>;
 };
 
-function runPluginInit(ctx: AuthContext) {
+function runPluginInit(ctx: FeatureContext) {
 	let options = ctx.options;
 	const plugins = options.plugins || [];
-	let context: AuthContext = ctx;
+	let context: FeatureContext = ctx;
 	const dbHooks: BetterFeatureOptions["databaseHooks"][] = [];
 	for (const plugin of plugins) {
 		if (plugin.init) {
@@ -138,7 +138,7 @@ function runPluginInit(ctx: AuthContext) {
 				if (result.context) {
 					context = {
 						...context,
-						...(result.context as Partial<AuthContext>),
+						...(result.context as Partial<FeatureContext>),
 					};
 				}
 			}

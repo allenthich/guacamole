@@ -5,7 +5,7 @@ import { safeJSONParse } from "../utils/json";
 import { generateId } from "../utils";
 import type {
 	Adapter,
-	AuthContext,
+	FeatureContext,
 	BetterFeatureOptions,
 	GenericEndpointContext,
 	Where,
@@ -16,7 +16,7 @@ export const createInternalAdapter = (
 	ctx: {
 		options: BetterFeatureOptions;
 		hooks: Exclude<BetterFeatureOptions["databaseHooks"], undefined>[];
-		generateId: AuthContext["generateId"];
+		generateId: FeatureContext["generateId"];
 	},
 ) => {
 	const options = ctx.options;

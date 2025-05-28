@@ -4,7 +4,7 @@ import type { BetterFeatureOptions } from "./types/options";
 import type {
 	InferPluginErrorCodes,
 	InferPluginTypes,
-	AuthContext,
+	FeatureContext,
 } from "./types";
 import type { PrettifyDeep, Expand } from "./types/helper";
 import { getBaseURL, getOrigin } from "./utils/url";
@@ -70,5 +70,5 @@ export type Auth = {
 	api: FilterActions<ReturnType<typeof router>["endpoints"]>;
 	options: BetterFeatureOptions;
 	$ERROR_CODES: typeof BASE_ERROR_CODES;
-	$context: Promise<AuthContext>;
+	$context: Promise<FeatureContext>;
 };

@@ -1,5 +1,5 @@
 import { createEndpoint, createMiddleware } from "better-call";
-import type { AuthContext } from "../init";
+import type { FeatureContext } from "../init";
 
 export const optionsMiddleware = createMiddleware(async () => {
 	/**
@@ -7,7 +7,7 @@ export const optionsMiddleware = createMiddleware(async () => {
 	 * the context. Used to infer the type
 	 * here.
 	 */
-	return {} as AuthContext;
+	return {} as FeatureContext;
 });
 
 export const createAuthMiddleware = createMiddleware.create({

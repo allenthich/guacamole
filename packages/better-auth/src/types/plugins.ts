@@ -8,7 +8,7 @@ import type {
 	UnionToIntersection,
 } from "../types/helper";
 
-import type { AuthContext, BetterFeatureOptions } from ".";
+import type { FeatureContext, BetterFeatureOptions } from ".";
 import type { Endpoint, Middleware } from "better-call";
 
 export type AuthPluginSchema = {
@@ -27,8 +27,8 @@ export type BetterFeaturePlugin = {
 	 * The init function is called when the plugin is initialized.
 	 * You can return a new context or modify the existing context.
 	 */
-	init?: (ctx: AuthContext) => {
-		context?: DeepPartial<Omit<AuthContext, "options">>;
+	init?: (ctx: FeatureContext) => {
+		context?: DeepPartial<Omit<FeatureContext, "options">>;
 		options?: Partial<BetterFeatureOptions>;
 	} | void;
 	endpoints?: {
@@ -40,7 +40,7 @@ export type BetterFeaturePlugin = {
 	}[];
 	onRequest?: (
 		request: Request,
-		ctx: AuthContext,
+		ctx: FeatureContext,
 	) => Promise<
 		| {
 				response: Response;
@@ -52,7 +52,7 @@ export type BetterFeaturePlugin = {
 	>;
 	onResponse?: (
 		response: Response,
-		ctx: AuthContext,
+		ctx: FeatureContext,
 	) => Promise<{
 		response: Response;
 	} | void>;

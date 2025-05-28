@@ -6,13 +6,13 @@ import {
 	type InputContext,
 } from "better-call";
 import type { AuthEndpoint, AuthMiddleware } from "./call";
-import type { AuthContext, HookEndpointContext } from "../types";
+import type { FeatureContext, HookEndpointContext } from "../types";
 import defu from "defu";
 
 type InternalContext = InputContext<string, any> &
 	EndpointContext<string, any> & {
 		asResponse?: boolean;
-		context: AuthContext & {
+		context: FeatureContext & {
 			returned?: unknown;
 			responseHeaders?: Headers;
 		};
@@ -20,7 +20,7 @@ type InternalContext = InputContext<string, any> &
 
 export function toAuthEndpoints<E extends Record<string, AuthEndpoint>>(
 	endpoints: E,
-	ctx: AuthContext | Promise<AuthContext>,
+	ctx: FeatureContext | Promise<FeatureContext>,
 ) {
 	const api: Record<
 		string,
@@ -211,7 +211,7 @@ async function runAfterHooks(
 	};
 }
 
-function getHooks(authContext: AuthContext) {
+function getHooks(authContext: FeatureContext) {
 	const plugins = authContext.options.plugins || [];
 	const beforeHooks: {
 		matcher: (context: HookEndpointContext) => boolean;

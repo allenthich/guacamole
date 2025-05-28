@@ -1,4 +1,4 @@
-import type { AuthContext } from "../init";
+import type { FeatureContext } from "../init";
 
 export const shimContext = <T extends Record<string, any>>(
 	originalObject: T,
@@ -23,7 +23,7 @@ export const shimContext = <T extends Record<string, any>>(
 	return shimmedObj as T;
 };
 
-export const shimEndpoint = (ctx: AuthContext, value: any) => {
+export const shimEndpoint = (ctx: FeatureContext, value: any) => {
 	return async (context: any) => {
 		for (const plugin of ctx.options.plugins || []) {
 			if (plugin.hooks?.before) {

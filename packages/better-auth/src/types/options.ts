@@ -5,7 +5,7 @@ import type { AdapterInstance, SecondaryStorage } from "./adapter";
 import type { KyselyDatabaseType } from "../adapters/kysely-adapter/types";
 import type { FieldAttribute } from "../db";
 import type { RateLimit } from "./models";
-import type { AuthContext } from ".";
+import type { FeatureContext } from ".";
 import type { CookieOptions } from "better-call";
 import type { Database } from "better-sqlite3";
 import type { Logger } from "../utils";
@@ -368,7 +368,7 @@ export type BetterFeatureOptions = {
 		 * @param error
 		 * @param ctx - Auth context
 		 */
-		onError?: (error: unknown, ctx: AuthContext) => void | Promise<void>;
+		onError?: (error: unknown, ctx: FeatureContext) => void | Promise<void>;
 		/**
 		 * The URL to redirect to on error
 		 *

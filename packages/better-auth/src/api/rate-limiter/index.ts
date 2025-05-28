@@ -1,4 +1,4 @@
-import type { AuthContext, RateLimit } from "../../types";
+import type { FeatureContext, RateLimit } from "../../types";
 import { getIp } from "../../utils/get-request-ip";
 import { wildcardMatch } from "../../utils/wildcard";
 
@@ -34,7 +34,7 @@ function getRetryAfter(lastRequest: number, window: number) {
 	return Math.ceil((lastRequest + windowInMs - now) / 1000);
 }
 
-function createDBStorage(ctx: AuthContext, modelName?: string) {
+function createDBStorage(ctx: FeatureContext, modelName?: string) {
 	const model = ctx.options.rateLimit?.modelName || "rateLimit";
 	const db = ctx.adapter;
 	return {
@@ -80,7 +80,7 @@ function createDBStorage(ctx: AuthContext, modelName?: string) {
 }
 
 const memory = new Map<string, RateLimit>();
-export function getRateLimitStorage(ctx: AuthContext) {
+export function getRateLimitStorage(ctx: FeatureContext) {
 	if (ctx.options.rateLimit?.customStorage) {
 		return ctx.options.rateLimit.customStorage;
 	}
@@ -109,7 +109,7 @@ export function getRateLimitStorage(ctx: AuthContext) {
 	return createDBStorage(ctx, ctx.rateLimit.modelName);
 }
 
-export async function onRequestRateLimit(req: Request, ctx: AuthContext) {
+export async function onRequestRateLimit(req: Request, ctx: FeatureContext) {
 	if (!ctx.rateLimit.enabled) {
 		return;
 	}
