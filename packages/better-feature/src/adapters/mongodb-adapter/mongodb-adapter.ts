@@ -96,7 +96,7 @@ const createTransform = (options: BetterFeatureOptions) => {
 					? {}
 					: customIdGen
 						? {
-								id: customIdGen({}),
+								id: customIdGen({ model }),
 							}
 						: {
 								_id: new ObjectId(),

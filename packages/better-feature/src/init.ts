@@ -46,12 +46,12 @@ export const init = async (options: BetterFeatureOptions) => {
 		plugins: plugins.concat(internalPlugins),
 	};
 	const tables = getFeatureTables(options);
-	const generateIdFunc: FeatureContext["generateId"] = ({ size }) => {
+	const generateIdFunc: FeatureContext["generateId"] = ({ model, size }) => {
 		if (typeof options.advanced?.generateId === "function") {
-			return options.advanced.generateId({ size });
+			return options.advanced.generateId({ model, size });
 		}
 		if (typeof options?.advanced?.database?.generateId === "function") {
-			return options.advanced.database.generateId({ size });
+			return options.advanced.database.generateId({ model, size });
 		}
 		return generateId(size);
 	};
@@ -112,6 +112,7 @@ export type FeatureContext = {
 	internalAdapter: ReturnType<typeof createInternalAdapter>;
 	secret: string;
 	generateId: (options: {
+		model: string;
 		size?: number;
 	}) => string;
 	secondaryStorage: SecondaryStorage | undefined;

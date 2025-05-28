@@ -304,6 +304,7 @@ export type BetterFeatureOptions = {
 			 */
 			generateId?:
 				| ((options: {
+						model: string;
 						size?: number;
 				  }) => string)
 				| false;
@@ -318,6 +319,7 @@ export type BetterFeatureOptions = {
 		 */
 		generateId?:
 			| ((options: {
+					model: string;
 					size?: number;
 			  }) => string)
 			| false;
