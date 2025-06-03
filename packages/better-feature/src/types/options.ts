@@ -37,7 +37,7 @@ export type BetterFeatureOptions = {
 	 * the path where the
 	 * Better Feature routes are mounted.
 	 *
-	 * @default "/api/auth"
+	 * @default "/"
 	 */
 	basePath?: string;
 	/**
@@ -377,7 +377,7 @@ export type BetterFeatureOptions = {
 		 * When errorURL is provided, the error will be added to the URL as a query parameter
 		 * and the user will be redirected to the errorURL.
 		 *
-		 * @default - "/api/auth/error"
+		 * @default - "/error"
 		 */
 		errorURL?: string;
 	};

@@ -31,7 +31,7 @@ export const betterFeature = <O extends BetterFeatureOptions>(
 	return {
 		handler: async (request: Request) => {
 			const ctx = await featureContext;
-			const basePath = ctx.options.basePath || "/api/auth";
+			const basePath = ctx.options.basePath || "/";
 			if (!ctx.options.baseURL) {
 				const baseURL = getBaseURL(undefined, basePath, request);
 				if (baseURL) {

@@ -94,8 +94,8 @@ export function createFeatureClient<Option extends ClientOptions>(
 		if (useFetch) {
 			const ref = useStore(pluginsAtoms.$sessionSignal);
 			const baseURL = options?.fetchOptions?.baseURL || options?.baseURL;
-			let authPath = baseURL ? new URL(baseURL).pathname : "/api/auth";
-			authPath = authPath === "/" ? "/api/auth" : authPath; //fix for root path
+			let authPath = baseURL ? new URL(baseURL).pathname : "/";
+			authPath = authPath === "/" ? "/" : authPath; //fix for root path
 			authPath = authPath.endsWith("/") ? authPath.slice(0, -1) : authPath; //fix for trailing slash
 			return useFetch(`${authPath}/get-session`, {
 				ref,

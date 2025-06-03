@@ -114,7 +114,7 @@ export async function onRequestRateLimit(req: Request, ctx: FeatureContext) {
 		return;
 	}
 	const path = new URL(req.url).pathname.replace(
-		ctx.options.basePath || "/api/auth",
+		ctx.options.basePath || "/",
 		"",
 	);
 	let window = ctx.rateLimit.window;

@@ -42,7 +42,7 @@ export const init = async (options: BetterFeatureOptions) => {
 		...options,
 		secret,
 		baseURL: baseURL ? new URL(baseURL).origin : "",
-		basePath: options.basePath || "/api/auth",
+		basePath: options.basePath || "/",
 		plugins: plugins.concat(internalPlugins),
 	};
 	const tables = getFeatureTables(options);
