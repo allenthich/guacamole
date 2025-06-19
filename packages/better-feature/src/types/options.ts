@@ -1,8 +1,10 @@
 import type { Dialect, Kysely, MysqlPool, PostgresPool } from "kysely";
+import { Sequelize } from "sequelize"; // Added
 import type { GenericEndpointContext } from ".";
 import type { BetterFeaturePlugin } from "./plugins";
 import type { AdapterInstance, SecondaryStorage } from "./adapter";
 import type { KyselyDatabaseType } from "../adapters/kysely-adapter/types";
+import type { SequelizeAdapterConfig } from "../adapters/sequelize-adapter";
 import type { FieldAttribute } from "../db";
 import type { RateLimit } from "./models";
 import type { FeatureContext } from ".";
@@ -98,7 +100,8 @@ export type BetterFeatureOptions = {
 				 * @default "camel"
 				 */
 				casing?: "snake" | "camel";
-		  };
+		  }
+		| SequelizeAdapterConfig;
 	/**
 	 * Secondary storage configuration
 	 *

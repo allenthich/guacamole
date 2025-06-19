@@ -4,6 +4,8 @@ import type { Adapter, BetterFeatureOptions } from "../types";
 import { createKyselyAdapter } from "../adapters/kysely-adapter/dialect";
 import { kyselyAdapter } from "../adapters/kysely-adapter";
 import { memoryAdapter } from "../adapters/memory-adapter";
+import { sequelizeAdapter, SequelizeAdapterConfig } from "../adapters/sequelize-adapter";
+import { Sequelize } from "sequelize";
 import { logger } from "../utils";
 
 export async function getAdapter(
@@ -26,9 +28,19 @@ export async function getAdapter(
 		return options.database(options);
 	}
 
+	// Check for Sequelize configuration BEFORE Kysely
+	// Need to type assert options.database to check for 'sequelize' property safely
+	const dbOption = options.database as any; // Use a more specific type if possible for checking
+	if (dbOption && dbOption.sequelize && dbOption.sequelize instanceof Sequelize) {
+		// It's a SequelizeAdapterConfig
+		return sequelizeAdapter(dbOption as SequelizeAdapterConfig)(options);
+	}
+
 	const { kysely, databaseType } = await createKyselyAdapter(options);
 	if (!kysely) {
-		throw new BetterFeatureError("Failed to initialize database adapter");
+		// This error might need to be re-evaluated if Sequelize is a valid option now
+		// and doesn't fall through to here.
+		throw new BetterFeatureError("Failed to initialize a compatible database adapter. Neither Sequelize nor Kysely configuration detected.");
 	}
 	return kyselyAdapter(kysely, {
 		type: databaseType || "sqlite",

@@ -1,15 +1,17 @@
 import type { EndpointContext, InputContext } from "better-call";
-import type { FeatureContext } from "../init";
+import type { FeatureContext, DBInstance } from "../init"; // Import DBInstance
 
-export type HookEndpointContext = EndpointContext<string, any> &
+// Make HookEndpointContext generic
+export type HookEndpointContext<DatabaseType extends DBInstance = DBInstance> = EndpointContext<string, any> &
 	Omit<InputContext<string, any>, "method"> & {
-		context: FeatureContext & {
+		context: FeatureContext<DatabaseType> & { // Use generic FeatureContext
 			returned?: unknown;
 			responseHeaders?: Headers;
 		};
 		headers?: Headers;
 	};
 
-export type GenericEndpointContext = EndpointContext<string, any> & {
-	context: FeatureContext;
+// Make GenericEndpointContext generic
+export type GenericEndpointContext<DatabaseType extends DBInstance = DBInstance> = EndpointContext<string, any> & {
+	context: FeatureContext<DatabaseType>; // Use generic FeatureContext
 };

@@ -2,12 +2,17 @@ import { defu } from "defu";
 import { createInternalAdapter, getMigrations } from "./db";
 import { getFeatureTables } from "./db/get-tables";
 import { getAdapter } from "./db/utils";
+import { createKyselyAdapter } from "./adapters/kysely-adapter/dialect"; // Added
+import { memoryAdapter } from "./adapters/memory-adapter"; // Added
+import { SequelizeAdapterConfig } from "./adapters/sequelize-adapter"; // Added
 import type {
 	Adapter,
 	BetterFeatureOptions,
 	BetterFeaturePlugin,
 	SecondaryStorage,
 } from "./types";
+import { Kysely } from "kysely"; // Added
+import { Sequelize } from "sequelize"; // Added
 import { DEFAULT_SECRET } from "./utils/constants";
 import { createLogger } from "./utils/logger";
 import { generateId } from "./utils";
@@ -16,8 +21,41 @@ import { getBaseURL } from "./utils/url";
 import type { LiteralUnion } from "./types/helper";
 import { BetterFeatureError } from "./error";
 
-export const init = async (options: BetterFeatureOptions) => {
+// Added DBInstance type
+export type DBInstance = Kysely<any> | Sequelize | Adapter | undefined;
+
+export const init = async <CurrentDBInstance extends DBInstance>(
+	options: BetterFeatureOptions
+): Promise<FeatureContext<CurrentDBInstance>> => {
 	const adapter = await getAdapter(options);
+	let dbInstance: CurrentDBInstance;
+
+	// Logic to determine dbInstance based on options.database
+	if (!options.database) {
+		dbInstance = undefined as CurrentDBInstance;
+		// Check if adapter is memory adapter, then dbInstance can be the adapter itself
+		if (adapter instanceof memoryAdapter) {
+			dbInstance = adapter as CurrentDBInstance;
+		}
+	} else if (typeof options.database === "function") {
+		// Custom adapter, dbInstance might be the adapter itself or something else.
+		dbInstance = adapter as CurrentDBInstance;
+	} else if ((options.database as SequelizeAdapterConfig).sequelize instanceof Sequelize) {
+		dbInstance = (options.database as SequelizeAdapterConfig).sequelize as CurrentDBInstance;
+	} else if ((options.database as { db?: Kysely<any> }).db instanceof Kysely) {
+		dbInstance = (options.database as { db: Kysely<any> }).db as CurrentDBInstance;
+	} else if (options.database instanceof Kysely) { // Direct Kysely instance
+		dbInstance = options.database as CurrentDBInstance;
+	} else {
+		// Default or fallback: Kysely from createKyselyAdapter, or undefined if it fails
+		const { kysely } = await createKyselyAdapter(options);
+		dbInstance = kysely as CurrentDBInstance;
+		if (!dbInstance && !(adapter instanceof memoryAdapter)) {
+			logger.warn("Could not determine specific DB instance for FeatureContext.db, falling back to adapter.")
+			dbInstance = adapter as CurrentDBInstance;
+		}
+	}
+
 	const plugins = options.plugins || [];
 	const internalPlugins = getInternalPlugins(options);
 	const logger = createLogger(options.logger);
@@ -46,7 +84,7 @@ export const init = async (options: BetterFeatureOptions) => {
 		plugins: plugins.concat(internalPlugins),
 	};
 	const tables = getFeatureTables(options);
-	const generateIdFunc: FeatureContext["generateId"] = ({ model, size }) => {
+	const generateIdFunc: FeatureContext<CurrentDBInstance>["generateId"] = ({ model, size }) => {
 		if (typeof options.advanced?.generateId === "function") {
 			return options.advanced.generateId({ model, size });
 		}
@@ -56,10 +94,11 @@ export const init = async (options: BetterFeatureOptions) => {
 		return generateId(size);
 	};
 
-	const ctx: FeatureContext = {
+	const ctx: FeatureContext<CurrentDBInstance> = {
 		appName: options.appName || "Better Feature",
 		options,
 		tables,
+		db: dbInstance, // Added db property
 		trustedOrigins: getTrustedOrigins(options),
 		baseURL: baseURL || "",
 		secret,
@@ -76,12 +115,9 @@ export const init = async (options: BetterFeatureOptions) => {
 		generateId: generateIdFunc,
 		secondaryStorage: options.secondaryStorage,
 		adapter: adapter,
-		internalAdapter: createInternalAdapter(adapter, {
-			options,
-			hooks: options.databaseHooks ? [options.databaseHooks] : [],
-			generateId: generateIdFunc,
-		}),
-		async runMigrations() {
+		// internalAdapter will be set after plugin init
+		internalAdapter: {} as ReturnType<typeof createInternalAdapter>, // Placeholder
+		runMigrations: async () => {
 			//only run migrations if database is provided and it's not an adapter
 			if (!options.database || "updateMany" in options.database) {
 				throw new BetterFeatureError(
@@ -92,11 +128,18 @@ export const init = async (options: BetterFeatureOptions) => {
 			await runMigrations();
 		},
 	};
-	let { context } = runPluginInit(ctx);
-	return context;
+	let { context } = runPluginInit<CurrentDBInstance>(ctx); // Made generic
+	// Set internalAdapter after plugins have potentially modified options/hooks
+	context.internalAdapter = createInternalAdapter(context.adapter, {
+		options: context.options,
+		hooks: context.options.databaseHooks ? [context.options.databaseHooks] : [], // This needs to collect all hooks
+			generateId: context.generateId,
+		});
+	return context as FeatureContext<CurrentDBInstance>; // Cast if necessary
 };
 
-export type FeatureContext = {
+// Made FeatureContext generic
+export type FeatureContext<DatabaseType extends DBInstance = Adapter> = {
 	options: BetterFeatureOptions;
 	appName: string;
 	baseURL: string;
@@ -108,7 +151,8 @@ export type FeatureContext = {
 		max: number;
 		storage: "memory" | "database" | "secondary-storage";
 	} & BetterFeatureOptions["rateLimit"];
-	adapter: Adapter;
+	adapter: Adapter; // Generic adapter interface
+	db: DatabaseType; // Typed ORM instance
 	internalAdapter: ReturnType<typeof createInternalAdapter>;
 	secret: string;
 	generateId: (options: {
@@ -120,39 +164,49 @@ export type FeatureContext = {
 	runMigrations: () => Promise<void>;
 };
 
-function runPluginInit(ctx: FeatureContext) {
+// Made runPluginInit generic
+function runPluginInit<CurrentDBInstance extends DBInstance>(ctx: FeatureContext<CurrentDBInstance>) {
 	let options = ctx.options;
 	const plugins = options.plugins || [];
-	let context: FeatureContext = ctx;
+	let context: FeatureContext<CurrentDBInstance> = ctx;
 	const dbHooks: BetterFeatureOptions["databaseHooks"][] = [];
+
+	// Collect initial hooks from options
+	if (options.databaseHooks) {
+		dbHooks.push(options.databaseHooks);
+	}
+
 	for (const plugin of plugins) {
 		if (plugin.init) {
-			const result = plugin.init(ctx);
+			// Pass the generic context to plugin.init
+			// The plugin.init itself might not be generic, so its return type needs handling.
+			const result = plugin.init(context as any); // Use `as any` for now if plugin.init is not generic
 			if (typeof result === "object") {
 				if (result.options) {
-					const { databaseHooks, ...restOpts } = result.options;
-					if (databaseHooks) {
-						dbHooks.push(databaseHooks);
+					const { databaseHooks: pluginDbHooks, ...restOpts } = result.options;
+					if (pluginDbHooks) {
+						dbHooks.push(pluginDbHooks);
 					}
-					options = defu(options, restOpts);
+					options = defu(restOpts, options); // Apply plugin options over current options
 				}
 				if (result.context) {
+					// The context returned by plugin.init might also need to be generic or handled carefully
 					context = {
 						...context,
-						...(result.context as Partial<FeatureContext>),
+						...(result.context as Partial<FeatureContext<CurrentDBInstance>>),
 					};
 				}
 			}
 		}
 	}
-	// Add the global database hooks last
-	dbHooks.push(options.databaseHooks);
-	context.internalAdapter = createInternalAdapter(ctx.adapter, {
-		options,
-		hooks: dbHooks.filter((u) => u !== undefined),
-		generateId: ctx.generateId,
-	});
+	// Update options in context
 	context.options = options;
+	// Re-create internalAdapter with potentially modified options and all collected hooks
+	context.internalAdapter = createInternalAdapter(context.adapter, {
+		options: context.options,
+		hooks: dbHooks.filter((u): u is NonNullable<typeof u> => u !== undefined),
+		generateId: context.generateId,
+	});
 	return { context };
 }
 
