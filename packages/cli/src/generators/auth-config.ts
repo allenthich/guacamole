@@ -390,33 +390,29 @@ export async function generateAuthConfig({
 						},
 					],
 				});
-			} else if (
-				opts.database === "prisma:mysql" ||
-				opts.database === "prisma:sqlite" ||
-				opts.database === "prisma:postgresql"
-			) {
+			} else if (opts.database === "sequelize:mysql") {
 				await add_db({
-					db_code: `prismaAdapter(client, {\nprovider: "${opts.database.replace(
-						"prisma:",
+					db_code: `sequelizeAdapter(client, {\nprovider: "${opts.database.replace(
+						"sequelize:",
 						"",
 					)}",\n})`,
-					dependencies: [`@prisma/client`],
+					dependencies: [`@sequelize/client`],
 					envs: [],
-					code_before_betterAuth: "const client = new PrismaClient();",
+					code_before_betterAuth: "const client = new SequelizeClient();",
 					imports: [
 						{
-							path: "better-feature/adapters/prisma",
+							path: "better-feature/adapters/sequelize",
 							variables: [
 								{
-									name: "prismaAdapter",
+									name: "sequelizeAdapter",
 								},
 							],
 						},
 						{
-							path: "@prisma/client",
+							path: "@sequelize/client",
 							variables: [
 								{
-									name: "PrismaClient",
+									name: "SequelizeClient",
 								},
 							],
 						},

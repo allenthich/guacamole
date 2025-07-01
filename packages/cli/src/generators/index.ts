@@ -6,11 +6,13 @@ import {
 import { generateDrizzleSchema } from "./drizzle";
 import { generatePrismaSchema } from "./prisma";
 import { generateMigrations } from "./kysely";
+import { generateSequelizeMigrations } from "./sequelize";
 
 export const adapters = {
 	prisma: generatePrismaSchema,
 	drizzle: generateDrizzleSchema,
 	kysely: generateMigrations,
+	sequelize: generateSequelizeMigrations,
 };
 
 export const getGenerator = (opts: {
