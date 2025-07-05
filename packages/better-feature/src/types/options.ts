@@ -12,7 +12,7 @@ import type { Logger } from "../utils";
 import type { FeatureMiddleware } from "../plugins";
 import type { LiteralUnion, OmitId } from "./helper";
 
-export type BetterFeatureOptions = {
+export type BetterFeatureOptions<TDatabase = any> = {
 	/**
 	 * The name of the application
 	 *
@@ -73,6 +73,7 @@ export type BetterFeatureOptions = {
 		| Database
 		| Dialect
 		| AdapterInstance
+		| TDatabase
 		| {
 				dialect: Dialect;
 				type: KyselyDatabaseType;
@@ -335,21 +336,21 @@ export type BetterFeatureOptions = {
 			create?: {
 				before?: (
 					data: Record<string, any>,
-					ctx?: GenericEndpointContext,
+					ctx?: GenericEndpointContext<TDatabase>,
 				) => void | Promise<any>;
 				after?: (
 					data: Record<string, any>,
-					ctx?: GenericEndpointContext,
+					ctx?: GenericEndpointContext<TDatabase>,
 				) => void | Promise<any>;
 			};
 			update?: {
 				before?: (
 					data: Record<string, any>,
-					ctx?: GenericEndpointContext,
+					ctx?: GenericEndpointContext<TDatabase>,
 				) => void | Promise<any>;
 				after?: (
 					data: Record<string, any>,
-					ctx?: GenericEndpointContext,
+					ctx?: GenericEndpointContext<TDatabase>,
 				) => void | Promise<any>;
 			};
 		};
