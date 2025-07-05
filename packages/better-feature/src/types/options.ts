@@ -67,39 +67,40 @@ export type BetterFeatureOptions<TDatabase = any> = {
 	/**
 	 * Database configuration
 	 */
-	database?:
-		| PostgresPool
-		| MysqlPool
-		| Database
-		| Dialect
-		| AdapterInstance
-		| TDatabase
-		| {
-				dialect: Dialect;
-				type: KyselyDatabaseType;
-				/**
-				 * casing for table names
-				 *
-				 * @default "camel"
-				 */
-				casing?: "snake" | "camel";
-		  }
-		| {
-				/**
-				 * Kysely instance
-				 */
-				db: Kysely<any>;
-				/**
-				 * Database type between postgres, mysql and sqlite
-				 */
-				type: KyselyDatabaseType;
-				/**
-				 * casing for table names
-				 *
-				 * @default "camel"
-				 */
-				casing?: "snake" | "camel";
-		  };
+	database?: TDatabase extends never
+		?
+				| PostgresPool
+				| MysqlPool
+				| Database
+				| Dialect
+				| AdapterInstance
+				| {
+						dialect: Dialect;
+						type: KyselyDatabaseType;
+						/**
+						 * casing for table names
+						 *
+						 * @default "camel"
+						 */
+						casing?: "snake" | "camel";
+				  }
+				| {
+						/**
+						 * Kysely instance
+						 */
+						db: Kysely<any>;
+						/**
+						 * Database type between postgres, mysql and sqlite
+						 */
+						type: KyselyDatabaseType;
+						/**
+						 * casing for table names
+						 *
+						 * @default "camel"
+						 */
+						casing?: "snake" | "camel";
+				  }
+		: TDatabase;
 	/**
 	 * Secondary storage configuration
 	 *

@@ -29,12 +29,14 @@ interface SequelizeDatabase {
 const customPlugin = (): BetterFeaturePlugin<SequelizeDatabase> => ({
 	id: "custom-plugin",
 	init: (ctx) => {
-		// Now ctx.options.database is typed as SequelizeDatabase
-		const db = ctx.options.database as SequelizeDatabase;
+		// Now ctx.options.database is properly typed as SequelizeDatabase
+		const db = ctx.options.database;
 
-		// You can access typed models
-		const userModel = db.models.User;
-		const sessionModel = db.models.Session;
+		if (db && "models" in db) {
+			// You can access typed models without casting
+			const userModel = db.models.User;
+			const sessionModel = db.models.Session;
+		}
 
 		return {};
 	},
@@ -65,15 +67,15 @@ export const createTypedFeature = (sequelizeDb: SequelizeDatabase) => {
 				create: {
 					before: async (data, ctx) => {
 						// ctx is typed with SequelizeDatabase
-						const db = ctx?.context.options.database as SequelizeDatabase;
-						if (db) {
+						const db = ctx?.context.options.database;
+						if (db && "models" in db) {
 							// You can use the typed database here
 							await db.models.User.create(data);
 						}
 					},
 					after: async (data, ctx) => {
-						const db = ctx?.context.options.database as SequelizeDatabase;
-						if (db) {
+						const db = ctx?.context.options.database;
+						if (db && "models" in db) {
 							// Access typed models
 							const user = await db.models.User.findOne({
 								where: { id: data.id },
@@ -100,8 +102,11 @@ interface MongoDBDatabase {
 const mongoPlugin = (): BetterFeaturePlugin<MongoDBDatabase> => ({
 	id: "mongo-plugin",
 	init: (ctx) => {
-		const db = ctx.options.database as MongoDBDatabase;
-		const userCollection = db.collection("users");
+		const db = ctx.options.database;
+
+		if (db && "collection" in db) {
+			const userCollection = db.collection("users");
+		}
 
 		return {};
 	},
@@ -117,7 +122,7 @@ const mongoPlugin = (): BetterFeaturePlugin<MongoDBDatabase> => ({
 	},
 });
 
-export const createMongoFeature = (mongoDb: MongoDBDatabase) => {
+export const createMongoFeatureWithPlugin = (mongoDb: MongoDBDatabase) => {
 	return betterFeature<MongoDBDatabase>({
 		appName: "MongoDB Better Feature",
 		database: mongoDb,
