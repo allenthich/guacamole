@@ -55,6 +55,12 @@ export async function migrateAction(opts: any) {
 			);
 			process.exit(0);
 		}
+		if (db.id === "sequelize") {
+			logger.error(
+				"The migrate command only works with the built-in Kysely adapter. For Drizzle, run `npx @better-auth/cli generate` to create the schema, then use Drizzle’s migrate or push to apply it.",
+			);
+			process.exit(0);
+		}
 		logger.error("Migrate command isn't supported for this adapter.");
 		process.exit(1);
 	}

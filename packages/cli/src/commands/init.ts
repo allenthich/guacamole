@@ -46,6 +46,8 @@ const supportedDatabases = [
 	"prisma:sqlite",
 	// Mongo
 	"mongodb",
+	// sequelize
+	"sequelize:mysql",
 ] as const;
 
 export type SupportedDatabases = (typeof supportedDatabases)[number];
@@ -68,11 +70,7 @@ const defaultFormatOptions = {
 	tabWidth: 4,
 };
 
-const getDefaultAuthConfig = async ({
-	appName,
-}: {
-	appName?: string;
-}) =>
+const getDefaultAuthConfig = async ({ appName }: { appName?: string }) =>
 	await prettierFormat(
 		[
 			"import { betterFeature } from 'better-feature';",
