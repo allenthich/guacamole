@@ -11,8 +11,19 @@ import type { Database } from "better-sqlite3";
 import type { Logger } from "../utils";
 import type { FeatureMiddleware } from "../plugins";
 import type { LiteralUnion, OmitId } from "./helper";
+import { Sequelize } from "sequelize";
 
-export type BetterFeatureOptions = {
+export type BetterFeatureOptions= {
+	context: {
+		pool:
+			| Sequelize
+			| MysqlPool
+			| PostgresPool
+			| Database
+			| Kysely<any>
+			| Dialect
+			| AdapterInstance;
+	};
 	/**
 	 * The name of the application
 	 *
@@ -303,10 +314,7 @@ export type BetterFeatureOptions = {
 			 * If set to false, the database's auto generated id will be used.
 			 */
 			generateId?:
-				| ((options: {
-						model: string;
-						size?: number;
-				  }) => string)
+				| ((options: { model: string; size?: number }) => string)
 				| false;
 		};
 		/**
@@ -318,10 +326,7 @@ export type BetterFeatureOptions = {
 		 * @deprecated Please use `database.generateId` instead. This will be potentially removed in future releases.
 		 */
 		generateId?:
-			| ((options: {
-					model: string;
-					size?: number;
-			  }) => string)
+			| ((options: { model: string; size?: number }) => string)
 			| false;
 	};
 	logger?: Logger;

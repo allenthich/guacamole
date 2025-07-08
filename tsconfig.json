@@ -13,7 +13,12 @@
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
 		"noImplicitOverride": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"baseUrl": ".",
+		"paths": {
+			"@feature/root": ["./packages/better-feature/"],
+			"@feature/root/*": ["./packages/better-feature/*"]
+		}
 	},
 	"exclude": ["**/dist/**", "**/node_modules/**", "**/examples/**"]
 }

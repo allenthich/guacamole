@@ -1,391 +1,405 @@
 {
-  "name": "better-feature",
-  "version": "0.0.1",
-  "description": "Feature plugin library for TypeScript.",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/better-auth/better-auth",
-    "directory": "packages/better-feature"
-  },
-  "keywords": [
-    "feature",
-    "plugin",
-    "typescript"
-  ],
-  "scripts": {
-    "build": "unbuild --clean",
-    "dev": "concurrently \"unbuild --watch\" \"npm run dev:types\"",
-    "dev:types": "tsc --project tsconfig.declarations.json --watch",
-    "build:types": "tsc --project tsconfig.declarations.json",
-    "stub": "unbuild --stub",
-    "pretest": "pnpm prisma:normal:push && pnpm prisma:number-id:push",
-    "test": "vitest",
-    "prisma:normal:push": "prisma db push --schema src/adapters/prisma-adapter/test/normal-tests/schema.prisma",
-    "prisma:number-id:push": "prisma db push --schema src/adapters/prisma-adapter/test/number-id-tests/schema.prisma",
-    "bump": "bumpp",
-    "typecheck": "pnpm prisma:normal:push && pnpm prisma:number-id:push && tsc --noEmit"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    },
-    "./client": {
-      "import": {
-        "types": "./dist/client/index.d.ts",
-        "default": "./dist/client/index.mjs"
-      },
-      "require": {
-        "types": "./dist/client/index.d.cts",
-        "default": "./dist/client/index.cjs"
-      }
-    },
-    "./client/plugins": {
-      "import": {
-        "types": "./dist/client/plugins/index.d.ts",
-        "default": "./dist/client/plugins/index.mjs"
-      },
-      "require": {
-        "types": "./dist/client/plugins/index.d.cts",
-        "default": "./dist/client/plugins/index.cjs"
-      }
-    },
-    "./types": {
-      "import": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/types/index.mjs"
-      },
-      "require": {
-        "types": "./dist/types/index.d.cts",
-        "default": "./dist/types/index.cjs"
-      }
-    },
-    "./crypto": {
-      "import": {
-        "types": "./dist/crypto/index.d.ts",
-        "default": "./dist/crypto/index.mjs"
-      },
-      "require": {
-        "types": "./dist/crypto/index.d.cts",
-        "default": "./dist/crypto/index.cjs"
-      }
-    },
-    "./react": {
-      "import": {
-        "types": "./dist/client/react/index.d.ts",
-        "default": "./dist/client/react/index.mjs"
-      },
-      "require": {
-        "types": "./dist/client/react/index.d.cts",
-        "default": "./dist/client/react/index.cjs"
-      }
-    },
-    "./solid": {
-      "import": {
-        "types": "./dist/client/solid/index.d.ts",
-        "default": "./dist/client/solid/index.mjs"
-      },
-      "require": {
-        "types": "./dist/client/solid/index.d.cts",
-        "default": "./dist/client/solid/index.cjs"
-      }
-    },
-    "./api": {
-      "import": {
-        "types": "./dist/api/index.d.ts",
-        "default": "./dist/api/index.mjs"
-      },
-      "require": {
-        "types": "./dist/api/index.d.cts",
-        "default": "./dist/api/index.cjs"
-      }
-    },
-    "./db": {
-      "import": {
-        "types": "./dist/db/index.d.ts",
-        "default": "./dist/db/index.mjs"
-      },
-      "require": {
-        "types": "./dist/db/index.d.cts",
-        "default": "./dist/db/index.cjs"
-      }
-    },
-    "./vue": {
-      "import": {
-        "types": "./dist/client/vue/index.d.ts",
-        "default": "./dist/client/vue/index.mjs"
-      },
-      "require": {
-        "types": "./dist/client/vue/index.d.cts",
-        "default": "./dist/client/vue/index.cjs"
-      }
-    },
-    "./plugins": {
-      "import": {
-        "types": "./dist/plugins/index.d.ts",
-        "default": "./dist/plugins/index.mjs"
-      },
-      "require": {
-        "types": "./dist/plugins/index.d.cts",
-        "default": "./dist/plugins/index.cjs"
-      }
-    },
-    "./svelte-kit": {
-      "import": {
-        "types": "./dist/integrations/svelte-kit.d.ts",
-        "default": "./dist/integrations/svelte-kit.mjs"
-      },
-      "require": {
-        "types": "./dist/integrations/svelte-kit.d.cts",
-        "default": "./dist/integrations/svelte-kit.cjs"
-      }
-    },
-    "./solid-start": {
-      "import": {
-        "types": "./dist/integrations/solid-start.d.ts",
-        "default": "./dist/integrations/solid-start.mjs"
-      },
-      "require": {
-        "types": "./dist/integrations/solid-start.d.cts",
-        "default": "./dist/integrations/solid-start.cjs"
-      }
-    },
-    "./svelte": {
-      "import": {
-        "types": "./dist/client/svelte/index.d.ts",
-        "default": "./dist/client/svelte/index.mjs"
-      },
-      "require": {
-        "types": "./dist/client/svelte/index.d.cts",
-        "default": "./dist/client/svelte/index.cjs"
-      }
-    },
-    "./next-js": {
-      "import": {
-        "types": "./dist/integrations/next-js.d.ts",
-        "default": "./dist/integrations/next-js.mjs"
-      },
-      "require": {
-        "types": "./dist/integrations/next-js.d.cts",
-        "default": "./dist/integrations/next-js.cjs"
-      }
-    },
-    "./react-start": {
-      "import": {
-        "types": "./dist/integrations/react-start.d.ts",
-        "default": "./dist/integrations/react-start.mjs"
-      },
-      "require": {
-        "types": "./dist/integrations/react-start.d.cts",
-        "default": "./dist/integrations/react-start.cjs"
-      }
-    },
-    "./node": {
-      "import": {
-        "types": "./dist/integrations/node.d.ts",
-        "default": "./dist/integrations/node.mjs"
-      },
-      "require": {
-        "types": "./dist/integrations/node.d.cts",
-        "default": "./dist/integrations/node.cjs"
-      }
-    },
-    "./adapters/prisma": {
-      "import": {
-        "types": "./dist/adapters/prisma-adapter/index.d.ts",
-        "default": "./dist/adapters/prisma-adapter/index.mjs"
-      },
-      "require": {
-        "types": "./dist/adapters/prisma-adapter/index.d.cts",
-        "default": "./dist/adapters/prisma-adapter/index.cjs"
-      }
-    },
-    "./adapters/drizzle": {
-      "import": {
-        "types": "./dist/adapters/drizzle-adapter/index.d.ts",
-        "default": "./dist/adapters/drizzle-adapter/index.mjs"
-      },
-      "require": {
-        "types": "./dist/adapters/drizzle-adapter/index.d.cts",
-        "default": "./dist/adapters/drizzle-adapter/index.cjs"
-      }
-    },
-    "./adapters/mongodb": {
-      "import": {
-        "types": "./dist/adapters/mongodb-adapter/index.d.ts",
-        "default": "./dist/adapters/mongodb-adapter/index.mjs"
-      },
-      "require": {
-        "types": "./dist/adapters/mongodb-adapter/index.d.cts",
-        "default": "./dist/adapters/mongodb-adapter/index.cjs"
-      }
-    },
-    "./adapters/memory": {
-      "import": {
-        "types": "./dist/adapters/memory-adapter/index.d.ts",
-        "default": "./dist/adapters/memory-adapter/index.mjs"
-      },
-      "require": {
-        "types": "./dist/adapters/memory-adapter/index.d.cts",
-        "default": "./dist/adapters/memory-adapter/index.cjs"
-      }
-    },
-    "./adapters/test": {
-      "import": {
-        "types": "./dist/adapters/test.d.ts",
-        "default": "./dist/adapters/test.mjs"
-      },
-      "require": {
-        "types": "./dist/adapters/test.d.cts",
-        "default": "./dist/adapters/test.cjs"
-      }
-    },
-    "./adapters": {
-      "import": {
-        "types": "./dist/adapters/index.d.ts",
-        "default": "./dist/adapters/index.mjs"
-      },
-      "require": {
-        "types": "./dist/adapters/index.d.cts",
-        "default": "./dist/adapters/index.cjs"
-      }
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/index.d.ts"
-      ],
-      "node": [
-        "./dist/integrations/node.d.ts"
-      ],
-      "react": [
-        "./dist/client/react/index.d.ts"
-      ],
-      "vue": [
-        "./dist/client/vue/index.d.ts"
-      ],
-      "svelte": [
-        "./dist/client/svelte/index.d.ts"
-      ],
-      "social-providers": [
-        "./dist/social-providers/index.d.ts"
-      ],
-      "client": [
-        "./dist/client/index.d.ts"
-      ],
-      "client/plugins": [
-        "./dist/client/plugins/index.d.ts"
-      ],
-      "types": [
-        "./dist/types/index.d.ts"
-      ],
-      "crypto": [
-        "./dist/crypto/index.d.ts"
-      ],
-      "cookies": [
-        "./dist/cookies/index.d.ts"
-      ],
-      "oauth2": [
-        "./dist/oauth2/index.d.ts"
-      ],
-      "solid": [
-        "./dist/client/solid/index.d.ts"
-      ],
-      "api": [
-        "./dist/api/index.d.ts"
-      ],
-      "db": [
-        "./dist/db/index.d.ts"
-      ],
-      "svelte-kit": [
-        "./dist/integrations/svelte-kit.d.ts"
-      ],
-      "solid-start": [
-        "./dist/integrations/solid-start.d.ts"
-      ],
-      "next-js": [
-        "./dist/integrations/next-js.d.ts"
-      ],
-      "react-start": [
-        "./dist/integrations/react-start.d.ts"
-      ],
-      "adapters": [
-        "./dist/adapters/index.d.ts"
-      ],
-      "adapters/prisma": [
-        "./dist/adapters/prisma-adapter/index.d.ts"
-      ],
-      "adapters/drizzle": [
-        "./dist/adapters/drizzle-adapter/index.d.ts"
-      ],
-      "adapters/mongodb": [
-        "./dist/adapters/mongodb-adapter/index.d.ts"
-      ],
-      "adapters/memory": [
-        "./dist/adapters/memory-adapter/index.d.ts"
-      ],
-      "plugins": [
-        "./dist/plugins/index.d.ts"
-      ]
-    }
-  },
-  "devDependencies": {
-    "@prisma/client": "^5.22.0",
-    "@tanstack/react-start": "^1.114.34",
-    "@types/better-sqlite3": "^7.6.12",
-    "@types/pg": "^8.11.10",
-    "@types/prompts": "^2.4.9",
-    "@types/react": "^18.3.14",
-    "better-sqlite3": "^11.6.0",
-    "concurrently": "^9.1.2",
-    "drizzle-orm": "^0.38.2",
-    "happy-dom": "^15.11.7",
-    "hono": "^4.6.13",
-    "listhen": "^1.9.0",
-    "mongodb": "^6.11.0",
-    "mysql2": "^3.11.5",
-    "next": "^15.2.3",
-    "oauth2-mock-server": "^7.2.0",
-    "pg": "^8.13.1",
-    "prisma": "^5.22.0",
-    "react": "^19.0.0",
-    "react-native": "~0.74.6",
-    "solid-js": "^1.9.3",
-    "tarn": "^3.0.2",
-    "tedious": "^18.6.1",
-    "typescript": "catalog:",
-    "unbuild": "catalog:",
-    "vitest": "^1.6.0",
-    "vue": "^3.5.13"
-  },
-  "dependencies": {
-    "@better-auth/utils": "0.2.5",
-    "@better-fetch/fetch": "catalog:",
-    "@noble/ciphers": "^0.6.0",
-    "@noble/hashes": "^1.6.1",
-    "@simplewebauthn/browser": "^13.0.0",
-    "@simplewebauthn/server": "^13.0.0",
-    "better-call": "catalog:",
-    "defu": "^6.1.4",
-    "jose": "^5.9.6",
-    "kysely": "^0.28.1",
-    "nanostores": "^0.11.3",
-    "zod": "^3.24.1"
-  },
-  "overrides": {
-    "whatwg-url": "^14.0.0"
-  },
-  "files": [
-    "dist"
-  ]
+	"name": "better-feature",
+	"version": "0.0.1",
+	"description": "Feature plugin library for TypeScript.",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/better-auth/better-auth",
+		"directory": "packages/better-feature"
+	},
+	"keywords": [
+		"feature",
+		"plugin",
+		"typescript"
+	],
+	"scripts": {
+		"build": "unbuild --clean",
+		"dev": "concurrently \"unbuild --watch\" \"npm run dev:types\"",
+		"dev:types": "tsc --project tsconfig.declarations.json --watch",
+		"build:types": "tsc --project tsconfig.declarations.json",
+		"stub": "unbuild --stub",
+		"pretest": "pnpm prisma:normal:push && pnpm prisma:number-id:push",
+		"test": "vitest",
+		"prisma:normal:push": "prisma db push --schema src/adapters/prisma-adapter/test/normal-tests/schema.prisma",
+		"prisma:number-id:push": "prisma db push --schema src/adapters/prisma-adapter/test/number-id-tests/schema.prisma",
+		"bump": "bumpp",
+		"typecheck": "pnpm prisma:normal:push && pnpm prisma:number-id:push && tsc --noEmit"
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		},
+		"./client": {
+			"import": {
+				"types": "./dist/client/index.d.ts",
+				"default": "./dist/client/index.mjs"
+			},
+			"require": {
+				"types": "./dist/client/index.d.cts",
+				"default": "./dist/client/index.cjs"
+			}
+		},
+		"./client/plugins": {
+			"import": {
+				"types": "./dist/client/plugins/index.d.ts",
+				"default": "./dist/client/plugins/index.mjs"
+			},
+			"require": {
+				"types": "./dist/client/plugins/index.d.cts",
+				"default": "./dist/client/plugins/index.cjs"
+			}
+		},
+		"./types": {
+			"import": {
+				"types": "./dist/types/index.d.ts",
+				"default": "./dist/types/index.mjs"
+			},
+			"require": {
+				"types": "./dist/types/index.d.cts",
+				"default": "./dist/types/index.cjs"
+			}
+		},
+		"./crypto": {
+			"import": {
+				"types": "./dist/crypto/index.d.ts",
+				"default": "./dist/crypto/index.mjs"
+			},
+			"require": {
+				"types": "./dist/crypto/index.d.cts",
+				"default": "./dist/crypto/index.cjs"
+			}
+		},
+		"./react": {
+			"import": {
+				"types": "./dist/client/react/index.d.ts",
+				"default": "./dist/client/react/index.mjs"
+			},
+			"require": {
+				"types": "./dist/client/react/index.d.cts",
+				"default": "./dist/client/react/index.cjs"
+			}
+		},
+		"./solid": {
+			"import": {
+				"types": "./dist/client/solid/index.d.ts",
+				"default": "./dist/client/solid/index.mjs"
+			},
+			"require": {
+				"types": "./dist/client/solid/index.d.cts",
+				"default": "./dist/client/solid/index.cjs"
+			}
+		},
+		"./api": {
+			"import": {
+				"types": "./dist/api/index.d.ts",
+				"default": "./dist/api/index.mjs"
+			},
+			"require": {
+				"types": "./dist/api/index.d.cts",
+				"default": "./dist/api/index.cjs"
+			}
+		},
+		"./db": {
+			"import": {
+				"types": "./dist/db/index.d.ts",
+				"default": "./dist/db/index.mjs"
+			},
+			"require": {
+				"types": "./dist/db/index.d.cts",
+				"default": "./dist/db/index.cjs"
+			}
+		},
+		"./vue": {
+			"import": {
+				"types": "./dist/client/vue/index.d.ts",
+				"default": "./dist/client/vue/index.mjs"
+			},
+			"require": {
+				"types": "./dist/client/vue/index.d.cts",
+				"default": "./dist/client/vue/index.cjs"
+			}
+		},
+		"./plugins": {
+			"import": {
+				"types": "./dist/plugins/index.d.ts",
+				"default": "./dist/plugins/index.mjs"
+			},
+			"require": {
+				"types": "./dist/plugins/index.d.cts",
+				"default": "./dist/plugins/index.cjs"
+			}
+		},
+		"./svelte-kit": {
+			"import": {
+				"types": "./dist/integrations/svelte-kit.d.ts",
+				"default": "./dist/integrations/svelte-kit.mjs"
+			},
+			"require": {
+				"types": "./dist/integrations/svelte-kit.d.cts",
+				"default": "./dist/integrations/svelte-kit.cjs"
+			}
+		},
+		"./solid-start": {
+			"import": {
+				"types": "./dist/integrations/solid-start.d.ts",
+				"default": "./dist/integrations/solid-start.mjs"
+			},
+			"require": {
+				"types": "./dist/integrations/solid-start.d.cts",
+				"default": "./dist/integrations/solid-start.cjs"
+			}
+		},
+		"./svelte": {
+			"import": {
+				"types": "./dist/client/svelte/index.d.ts",
+				"default": "./dist/client/svelte/index.mjs"
+			},
+			"require": {
+				"types": "./dist/client/svelte/index.d.cts",
+				"default": "./dist/client/svelte/index.cjs"
+			}
+		},
+		"./next-js": {
+			"import": {
+				"types": "./dist/integrations/next-js.d.ts",
+				"default": "./dist/integrations/next-js.mjs"
+			},
+			"require": {
+				"types": "./dist/integrations/next-js.d.cts",
+				"default": "./dist/integrations/next-js.cjs"
+			}
+		},
+		"./react-start": {
+			"import": {
+				"types": "./dist/integrations/react-start.d.ts",
+				"default": "./dist/integrations/react-start.mjs"
+			},
+			"require": {
+				"types": "./dist/integrations/react-start.d.cts",
+				"default": "./dist/integrations/react-start.cjs"
+			}
+		},
+		"./node": {
+			"import": {
+				"types": "./dist/integrations/node.d.ts",
+				"default": "./dist/integrations/node.mjs"
+			},
+			"require": {
+				"types": "./dist/integrations/node.d.cts",
+				"default": "./dist/integrations/node.cjs"
+			}
+		},
+		"./adapters/prisma": {
+			"import": {
+				"types": "./dist/adapters/prisma-adapter/index.d.ts",
+				"default": "./dist/adapters/prisma-adapter/index.mjs"
+			},
+			"require": {
+				"types": "./dist/adapters/prisma-adapter/index.d.cts",
+				"default": "./dist/adapters/prisma-adapter/index.cjs"
+			}
+		},
+		"./adapters/drizzle": {
+			"import": {
+				"types": "./dist/adapters/drizzle-adapter/index.d.ts",
+				"default": "./dist/adapters/drizzle-adapter/index.mjs"
+			},
+			"require": {
+				"types": "./dist/adapters/drizzle-adapter/index.d.cts",
+				"default": "./dist/adapters/drizzle-adapter/index.cjs"
+			}
+		},
+		"./adapters/mongodb": {
+			"import": {
+				"types": "./dist/adapters/mongodb-adapter/index.d.ts",
+				"default": "./dist/adapters/mongodb-adapter/index.mjs"
+			},
+			"require": {
+				"types": "./dist/adapters/mongodb-adapter/index.d.cts",
+				"default": "./dist/adapters/mongodb-adapter/index.cjs"
+			}
+		},
+		"./adapters/sequelize": {
+			"import": {
+				"types": "./dist/adapters/sequelize-adapter/index.d.ts",
+				"default": "./dist/adapters/sequelize-adapter/index.mjs"
+			},
+			"require": {
+				"types": "./dist/adapters/sequelize-adapter/index.d.cts",
+				"default": "./dist/adapters/sequelize-adapter/index.cjs"
+			}
+		},
+		"./adapters/memory": {
+			"import": {
+				"types": "./dist/adapters/memory-adapter/index.d.ts",
+				"default": "./dist/adapters/memory-adapter/index.mjs"
+			},
+			"require": {
+				"types": "./dist/adapters/memory-adapter/index.d.cts",
+				"default": "./dist/adapters/memory-adapter/index.cjs"
+			}
+		},
+		"./adapters/test": {
+			"import": {
+				"types": "./dist/adapters/test.d.ts",
+				"default": "./dist/adapters/test.mjs"
+			},
+			"require": {
+				"types": "./dist/adapters/test.d.cts",
+				"default": "./dist/adapters/test.cjs"
+			}
+		},
+		"./adapters": {
+			"import": {
+				"types": "./dist/adapters/index.d.ts",
+				"default": "./dist/adapters/index.mjs"
+			},
+			"require": {
+				"types": "./dist/adapters/index.d.cts",
+				"default": "./dist/adapters/index.cjs"
+			}
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"*": [
+				"./dist/index.d.ts"
+			],
+			"node": [
+				"./dist/integrations/node.d.ts"
+			],
+			"react": [
+				"./dist/client/react/index.d.ts"
+			],
+			"vue": [
+				"./dist/client/vue/index.d.ts"
+			],
+			"svelte": [
+				"./dist/client/svelte/index.d.ts"
+			],
+			"social-providers": [
+				"./dist/social-providers/index.d.ts"
+			],
+			"client": [
+				"./dist/client/index.d.ts"
+			],
+			"client/plugins": [
+				"./dist/client/plugins/index.d.ts"
+			],
+			"types": [
+				"./dist/types/index.d.ts"
+			],
+			"crypto": [
+				"./dist/crypto/index.d.ts"
+			],
+			"cookies": [
+				"./dist/cookies/index.d.ts"
+			],
+			"oauth2": [
+				"./dist/oauth2/index.d.ts"
+			],
+			"solid": [
+				"./dist/client/solid/index.d.ts"
+			],
+			"api": [
+				"./dist/api/index.d.ts"
+			],
+			"db": [
+				"./dist/db/index.d.ts"
+			],
+			"svelte-kit": [
+				"./dist/integrations/svelte-kit.d.ts"
+			],
+			"solid-start": [
+				"./dist/integrations/solid-start.d.ts"
+			],
+			"next-js": [
+				"./dist/integrations/next-js.d.ts"
+			],
+			"react-start": [
+				"./dist/integrations/react-start.d.ts"
+			],
+			"adapters": [
+				"./dist/adapters/index.d.ts"
+			],
+			"adapters/prisma": [
+				"./dist/adapters/prisma-adapter/index.d.ts"
+			],
+			"adapters/drizzle": [
+				"./dist/adapters/drizzle-adapter/index.d.ts"
+			],
+			"adapters/mongodb": [
+				"./dist/adapters/mongodb-adapter/index.d.ts"
+			],
+			"adapters/memory": [
+				"./dist/adapters/memory-adapter/index.d.ts"
+			],
+			"adapters/sequelize": [
+				"./dist/adapters/sequelize-adapter/index.d.ts"
+			],
+			"plugins": [
+				"./dist/plugins/index.d.ts"
+			]
+		}
+	},
+	"devDependencies": {
+		"@prisma/client": "^5.22.0",
+		"@tanstack/react-start": "^1.114.34",
+		"@types/better-sqlite3": "^7.6.12",
+		"@types/pg": "^8.11.10",
+		"@types/prompts": "^2.4.9",
+		"@types/react": "^18.3.14",
+		"better-sqlite3": "^11.6.0",
+		"biome": "^0.3.3",
+		"concurrently": "^9.1.2",
+		"drizzle-orm": "^0.38.2",
+		"happy-dom": "^15.11.7",
+		"hono": "^4.6.13",
+		"listhen": "^1.9.0",
+		"mongodb": "^6.11.0",
+		"mysql2": "^3.11.5",
+		"next": "^15.2.3",
+		"oauth2-mock-server": "^7.2.0",
+		"pg": "^8.13.1",
+		"prisma": "^5.22.0",
+		"react": "^19.0.0",
+		"react-native": "~0.74.6",
+		"solid-js": "^1.9.3",
+		"tarn": "^3.0.2",
+		"tedious": "^18.6.1",
+		"typescript": "catalog:",
+		"unbuild": "catalog:",
+		"vitest": "^1.6.0",
+		"vue": "^3.5.13"
+	},
+	"dependencies": {
+		"@better-auth/utils": "0.2.5",
+		"@better-fetch/fetch": "catalog:",
+		"@noble/ciphers": "^0.6.0",
+		"@noble/hashes": "^1.6.1",
+		"@simplewebauthn/browser": "^13.0.0",
+		"@simplewebauthn/server": "^13.0.0",
+		"better-call": "catalog:",
+		"defu": "^6.1.4",
+		"jose": "^5.9.6",
+		"kysely": "^0.28.1",
+		"nanostores": "^0.11.3",
+		"zod": "^3.24.1"
+	},
+	"overrides": {
+		"whatwg-url": "^14.0.0"
+	},
+	"files": [
+		"dist"
+	]
 }
